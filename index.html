@@ -10,239 +10,139 @@
 body{
  margin:0;
  background:#070a0f;
- color:#f4f7fb;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ color:#f5f7fa;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
-.wrap{
- max-width:780px;
- margin:auto;
- padding:15px 13px 45px;
-}
+.wrap{max-width:780px;margin:auto;padding:14px 12px 45px}
 header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:14px;
+ display:flex;justify-content:space-between;align-items:center;
+ margin-bottom:14px
 }
-.logo{
- font-size:24px;
- font-weight:900;
- letter-spacing:-1px;
-}
+.logo{font-size:24px;font-weight:900}
 .live{
- font-size:11px;
- padding:6px 10px;
- border:1px solid #26303d;
- border-radius:20px;
- color:#7f8b9c;
+ color:#61e6a0;font-size:11px;
+ border:1px solid #293542;border-radius:20px;padding:6px 10px
 }
-.search{
- display:flex;
- gap:8px;
-}
+.search{display:flex;gap:8px}
 input{
- flex:1;
- min-width:0;
- height:50px;
- padding:0 15px;
- border-radius:14px;
- border:1px solid #293342;
- background:#121720;
- color:#fff;
- font-size:18px;
- font-weight:900;
- text-transform:uppercase;
- outline:none;
+ flex:1;min-width:0;height:50px;
+ border:1px solid #293542;border-radius:14px;
+ background:#121821;color:white;
+ padding:0 14px;font-size:18px;font-weight:900;
+ text-transform:uppercase
 }
 button{
- height:50px;
- padding:0 19px;
- border:0;
- border-radius:14px;
- background:#fff;
- color:#000;
- font-weight:900;
+ border:0;border-radius:14px;
+ height:50px;padding:0 18px;
+ background:white;color:#000;font-weight:900
 }
-.status{
- min-height:20px;
- margin:8px 3px;
- color:#8995a5;
- font-size:12px;
-}
+.status{height:22px;padding:7px 3px;color:#8b97a7;font-size:12px}
+
 .hero{
- padding:20px;
+ margin-top:8px;padding:20px;
+ border:1px solid #273340;
  border-radius:22px;
- background:linear-gradient(145deg,#141b26,#0d121a);
- border:1px solid #27313e;
- box-shadow:0 15px 40px rgba(0,0,0,.25);
+ background:linear-gradient(145deg,#151d27,#0d1219)
 }
-.symbol{
- color:#8c98a9;
- font-size:13px;
- font-weight:700;
-}
+.symbol{color:#8c98a8;font-size:13px}
 .price{
- margin-top:3px;
- font-size:44px;
- font-weight:950;
- letter-spacing:-2px;
+ margin-top:4px;font-size:43px;
+ font-weight:950;letter-spacing:-2px
 }
-.change{
- margin-top:5px;
- font-size:17px;
- font-weight:900;
-}
-.time{
- margin-top:8px;
- color:#697586;
- font-size:10px;
-}
+.change{margin-top:5px;font-size:17px;font-weight:900}
+.time{margin-top:8px;color:#697586;font-size:10px}
+
 .signal{
- margin-top:18px;
- padding:17px;
- border-radius:17px;
- background:#0b1017;
- border:1px solid #27313e;
+ margin-top:18px;padding:17px;
+ border:1px solid #273340;
+ border-radius:17px;background:#0b1016
 }
-.signalTitle{
- color:#8d99aa;
- font-size:11px;
-}
-.signalMain{
- margin-top:5px;
- font-size:25px;
- font-weight:950;
-}
-.score{
- margin-top:4px;
- color:#aab4c1;
- font-size:13px;
-}
+.signalTitle{font-size:11px;color:#8c98a8}
+.signalMain{margin-top:5px;font-size:25px;font-weight:950}
+.score{margin-top:5px;color:#aab4c1;font-size:13px}
+
 .grid{
  display:grid;
  grid-template-columns:1fr 1fr;
  gap:10px;
- margin-top:11px;
+ margin-top:11px
 }
 .card{
- padding:16px;
- min-height:132px;
+ min-height:128px;
+ padding:15px;
+ border:1px solid #242e39;
  border-radius:18px;
- background:#111720;
- border:1px solid #242e3b;
+ background:#111720
 }
-.label{
- color:#8d99a9;
- font-size:12px;
- font-weight:700;
-}
-.value{
- margin-top:8px;
- font-size:23px;
- font-weight:950;
-}
+.label{font-size:12px;color:#8d99a8;font-weight:700}
+.value{margin-top:8px;font-size:22px;font-weight:950}
 .desc{
  margin-top:5px;
- color:#748091;
- font-size:11px;
- line-height:1.45;
+ color:#748091;font-size:11px;line-height:1.45
 }
 .bar{
- height:6px;
- margin-top:12px;
- border-radius:10px;
- background:#252e39;
- overflow:hidden;
+ margin-top:12px;height:6px;
+ background:#252e39;border-radius:10px;overflow:hidden
 }
 .fill{
- height:100%;
- width:0;
- background:#fff;
- transition:.5s;
+ height:100%;width:0;
+ background:white;transition:.5s
 }
-.section{
- margin-top:14px;
-}
-.title{
- margin:0 0 8px;
- font-size:16px;
- font-weight:950;
-}
+
+.section{margin-top:15px}
+.title{font-size:16px;font-weight:950;margin:0 0 8px}
 .panel{
  padding:15px;
+ border:1px solid #242e39;
  border-radius:18px;
- background:#111720;
- border:1px solid #242e3b;
+ background:#111720
 }
 .row{
  display:flex;
  justify-content:space-between;
  gap:12px;
  padding:11px 0;
- border-bottom:1px solid #202936;
+ border-bottom:1px solid #202936
 }
-.row:last-child{
- border-bottom:0;
-}
+.row:last-child{border-bottom:0}
 .row span:first-child{
- color:#8995a6;
- font-size:12px;
+ color:#8995a5;font-size:12px
 }
 .row span:last-child{
- font-size:13px;
- font-weight:850;
- text-align:right;
+ text-align:right;font-size:13px;font-weight:850
 }
 .badge{
- display:inline-block;
  padding:4px 8px;
  border-radius:8px;
- background:#202936;
- font-size:11px;
+ background:#242e39;
+ font-size:11px
 }
-.alert{
+.warning{
  margin-top:10px;
  padding:14px;
  border-radius:15px;
- background:#0d131b;
- border:1px solid #293342;
- color:#aeb8c5;
+ border:1px solid #3a3030;
+ background:#171113;
+ color:#c7b8b8;
  font-size:12px;
- line-height:1.6;
-}
-.news{
- padding:12px 0;
- border-bottom:1px solid #202936;
-}
-.news:last-child{
- border-bottom:0;
-}
-.newsTitle{
- font-size:13px;
- font-weight:850;
-}
-.newsDesc{
- margin-top:4px;
- color:#758193;
- font-size:11px;
+ line-height:1.65
 }
 .refresh{
  width:100%;
- margin-top:13px;
+ margin-top:14px;
  background:#111720;
- color:#e2e7ed;
- border:1px solid #293342;
+ color:white;
+ border:1px solid #293542
 }
 .footer{
  margin-top:20px;
  color:#566170;
  font-size:10px;
  text-align:center;
- line-height:1.6;
+ line-height:1.6
 }
 @media(max-width:430px){
  .price{font-size:37px}
- .card{min-height:125px}
 }
 </style>
 </head>
@@ -257,59 +157,47 @@ button{
 </header>
 
 <div class="search">
- <input id="symbol" value="BRNX" placeholder="티커">
+ <input id="symbol" value="BRNX">
  <button onclick="analyze()">분석</button>
 </div>
 
-<div id="status" class="status">데이터 대기중</div>
+<div id="status" class="status">데이터 불러오는 중...</div>
 
-<!-- 현재가 -->
 <div class="hero">
 
  <div class="symbol" id="symbolView">BRNX</div>
-
  <div class="price" id="price">--</div>
-
  <div class="change" id="change">--</div>
-
- <div class="time" id="time">대기중</div>
+ <div class="time" id="time">--</div>
 
  <div class="signal">
   <div class="signalTitle">RABBITSTOCK 종합 판단</div>
-  <div class="signalMain" id="signal">분석 대기</div>
+  <div class="signalMain" id="signal">분석중</div>
   <div class="score" id="score">종합점수 -- / 100</div>
  </div>
 
 </div>
 
-<!-- 핵심 지표 -->
 <div class="grid">
 
  <div class="card">
   <div class="label">📈 상승 가능성</div>
   <div class="value" id="rise">--</div>
-  <div class="desc" id="riseDesc">가격 데이터 분석</div>
-  <div class="bar">
-   <div class="fill" id="riseBar"></div>
-  </div>
+  <div class="desc">가격·모멘텀 기반</div>
+  <div class="bar"><div class="fill" id="riseBar"></div></div>
  </div>
 
  <div class="card">
   <div class="label">💰 매수 압력</div>
   <div class="value" id="buy">--</div>
-  <div class="desc">현재 등락률 기반 참고지표</div>
-  <div class="bar">
-   <div class="fill" id="buyBar"></div>
-  </div>
+  <div class="desc">현재 등락 기반 참고값</div>
+  <div class="bar"><div class="fill" id="buyBar"></div></div>
  </div>
 
  <div class="card">
   <div class="label">⚡ 모멘텀</div>
   <div class="value" id="momentum">--</div>
   <div class="desc">현재 가격 움직임</div>
-  <div class="bar">
-   <div class="fill" id="momentumBar"></div>
-  </div>
  </div>
 
  <div class="card">
@@ -320,31 +208,95 @@ button{
 
  <div class="card">
   <div class="label">🔻 Short Volume</div>
-  <div class="value">데이터 없음</div>
-  <div class="desc">FINRA 실제 데이터 연결 필요</div>
+  <div class="value">미연결</div>
+  <div class="desc">
+   실제 FINRA 데이터 연결 전에는 숫자를 만들지 않음
+  </div>
  </div>
 
  <div class="card">
   <div class="label">🩳 Short Interest</div>
-  <div class="value">데이터 없음</div>
-  <div class="desc">공매도 잔고 별도 확인</div>
+  <div class="value">미연결</div>
+  <div class="desc">
+   Short Volume과 별도 지표
+  </div>
  </div>
 
  <div class="card">
   <div class="label">💧 희석 위험</div>
-  <div class="value">확인 필요</div>
-  <div class="desc">SEC 공시·증권 발행 데이터 필요</div>
+  <div class="value">🔴 높음</div>
+  <div class="desc">
+   SEC F-3 기준 잠재 물량 존재
+  </div>
  </div>
 
  <div class="card">
-  <div class="label">📰 뉴스</div>
-  <div class="value">연결 필요</div>
-  <div class="desc">실시간 뉴스 API 필요</div>
+  <div class="label">📑 SEC</div>
+  <div class="value">확인됨</div>
+  <div class="desc">
+   2026-08-31 F-3
+  </div>
  </div>
 
 </div>
 
-<!-- 상세 가격 -->
+<div class="section">
+
+ <div class="title">💧 실제 SEC 희석 분석</div>
+
+ <div class="panel">
+
+  <div class="row">
+   <span>현재 발행주식</span>
+   <span>1,695,027주</span>
+  </div>
+
+  <div class="row">
+   <span>재판매 등록 최대</span>
+   <span>2,684,985주</span>
+  </div>
+
+  <div class="row">
+   <span>현재주식 대비</span>
+   <span id="dilutionRatio">158.35%</span>
+  </div>
+
+  <div class="row">
+   <span>전환우선주</span>
+   <span>최대 1,791,216주*</span>
+  </div>
+
+  <div class="row">
+   <span>워런트</span>
+   <span>893,769주</span>
+  </div>
+
+  <div class="row">
+   <span>워런트 행사가</span>
+   <span>$87.36</span>
+  </div>
+
+  <div class="row">
+   <span>SEC 문서</span>
+   <span>
+    <a
+      href="https://www.sec.gov/Archives/edgar/data/1901215/000121390026095755/ea0303821-f3_brenx.htm"
+      target="_blank"
+      style="color:white"
+    >F-3 열기</a>
+   </span>
+  </div>
+
+ </div>
+
+ <div class="warning">
+  ⚠️ <b>중요:</b> 2,684,985주는 현재 시장에 모두 풀린 주식이 아니다.
+  SEC에 등록된 재판매 가능 최대 물량이며, 전환우선주와 워런트 등이 포함된다.
+  실제 발행·전환·행사 시점은 별도로 확인해야 한다.
+ </div>
+
+</div>
+
 <div class="section">
 
  <div class="title">📊 가격 상세</div>
@@ -384,7 +336,6 @@ button{
  </div>
 </div>
 
-<!-- 위험 분석 -->
 <div class="section">
 
  <div class="title">🚨 위험 분석</div>
@@ -392,38 +343,32 @@ button{
  <div class="panel">
 
   <div class="row">
-   <span>공매도</span>
-   <span class="badge">실제 데이터 연결 필요</span>
-  </div>
-
-  <div class="row">
    <span>희석</span>
-   <span class="badge">SEC 확인 필요</span>
+   <span class="badge">🔴 높음</span>
   </div>
 
   <div class="row">
-   <span>뉴스</span>
-   <span class="badge">뉴스 API 필요</span>
+   <span>SEC 등록 물량</span>
+   <span>2,684,985주</span>
   </div>
 
   <div class="row">
-   <span>현재 데이터 상태</span>
-   <span id="dataState">정상</span>
+   <span>Short Volume</span>
+   <span class="badge">실데이터 연결 필요</span>
   </div>
 
- </div>
+  <div class="row">
+   <span>Short Interest</span>
+   <span class="badge">실데이터 연결 필요</span>
+  </div>
 
- <div class="alert">
-  ⚠️ 현재 상승점수는 연결된 가격·등락률·거래량을 기반으로 한 참고용 지표야.
-  공매도 잔고, 희석, 뉴스가 연결되기 전에는 해당 항목을 실제 수치처럼 계산하지 않아.
  </div>
 
 </div>
 
-<!-- 분석 -->
 <div class="section">
 
- <div class="title">🧠 RabbitStock 분석</div>
+ <div class="title">🧠 RabbitStock 판단</div>
 
  <div class="panel">
 
@@ -433,17 +378,22 @@ button{
   </div>
 
   <div class="row">
-   <span>모멘텀 상태</span>
+   <span>모멘텀</span>
    <span id="momentumState">--</span>
   </div>
 
   <div class="row">
-   <span>거래량 상태</span>
+   <span>거래량</span>
    <span id="volumeState">--</span>
   </div>
 
   <div class="row">
-   <span>종합 판단</span>
+   <span>희석 위험</span>
+   <span>🔴 높음</span>
+  </div>
+
+  <div class="row">
+   <span>최종 판단</span>
    <span id="finalState">--</span>
   </div>
 
@@ -456,7 +406,7 @@ button{
 </button>
 
 <div class="footer">
- RabbitStock AI · 실제 데이터가 없는 항목은 임의로 생성하지 않습니다.
+ RabbitStock AI · 실제 확인되지 않은 공매도 수치는 표시하지 않습니다.
 </div>
 
 </div>
@@ -473,9 +423,7 @@ function num(v){
 
 function fmt(v,d=2){
  const n=Number(v);
-
- if(!Number.isFinite(n))
-  return "--";
+ if(!Number.isFinite(n)) return "--";
 
  return n.toLocaleString("en-US",{
   minimumFractionDigits:d,
@@ -489,8 +437,8 @@ function clamp(v){
 
 async function analyze(){
 
- const symbol =
-  document.getElementById("symbol")
+ const symbol=document
+  .getElementById("symbol")
   .value
   .trim()
   .toUpperCase();
@@ -502,78 +450,46 @@ async function analyze(){
  }
 
  document.getElementById("status")
-  .textContent=
-  "⏳ "+symbol+" 데이터 불러오는 중...";
+  .textContent="⏳ "+symbol+" 데이터 불러오는 중...";
 
  try{
 
-  const response =
-   await fetch(
-    API+encodeURIComponent(symbol),
-    {cache:"no-store"}
-   );
+  const response=await fetch(
+   API+encodeURIComponent(symbol),
+   {cache:"no-store"}
+  );
 
-  if(!response.ok){
-   throw new Error(
-    "서버 오류 "+response.status
-   );
-  }
+  if(!response.ok)
+   throw new Error("서버 오류 "+response.status);
 
-  const result =
-   await response.json();
+  const result=await response.json();
 
-  if(!result.ok){
-   throw new Error(
-    result.error||"API 오류"
-   );
-  }
+  if(!result.ok)
+   throw new Error(result.error||"API 오류");
 
   const data=result.data||{};
 
-  if(data.status==="error"){
-   throw new Error(
-    data.message||"Twelve Data 오류"
-   );
-  }
+  if(data.status==="error")
+   throw new Error(data.message||"Twelve Data 오류");
 
-  const price =
-   num(data.close||data.price);
+  const price=num(data.close||data.price);
+  const change=num(data.percent_change);
+  const volume=num(data.volume);
+  const high=num(data.high);
+  const low=num(data.low);
 
-  const change =
-   num(data.percent_change);
+  const momentum=clamp(50+change*5);
+  const buy=clamp(50+change*4);
 
-  const volume =
-   num(data.volume);
+  const rise=clamp(
+   50+change*5+(volume>0?3:0)
+  );
 
-  const high =
-   num(data.high);
-
-  const low =
-   num(data.low);
-
-  /*
-   참고용 점수
-  */
-
-  const momentum =
-   clamp(50+(change*5));
-
-  const buy =
-   clamp(50+(change*4));
-
-  const rise =
-   clamp(
-    50+
-    change*5+
-    (volume>0?3:0)
-   );
-
-  const total =
-   Math.round(
-    rise*.5+
-    buy*.25+
-    momentum*.25
-   );
+  const total=Math.round(
+   rise*.5+
+   buy*.25+
+   momentum*.25
+  );
 
   let signal="🟡 관망";
 
@@ -606,12 +522,10 @@ async function analyze(){
    .textContent=symbol;
 
   document.getElementById("price")
-   .textContent=
-   price?"$"+fmt(price,4):"--";
+   .textContent=price?"$"+fmt(price,4):"--";
 
   document.getElementById("detailPrice")
-   .textContent=
-   price?"$"+fmt(price,4):"--";
+   .textContent=price?"$"+fmt(price,4):"--";
 
   document.getElementById("change")
    .textContent=
@@ -621,49 +535,28 @@ async function analyze(){
 
   document.getElementById("detailChange")
    .textContent=
-   (change>=0?"+":"")+
-   fmt(change,2)+"%";
+   (change>=0?"+":"")+fmt(change,2)+"%";
 
   document.getElementById("volume")
-   .textContent=
-   volume?fmt(volume,0):"--";
+   .textContent=volume?fmt(volume,0):"--";
 
   document.getElementById("detailVolume")
-   .textContent=
-   volume?fmt(volume,0):"--";
+   .textContent=volume?fmt(volume,0):"--";
 
   document.getElementById("high")
-   .textContent=
-   high?"$"+fmt(high,4):"--";
+   .textContent=high?"$"+fmt(high,4):"--";
 
   document.getElementById("low")
-   .textContent=
-   low?"$"+fmt(low,4):"--";
+   .textContent=low?"$"+fmt(low,4):"--";
 
   document.getElementById("rise")
-   .textContent=
-   Math.round(rise)+"/100";
+   .textContent=Math.round(rise)+"/100";
 
   document.getElementById("buy")
-   .textContent=
-   Math.round(buy)+"/100";
+   .textContent=Math.round(buy)+"/100";
 
   document.getElementById("momentum")
-   .textContent=
-   momentumText;
-
-  document.getElementById("riseDesc")
-   .textContent=
-   change>=0
-   ?"현재 상승 방향"
-   :"현재 하락 방향";
-
-  document.getElementById("signal")
-   .textContent=signal;
-
-  document.getElementById("score")
-   .textContent=
-   "종합점수 "+total+" / 100";
+   .textContent=momentumText;
 
   document.getElementById("riseBar")
    .style.width=rise+"%";
@@ -671,8 +564,12 @@ async function analyze(){
   document.getElementById("buyBar")
    .style.width=buy+"%";
 
-  document.getElementById("momentumBar")
-   .style.width=momentum+"%";
+  document.getElementById("signal")
+   .textContent=signal;
+
+  document.getElementById("score")
+   .textContent=
+   "종합점수 "+total+" / 100";
 
   document.getElementById("direction")
    .textContent=
@@ -688,9 +585,6 @@ async function analyze(){
   document.getElementById("finalState")
    .textContent=signal;
 
-  document.getElementById("dataState")
-   .textContent="정상";
-
   document.getElementById("time")
    .textContent=
    "마지막 조회: "+
@@ -705,21 +599,14 @@ async function analyze(){
   console.error(error);
 
   document.getElementById("status")
-   .textContent=
-   "❌ "+error.message;
-
-  document.getElementById("dataState")
-   .textContent="오류";
+   .textContent="❌ "+error.message;
 
   document.getElementById("signal")
    .textContent="데이터 확인 필요";
  }
 }
 
-window.addEventListener(
- "load",
- analyze
-);
+window.addEventListener("load",analyze);
 
 </script>
 
