@@ -1,423 +1,100 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RabbitStock</title>
+export default {
+  async fetch(request, env) {
 
-<style>
-*{box-sizing:border-box}
+    const cors = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
 
-body{
-  margin:0;
-  background:#080d18;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: cors
+      });
+    }
 
-header{
-  padding:18px;
-  background:#10182b;
-  border-bottom:1px solid #26334f;
-}
+    const url = new URL(request.url);
+    const path = url.pathname;
 
-.logo{
-  font-size:25px;
-  font-weight:800;
-}
+    if (path === "/") {
+      return json({
+        ok: true,
+        service: "RabbitStock API",
+        version: "2.0"
+      }, cors);
+    }
 
-.desc{
-  margin-top:5px;
-  color:#8d9ab5;
-  font-size:12px;
-}
+    if (path === "/quote") {
 
-.wrap{
-  max-width:700px;
-  margin:auto;
-  padding:15px;
-}
+      const symbol =
+        (url.searchParams.get("symbol") || "BRNX")
+        .trim()
+        .toUpperCase();
 
-.search{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
-}
+      if (!env.TWELVE_API_KEY) {
+        return json({
+          ok: false,
+          error: "TWELVE_API_KEY 없음"
+        }, cors, 500);
+      }
 
-input{
-  flex:1;
-  min-width:0;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #34425f;
-  background:#141d32;
-  color:white;
-  font-size:17px;
-  outline:none;
-  text-transform:uppercase;
-}
+      try {
 
-button{
-  border:0;
-  border-radius:12px;
-  padding:0 20px;
-  background:#3978ff;
-  color:#fff;
-  font-size:15px;
-  font-weight:700;
-}
+        const api =
+          "https://api.twelvedata.com/quote" +
+          "?symbol=" +
+          encodeURIComponent(symbol) +
+          "&apikey=" +
+          encodeURIComponent(env.TWELVE_API_KEY);
 
-.card{
-  background:#10182b;
-  border:1px solid #26334f;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:12px;
-}
+        const r = await fetch(api);
 
-.name{
-  font-size:14px;
-  color:#91a0bd;
-}
+        const data = await r.json();
 
-.price{
-  font-size:36px;
-  font-weight:800;
-  margin-top:5px;
-}
+        if (data.status === "error") {
+          return json({
+            ok: false,
+            error: data.message || "Twelve Data 오류"
+          }, cors, 400);
+        }
 
-.change{
-  font-size:17px;
-  margin-top:3px;
-}
+        return json({
+          ok: true,
+          symbol: symbol,
+          data: data
+        }, cors);
 
-.up{color:#32d583}
-.down{color:#ff5b6e}
+      } catch (e) {
 
-.scoreTitle{
-  text-align:center;
-  color:#91a0bd;
-  font-size:13px;
-}
+        return json({
+          ok: false,
+          error: "Twelve Data 연결 실패",
+          detail: String(e)
+        }, cors, 502);
+      }
+    }
 
-.score{
-  text-align:center;
-  font-size:55px;
-  font-weight:900;
-  margin-top:3px;
-}
-
-.bar{
-  height:12px;
-  border-radius:20px;
-  background:#27324a;
-  overflow:hidden;
-  margin-top:8px;
-}
-
-.fill{
-  height:100%;
-  width:0%;
-  background:#3978ff;
-  transition:1s;
-}
-
-.signal{
-  text-align:center;
-  font-size:21px;
-  font-weight:800;
-  margin-top:13px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.box{
-  background:#17213a;
-  border-radius:13px;
-  padding:14px;
-}
-
-.label{
-  color:#8794b0;
-  font-size:12px;
-}
-
-.value{
-  font-size:23px;
-  font-weight:800;
-  margin-top:5px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid #26334f;
-}
-
-.row:last-child{
-  border-bottom:0;
-}
-
-.news{
-  padding:12px 0;
-  border-bottom:1px solid #26334f;
-}
-
-.news:last-child{
-  border-bottom:0;
-}
-
-.newsTitle{
-  font-weight:700;
-}
-
-.newsDate{
-  color:#77849f;
-  font-size:11px;
-  margin-top:4px;
-}
-
-.info{
-  text-align:center;
-  color:#7e8ba7;
-  padding:35px 10px;
-}
-
-footer{
-  text-align:center;
-  color:#596681;
-  font-size:11px;
-  padding:25px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">🐰 RabbitStock</div>
-  <div class="desc">미국주식 자동분석 대시보드</div>
-</header>
-
-<div class="wrap">
-
-  <div class="search">
-    <input id="ticker" value="BRNX" placeholder="티커 입력">
-    <button onclick="analyze()">분석</button>
-  </div>
-
-  <div id="app">
-    <div class="info">
-      티커를 입력하고 <b>분석</b>을 눌러주세요.
-    </div>
-  </div>
-
-</div>
-
-<footer>
-RabbitStock
-</footer>
-
-<script>
-
-function rnd(min,max){
-  return Math.floor(Math.random()*(max-min+1))+min;
-}
-
-function analyze(){
-
-  const ticker =
-    document.getElementById("ticker")
-    .value.trim().toUpperCase();
-
-  if(!ticker){
-    alert("티커를 입력하세요.");
-    return;
+    return json({
+      ok: false,
+      error: "Not Found"
+    }, cors, 404);
   }
+};
 
-  const price = (Math.random()*7+1).toFixed(2);
-  const change = (Math.random()*30-15).toFixed(2);
 
-  const buying = rnd(30,95);
-  const short = rnd(10,90);
-  const momentum = rnd(30,95);
-  const dilution = rnd(5,85);
-  const news = rnd(20,95);
+function json(data, cors, status = 200) {
 
-  let score = Math.round(
-      buying * 0.25 +
-      (100-short) * 0.20 +
-      momentum * 0.25 +
-      (100-dilution) * 0.15 +
-      news * 0.15
+  return new Response(
+    JSON.stringify(data),
+    {
+      status: status,
+      headers: {
+        ...cors,
+        "Content-Type":
+          "application/json; charset=UTF-8"
+      }
+    }
   );
-
-  let signal;
-
-  if(score>=80){
-    signal="🚀 강한 상승";
-  }else if(score>=65){
-    signal="🟢 상승 우세";
-  }else if(score>=50){
-    signal="🟡 관망";
-  }else if(score>=35){
-    signal="🟠 하락 주의";
-  }else{
-    signal="🔴 하락 위험";
-  }
-
-  const changeClass =
-    Number(change)>=0 ? "up" : "down";
-
-  document.getElementById("app").innerHTML = `
-
-    <div class="card">
-
-      <div class="name">${ticker}</div>
-
-      <div class="price">
-        $${price}
-      </div>
-
-      <div class="change ${changeClass}">
-        ${Number(change)>=0 ? "+" : ""}
-        ${change}%
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="scoreTitle">
-        종합 상승 점수
-      </div>
-
-      <div class="score">
-        ${score}
-      </div>
-
-      <div class="bar">
-        <div class="fill" id="fill"></div>
-      </div>
-
-      <div class="signal">
-        ${signal}
-      </div>
-
-    </div>
-
-    <div class="grid">
-
-      <div class="box">
-        <div class="label">매수세</div>
-        <div class="value">${buying}</div>
-      </div>
-
-      <div class="box">
-        <div class="label">공매도 위험</div>
-        <div class="value">${short}</div>
-      </div>
-
-      <div class="box">
-        <div class="label">상승 모멘텀</div>
-        <div class="value">${momentum}</div>
-      </div>
-
-      <div class="box">
-        <div class="label">희석 위험</div>
-        <div class="value">${dilution}</div>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="name">
-        📊 상세 분석
-      </div>
-
-      <div class="row">
-        <span>매수세</span>
-        <b>${buying}/100</b>
-      </div>
-
-      <div class="row">
-        <span>공매도 압력</span>
-        <b>${short}/100</b>
-      </div>
-
-      <div class="row">
-        <span>모멘텀</span>
-        <b>${momentum}/100</b>
-      </div>
-
-      <div class="row">
-        <span>희석 위험</span>
-        <b>${dilution}/100</b>
-      </div>
-
-      <div class="row">
-        <span>뉴스 모멘텀</span>
-        <b>${news}/100</b>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="name">
-        📰 뉴스 / 공시
-      </div>
-
-      <div class="news">
-        <div class="newsTitle">
-          기업 뉴스 분석
-        </div>
-        <div class="newsDate">
-          실제 API 연결 예정
-        </div>
-      </div>
-
-      <div class="news">
-        <div class="newsTitle">
-          공매도 데이터
-        </div>
-        <div class="newsDate">
-          실제 데이터 연결 예정
-        </div>
-      </div>
-
-      <div class="news">
-        <div class="newsTitle">
-          SEC 희석 / 워런트 분석
-        </div>
-        <div class="newsDate">
-          실제 SEC 데이터 연결 예정
-        </div>
-      </div>
-
-    </div>
-  `;
-
-  setTimeout(function(){
-    document.getElementById("fill").style.width =
-      score + "%";
-  },100);
 }
-
-document.getElementById("ticker")
-.addEventListener("keydown",function(e){
-  if(e.key==="Enter"){
-    analyze();
-  }
-});
-
-</script>
-
-</body>
-</html>
+    
