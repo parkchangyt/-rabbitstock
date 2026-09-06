@@ -1,1463 +1,1907 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
+      content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#09101e">
 
-<title>RabbitStock Ultimate</title>
+<title>RabbitStock Ultimate 7.1</title>
 
 <style>
-
 *{
- box-sizing:border-box
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
- margin:0;
- background:#09101e;
- color:#eef3ff;
- font-family:
- -apple-system,
- BlinkMacSystemFont,
- "Segoe UI",
- sans-serif;
+  margin:0;
+  background:#09101e;
+  color:#eef3ff;
+  font-family:-apple-system,BlinkMacSystemFont,
+  "Segoe UI",Roboto,"Noto Sans KR",sans-serif;
+}
+
+.wrap{
+  max-width:760px;
+  margin:auto;
+  padding:14px;
 }
 
 header{
- padding:17px 14px 12px;
- background:#0d1628;
- border-bottom:1px solid #22314d;
- position:sticky;
- top:0;
- z-index:10;
+  padding:10px 2px 16px;
 }
 
 .logo{
- font-size:22px;
- font-weight:900;
+  font-size:25px;
+  font-weight:900;
 }
 
 .sub{
- color:#8290a8;
- font-size:11px;
- margin-top:4px;
+  margin-top:4px;
+  color:#8995ad;
+  font-size:12px;
 }
 
 .search{
- display:flex;
- gap:8px;
- margin-top:12px;
+  display:flex;
+  gap:8px;
+  margin-bottom:12px;
 }
 
 input{
- flex:1;
- min-width:0;
- background:#111d31;
- border:1px solid #30415f;
- color:#fff;
- border-radius:10px;
- padding:12px;
- font-size:17px;
- text-transform:uppercase;
+  flex:1;
+  min-width:0;
+  height:48px;
+  border:1px solid #263451;
+  border-radius:12px;
+  background:#111b30;
+  color:white;
+  font-size:18px;
+  font-weight:700;
+  padding:0 14px;
+  outline:none;
 }
 
 button{
- border:0;
- border-radius:9px;
- background:#2878ff;
- color:white;
- font-weight:800;
- padding:0 15px;
+  border:0;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  font-weight:800;
+  padding:0 18px;
 }
 
-.container{
- max-width:900px;
- margin:auto;
- padding:12px;
+button:active{
+  transform:scale(.97);
+}
+
+.status{
+  min-height:20px;
+  color:#8fa1bd;
+  font-size:12px;
+  margin:5px 2px 12px;
 }
 
 .card{
- background:#101a2d;
- border:1px solid #223451;
- border-radius:13px;
- padding:14px;
- margin-bottom:12px;
+  background:#101a2d;
+  border:1px solid #202e48;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:12px;
 }
 
 .title{
- font-size:17px;
- font-weight:900;
- margin-bottom:12px;
+  font-size:16px;
+  font-weight:900;
+  margin-bottom:13px;
 }
 
 .price{
- font-size:38px;
- font-weight:900;
+  font-size:34px;
+  font-weight:900;
+}
+
+.change{
+  margin-top:5px;
+  font-size:15px;
+  font-weight:800;
 }
 
 .grid{
- display:grid;
- grid-template-columns:
- repeat(2,minmax(0,1fr));
- gap:8px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
 }
 
-.item{
- background:#0b1425;
- border:1px solid #1d2b44;
- border-radius:9px;
- padding:9px;
+.box{
+  background:#0b1425;
+  border:1px solid #1d2b44;
+  border-radius:12px;
+  padding:11px;
+  min-width:0;
 }
 
 .label{
- color:#8290a8;
- font-size:11px;
+  color:#8290a9;
+  font-size:11px;
+  margin-bottom:5px;
 }
 
 .value{
- margin-top:4px;
- font-size:15px;
- font-weight:800;
- word-break:break-word;
+  font-size:15px;
+  font-weight:800;
+  word-break:break-word;
 }
 
-.green{
- color:#40e49b;
+.score{
+  font-size:42px;
+  font-weight:950;
 }
 
-.red{
- color:#ff6378;
+.judge{
+  font-size:21px;
+  font-weight:900;
+  margin-top:4px;
 }
 
-.yellow{
- color:#ffd35c;
+.bar{
+  height:10px;
+  background:#202b40;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:7px;
 }
 
-.gray{
- color:#8290a8;
+.fill{
+  height:100%;
+  width:0;
+  background:#38bdf8;
+  transition:width .4s ease;
 }
 
-.badge{
- display:inline-block;
- padding:6px 9px;
- border-radius:20px;
- background:#182641;
- font-size:12px;
- font-weight:800;
+canvas{
+  width:100%;
+  height:260px;
+  display:block;
+  background:#0b1425;
+  border-radius:12px;
 }
 
-.bigScore{
- font-size:42px;
- font-weight:900;
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #1d2940;
 }
 
-.tabs{
- display:flex;
- gap:6px;
- overflow:auto;
- margin-bottom:9px;
+.row:last-child{
+  border-bottom:0;
 }
 
-.tabs button{
- padding:8px 13px;
- background:#182641;
- white-space:nowrap;
+.row span:first-child{
+  color:#8795ae;
 }
 
-.tabs button.active{
- background:#2878ff;
+.row span:last-child{
+  text-align:right;
+  font-weight:800;
+  word-break:break-word;
 }
 
-.chart{
- width:100%;
- overflow:hidden;
- background:#091321;
- border:1px solid #1d2c46;
- border-radius:10px;
+.good{
+  color:#35d07f;
 }
 
-svg{
- width:100%;
- height:270px;
- display:block;
+.warn{
+  color:#ffd166;
 }
 
-.tableWrap{
- max-height:450px;
- overflow:auto;
+.bad{
+  color:#ff6874;
+}
+
+.neutral{
+  color:#9eacc5;
+}
+
+.small{
+  color:#7f8da5;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.filing,
+.news{
+  padding:11px 0;
+  border-bottom:1px solid #1d2940;
+}
+
+.filing:last-child,
+.news:last-child{
+  border-bottom:0;
+}
+
+a{
+  color:#60a5fa;
+  text-decoration:none;
+  font-weight:700;
 }
 
 table{
- width:100%;
- border-collapse:collapse;
- font-size:12px;
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
 }
 
 th,td{
- padding:8px 5px;
- border-bottom:1px solid #1e2c44;
- text-align:right;
- white-space:nowrap;
+  padding:8px 5px;
+  border-bottom:1px solid #1d2940;
+  text-align:right;
 }
 
 th:first-child,
 td:first-child{
- text-align:left;
+  text-align:left;
 }
 
-.reason{
- margin-top:7px;
- padding:8px 10px;
- background:#0b1425;
- border-radius:8px;
- border-left:3px solid #2878ff;
-}
-
-.news{
- padding:10px 0;
- border-bottom:1px solid #23314a;
-}
-
-.news a{
- color:#edf3ff;
- text-decoration:none;
- font-weight:800;
-}
-
-.small{
- font-size:11px;
- color:#71809a;
- margin-top:5px;
-}
-
-.loading{
- text-align:center;
- padding:35px;
- color:#8797b0;
-}
-
-.error{
- color:#ff7080;
+.empty{
+  color:#77859e;
+  padding:10px 0;
 }
 
 .footer{
- text-align:center;
- color:#66758e;
- font-size:11px;
- padding:20px;
+  text-align:center;
+  color:#5f6d85;
+  font-size:10px;
+  padding:15px 0 30px;
 }
 
-</style>
+@media(max-width:430px){
+  .wrap{
+    padding:10px;
+  }
 
+  .price{
+    font-size:30px;
+  }
+
+  .score{
+    font-size:36px;
+  }
+
+  canvas{
+    height:220px;
+  }
+}
+</style>
 </head>
 
 <body>
 
+<div class="wrap">
+
 <header>
-
-<div class="logo">
-🐇 RabbitStock Ultimate
-</div>
-
-<div class="sub">
-Twelve Data · FINRA · Nasdaq · SEC
-</div>
-
-<div class="search">
-
-<input
-id="symbol"
-value="BRNX"
-placeholder="티커">
-
-<button onclick="analyze()">
-분석
-</button>
-
-</div>
-
+  <div class="logo">🐇 RabbitStock Ultimate</div>
+  <div class="sub">
+    Twelve Data · Finnhub 검증 · SEC · FINRA
+  </div>
 </header>
 
+<div class="search">
+  <input
+    id="symbol"
+    value="NIKI"
+    placeholder="티커 입력"
+    autocapitalize="characters"
+    autocomplete="off">
+  <button onclick="run()">분석</button>
+</div>
 
-<div class="container">
+<div id="status" class="status">
+  종목을 입력하고 분석을 눌러주세요.
+</div>
 
-<div id="app">
+<!-- 주가 -->
 
-<div class="loading">
-데이터 불러오는 중...
+<section class="card">
+
+  <div class="title">💰 주가</div>
+
+  <div id="price"
+       class="price">
+    데이터 없음
+  </div>
+
+  <div id="change"
+       class="change neutral">
+    데이터 없음
+  </div>
+
+  <div class="grid"
+       style="margin-top:13px">
+
+    <div class="box">
+      <div class="label">시가</div>
+      <div id="open"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">전일 종가</div>
+      <div id="prev"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">고가</div>
+      <div id="high"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">저가</div>
+      <div id="low"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">거래량</div>
+      <div id="volume"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">평균 거래량</div>
+      <div id="avgvol"
+           class="value">데이터 없음</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 차트 -->
+
+<section class="card">
+
+  <div class="title">
+    📈 주가 차트
+  </div>
+
+  <canvas id="chart"
+          width="700"
+          height="260"></canvas>
+
+  <div class="small"
+       id="chartInfo">
+    최근 일봉 데이터
+  </div>
+
+</section>
+
+<!-- 종합 -->
+
+<section class="card">
+
+  <div class="title">🎯 종합 분석</div>
+
+  <div class="grid">
+
+    <div class="box">
+      <div class="label">종합 점수</div>
+      <div id="totalScore"
+           class="score">-</div>
+    </div>
+
+    <div class="box">
+      <div class="label">추세</div>
+      <div id="trend"
+           class="judge">데이터 없음</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 매집 -->
+
+<section class="card">
+
+  <div class="title">
+    📦 매집 / 분산
+  </div>
+
+  <div id="judgment"
+       class="judge">
+    데이터 없음
+  </div>
+
+  <div style="margin-top:14px">
+
+    <div class="row">
+      <span>매집 점수</span>
+      <span id="accScore">-</span>
+    </div>
+
+    <div class="bar">
+      <div id="accBar"
+           class="fill"></div>
+    </div>
+
+    <div class="row">
+      <span>매도 점수</span>
+      <span id="sellScore">-</span>
+    </div>
+
+    <div class="bar">
+      <div id="sellBar"
+           class="fill"></div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 기술 -->
+
+<section class="card">
+
+  <div class="title">
+    📐 기술 분석
+  </div>
+
+  <div class="grid">
+
+    <div class="box">
+      <div class="label">20일 이동평균</div>
+      <div id="ma20"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">거래량 / 평균</div>
+      <div id="vr"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">고저 위치</div>
+      <div id="cp"
+           class="value">데이터 없음</div>
+    </div>
+
+    <div class="box">
+      <div class="label">OBV</div>
+      <div id="obv"
+           class="value">데이터 없음</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 교차검증 -->
+
+<section class="card">
+
+  <div class="title">
+    🔍 데이터 교차검증
+  </div>
+
+  <div class="small"
+       style="margin-bottom:10px">
+    Twelve Data를 주 데이터로 사용하고
+    Finnhub은 검증용으로만 사용합니다.
+  </div>
+
+  <div class="row">
+    <span>주가</span>
+    <span id="vPrice">데이터 없음</span>
+  </div>
+
+  <div class="row">
+    <span>전일 종가</span>
+    <span id="vPrev">데이터 없음</span>
+  </div>
+
+  <div class="row">
+    <span>고가</span>
+    <span id="vHigh">데이터 없음</span>
+  </div>
+
+  <div class="row">
+    <span>저가</span>
+    <span id="vLow">데이터 없음</span>
+  </div>
+
+  <div class="row">
+    <span>변동폭</span>
+    <span id="vChange">데이터 없음</span>
+  </div>
+
+  <div id="fhStatus"
+       class="small"
+       style="margin-top:10px">
+    Finnhub 검증 대기
+  </div>
+
+</section>
+
+<!-- 공매도 -->
+
+<section class="card">
+
+  <div class="title">
+    🔥 공매도
+  </div>
+
+  <div id="shortBox"
+       class="empty">
+    데이터 조회 중...
+  </div>
+
+</section>
+
+<!-- Reg SHO -->
+
+<section class="card">
+
+  <div class="title">
+    📊 Reg SHO
+  </div>
+
+  <div id="regshoBox"
+       class="empty">
+    데이터 조회 중...
+  </div>
+
+</section>
+
+<!-- Threshold -->
+
+<section class="card">
+
+  <div class="title">
+    🚨 Threshold
+  </div>
+
+  <div id="thresholdBox"
+       class="empty">
+    데이터 조회 중...
+  </div>
+
+</section>
+
+<!-- 희석 -->
+
+<section class="card">
+
+  <div class="title">
+    💵 희석
+  </div>
+
+  <div id="dilutionBox">
+    데이터 없음
+  </div>
+
+</section>
+
+<!-- 워런트 -->
+
+<section class="card">
+
+  <div class="title">
+    🎫 워런트
+  </div>
+
+  <div id="warrantBox">
+    데이터 없음
+  </div>
+
+</section>
+
+<!-- SEC -->
+
+<section class="card">
+
+  <div class="title">
+    📑 SEC 공시
+  </div>
+
+  <div id="secBox">
+    데이터 없음
+  </div>
+
+</section>
+
+<!-- 뉴스 -->
+
+<section class="card">
+
+  <div class="title">
+    📰 뉴스
+  </div>
+
+  <div id="newsBox">
+    데이터 없음
+  </div>
+
+</section>
+
+<!-- 결론 -->
+
+<section class="card">
+
+  <div class="title">
+    🐇 최종 결론
+  </div>
+
+  <div id="finalBox"
+       class="judge">
+    분석 대기
+  </div>
+
+  <div id="finalDetail"
+       class="small"
+       style="margin-top:10px">
+  </div>
+
+</section>
+
+<div class="footer">
+  RabbitStock Ultimate 7.1<br>
+  데이터 제공 API 상태에 따라 일부 항목은 데이터 없음으로 표시될 수 있습니다.
 </div>
 
 </div>
-
-</div>
-
 
 <script>
 
-const WORKER=
-"https://rabbitstock-final.keoss.workers.dev";
+const API =
+  "https://rabbitstock-final.keoss.workers.dev";
 
-let DATA=null;
-
-let RANGE="1M";
-
+const $ = id =>
+  document.getElementById(id);
 
 function esc(v){
-
- return String(v??"")
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;");
-
+  return String(v ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
-
-
-function n(v,d=2){
-
- if(
-  v===null||
-  v===undefined||
-  !Number.isFinite(Number(v))
- )return"데이터 없음";
-
- return Number(v).toLocaleString(
-  "ko-KR",
-  {
-   maximumFractionDigits:d
-  }
- );
-
-}
-
 
 function money(v){
+  if(v == null ||
+     !Number.isFinite(Number(v)))
+    return "데이터 없음";
 
- if(
-  v===null||
-  v===undefined||
-  !Number.isFinite(Number(v))
- )return"데이터 없음";
-
- return"$"+
- Number(v).toLocaleString(
-  "en-US",
-  {
-   minimumFractionDigits:2,
-   maximumFractionDigits:4
-  }
- );
-
+  return "$" +
+    Number(v).toLocaleString(
+      "en-US",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:4
+      }
+    );
 }
 
+function number(v){
+  if(v == null ||
+     !Number.isFinite(Number(v)))
+    return "데이터 없음";
+
+  return Number(v)
+    .toLocaleString("en-US");
+}
 
 function percent(v){
+  if(v == null ||
+     !Number.isFinite(Number(v)))
+    return "데이터 없음";
 
- if(
-  v===null||
-  v===undefined||
-  !Number.isFinite(Number(v))
- )return"데이터 없음";
+  const x =
+    Number(v);
 
- return Number(v).toFixed(2)+"%";
+  return (
+    x >= 0 ? "+" : ""
+  ) +
+  x.toFixed(2) +
+  "%";
+}
+
+function setText(
+  id,
+  value
+){
+  $(id).textContent =
+    value == null ||
+    value === ""
+      ? "데이터 없음"
+      : value;
+}
+
+function colorChange(
+  el,
+  value
+){
+  el.className =
+    "change " +
+    (
+      value == null
+        ? "neutral"
+        : value > 0
+          ? "good"
+          : value < 0
+            ? "bad"
+            : "neutral"
+    );
+}
+
+function statusClass(text){
+
+  if(
+    String(text)
+      .includes("🟢")
+  )
+    return "good";
+
+  if(
+    String(text)
+      .includes("🔴")
+  )
+    return "bad";
+
+  if(
+    String(text)
+      .includes("🟡")
+  )
+    return "warn";
+
+  return "neutral";
+}
+
+/* ======================
+   실행
+====================== */
+
+async function run(){
+
+  const symbol =
+    $("symbol")
+      .value
+      .trim()
+      .toUpperCase();
+
+  if(!symbol){
+    $("status").textContent =
+      "티커를 입력하세요.";
+    return;
+  }
+
+  $("status").textContent =
+    `${symbol} 데이터 분석 중...`;
+
+  try{
+
+    const response =
+      await fetch(
+        `${API}/all?symbol=${encodeURIComponent(symbol)}`,
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(!response.ok){
+      throw new Error(
+        `HTTP ${response.status}`
+      );
+    }
+
+    const data =
+      await response.json();
+
+    if(!data.ok){
+      throw new Error(
+        data.error ||
+        "분석 실패"
+      );
+    }
+
+    render(data);
+
+    $("status").textContent =
+      `${symbol} 분석 완료 · ` +
+      new Date()
+        .toLocaleTimeString(
+          "ko-KR"
+        );
+
+  }catch(e){
+
+    console.error(e);
+
+    $("status").textContent =
+      "❌ 데이터 요청 실패: " +
+      e.message;
+
+  }
 
 }
 
-
-function box(label,value){
-
- return`
-
- <div class="item">
-
-  <div class="label">
-   ${esc(label)}
-  </div>
-
-  <div class="value">
-   ${value}
-  </div>
-
- </div>
-
- `;
-
-}
-
-
-async function analyze(){
-
- const input=
- document.getElementById("symbol");
-
- const symbol=
- input.value.trim().toUpperCase();
-
- if(!symbol)return;
-
- input.value=symbol;
-
- document.getElementById("app").innerHTML=
- `
- <div class="loading">
- 🐇 ${esc(symbol)} 분석 중...
- </div>
- `;
-
- try{
-
-  const r=
-   await fetch(
-    WORKER+
-    "/all?symbol="+
-    encodeURIComponent(symbol)
-   );
-
-  if(!r.ok)
-   throw new Error(
-    "서버 오류 "+r.status
-   );
-
-  const d=
-   await r.json();
-
-  if(!d.ok)
-   throw new Error(
-    d.message||"데이터 오류"
-   );
-
-  DATA=d;
-
-  render(d);
-
- }catch(e){
-
-  document.getElementById("app").innerHTML=
-  `
-  <div class="card error">
-
-   ❌ 데이터 오류
-
-   <br><br>
-
-   ${esc(e.message)}
-
-  </div>
-  `;
-
- }
-
-}
-
-
-/* =========================
-   RENDER
-========================= */
+/* ======================
+   전체 렌더
+====================== */
 
 function render(d){
 
- const q=d.quote||{};
- const t=d.technicals||{};
- const f=d.flow||{};
- const a=d.accumulation||{};
- const th=d.threshold||{};
- const di=d.dilution||{};
- const w=d.warrants||{};
- const fi=d.secFilings||{};
- const nw=d.news||{};
- const fin=d.final||{};
+  const q =
+    d.quote || {};
 
- document.getElementById("app").innerHTML=`
+  const a =
+    d.analysis || {};
 
- <!-- PRICE -->
+  /* 주가 */
 
- <div class="card">
+  setText(
+    "price",
+    money(q.price)
+  );
 
-  <div class="title">
-   💰 ${esc(d.symbol)} 주가
-  </div>
+  setText(
+    "change",
+    percent(q.percent_change)
+  );
 
-  <div class="price">
-   ${money(q.price??t.price)}
-  </div>
+  colorChange(
+    $("change"),
+    q.percent_change
+  );
 
-  <div class="${
-   Number(q.percentChange)>=0
-   ?"green":"red"
-  }">
+  setText(
+    "open",
+    money(q.open)
+  );
 
-   ${
-    q.percentChange!=null
-     ?percent(q.percentChange)
-     :"등락 데이터 없음"
-   }
+  setText(
+    "prev",
+    money(q.previous_close)
+  );
 
-  </div>
+  setText(
+    "high",
+    money(q.high)
+  );
 
-  <div class="grid"
-       style="margin-top:12px">
+  setText(
+    "low",
+    money(q.low)
+  );
 
-   ${box("시가",money(q.open))}
-   ${box("고가",money(q.high))}
-   ${box("저가",money(q.low))}
-   ${box("전일종가",money(q.previousClose))}
-   ${box("거래량",n(q.volume,0))}
-   ${box("평균거래량",n(q.averageVolume,0))}
+  setText(
+    "volume",
+    number(q.volume)
+  );
 
-  </div>
+  setText(
+    "avgvol",
+    number(q.average_volume)
+  );
 
- </div>
+  /* 종합 */
 
+  setText(
+    "totalScore",
+    a.total_score == null
+      ? "데이터 없음"
+      : a.total_score
+  );
 
- <!-- HISTORY -->
+  setText(
+    "trend",
+    a.trend
+  );
 
- <div class="card">
+  /* 매집 */
 
-  <div class="title">
-   📅 날짜별 주가 데이터
-  </div>
+  setText(
+    "judgment",
+    a.judgment
+  );
 
-  <div class="tableWrap">
+  $("judgment").className =
+    "judge " +
+    statusClass(
+      a.judgment
+    );
 
-   ${
-    historyTable(
-     d.history||[]
+  if(
+    a.accumulation_score != null
+  ){
+    $("accScore").textContent =
+      a.accumulation_score +
+      "/100";
+
+    $("accBar").style.width =
+      a.accumulation_score +
+      "%";
+  }else{
+    $("accScore").textContent =
+      "데이터 없음";
+
+    $("accBar").style.width =
+      "0%";
+  }
+
+  if(
+    a.sell_score != null
+  ){
+    $("sellScore").textContent =
+      a.sell_score +
+      "/100";
+
+    $("sellBar").style.width =
+      a.sell_score +
+      "%";
+  }else{
+    $("sellScore").textContent =
+      "데이터 없음";
+
+    $("sellBar").style.width =
+      "0%";
+  }
+
+  /* 기술 */
+
+  setText(
+    "ma20",
+    money(
+      a.moving_average_20
     )
-   }
+  );
 
-  </div>
+  setText(
+    "vr",
+    a.volume_ratio == null
+      ? "데이터 없음"
+      :
+        a.volume_ratio.toFixed(2)
+        + "배"
+  );
 
- </div>
+  setText(
+    "cp",
+    a.close_position == null
+      ? "데이터 없음"
+      :
+        a.close_position.toFixed(1)
+        + "%"
+  );
 
+  setText(
+    "obv",
+    number(a.obv)
+  );
 
- <!-- CHART -->
+  /* 검증 */
 
- <div class="card">
+  renderVerification(
+    d
+  );
 
-  <div class="title">
-   📈 주가 차트
-  </div>
+  /* 공매도 */
 
-  <div class="tabs">
+  renderShort(
+    d.short
+  );
 
-   ${tab("1D")}
-   ${tab("5D")}
-   ${tab("1M")}
-   ${tab("3M")}
+  /* Reg SHO */
 
-  </div>
+  renderRegSho(
+    d.short
+  );
 
-  <div class="chart">
+  /* Threshold */
 
-   <div id="chart"></div>
+  renderThreshold(
+    d.threshold
+  );
 
-  </div>
+  /* 희석 */
 
- </div>
+  renderDilution(
+    d.dilution
+  );
 
+  /* 워런트 */
 
- <!-- TECH -->
+  renderWarrants(
+    d.warrants
+  );
 
- <div class="card">
+  /* SEC */
 
-  <div class="title">
-   🎯 종합 분석
-  </div>
+  renderSEC(
+    d.sec
+  );
 
-  <div class="grid">
+  /* 뉴스 */
 
-   ${box("추세",t.trend||"데이터 없음")}
+  renderNews(
+    d.news
+  );
 
-   ${box("RSI(14)",n(t.rsi14))}
+  /* 차트 */
 
-   ${box("SMA 5",money(t.sma5))}
-   ${box("SMA 20",money(t.sma20))}
-   ${box("SMA 50",money(t.sma50))}
-   ${box("SMA 200",money(t.sma200))}
+  drawChart(
+    d.history || []
+  );
 
-   ${box(
-    "5일 모멘텀",
-    percent(t.momentum5)
-   )}
+  /* 최종 */
 
-   ${box(
-    "20일 모멘텀",
-    percent(t.momentum20)
-   )}
-
-   ${box(
-    "거래량 비율",
-    t.volumeRatio!=null
-     ?n(t.volumeRatio)+"배"
-     :"데이터 없음"
-   )}
-
-  </div>
-
- </div>
-
-
- <!-- SHORT -->
-
- <div class="card">
-
-  <div class="title">
-   🔥 공매도
-  </div>
-
-  ${
-   d.short?.found
-    ?shortTable(d.short.rows)
-    :`<div class="gray">
-       공매도 데이터 없음
-      </div>`
-  }
-
- </div>
-
-
- <!-- REG SHO -->
-
- <div class="card">
-
-  <div class="title">
-   📊 Reg SHO
-  </div>
-
-  ${
-   d.regsho?.found
-    ?shortTable(d.regsho.rows)
-    :`<div class="gray">
-       Reg SHO 데이터 없음
-      </div>`
-  }
-
- </div>
-
-
- <!-- THRESHOLD -->
-
- <div class="card">
-
-  <div class="title">
-   🚨 Threshold
-  </div>
-
-  ${
-   th.found
-    ?`
-      <span class="badge red">
-       ⚠️ Threshold 등재
-      </span>
-
-      <div class="small">
-       ${esc(th.message||"")}
-      </div>
-     `
-    :`
-      <span class="badge">
-       Threshold 미등재
-      </span>
-     `
-  }
-
- </div>
-
-
- <!-- DILUTION -->
-
- <div class="card">
-
-  <div class="title">
-   💵 희석
-  </div>
-
-  <div class="grid">
-
-   ${box(
-    "등록 주식",
-    n(di.registeredShares,0)
-   )}
-
-   ${box(
-    "발행주식",
-    n(di.sharesOutstanding,0)
-   )}
-
-   ${box(
-    "우선주",
-    n(di.preferredShares,0)
-   )}
-
-   ${box(
-    "전환 가능",
-    n(di.conversionShares,0)
-   )}
-
-  </div>
-
-  ${
-   di.message
-    ?`
-      <div class="reason">
-       ${esc(di.message)}
-      </div>
-     `
-    :""
-  }
-
- </div>
-
-
- <!-- WARRANT -->
-
- <div class="card">
-
-  <div class="title">
-   🎫 워런트
-  </div>
-
-  ${
-   w.found
-    ?`
-
-      <div class="grid">
-
-       ${box(
-        "워런트 수량",
-        n(w.warrantShares,0)
-       )}
-
-       ${box(
-        "행사가",
-        money(w.exercisePrice)
-       )}
-
-       ${box(
-        "기존 워런트",
-        n(w.existingWarrantShares,0)
-       )}
-
-       ${box(
-        "만기",
-        w.expiryDate||"데이터 없음"
-       )}
-
-       ${box(
-        "Cashless",
-        w.cashlessExercise===true
-         ?"가능"
-         :w.cashlessExercise===false
-          ?"확인됨"
-          :"데이터 없음"
-       )}
-
-       ${box(
-        "Anti-Dilution",
-        w.antiDilution
-         ?"있음"
-         :"데이터 없음"
-       )}
-
-      </div>
-
-      ${
-       w.sourceUrl
-        ?`
-          <div
-           style="margin-top:10px">
-
-           <a
-            href="${esc(w.sourceUrl)}"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            🏛️ SEC 원문 보기
-
-           </a>
-
-          </div>
-         `
-        :""
-      }
-
-      <div class="small">
-
-       ${esc(w.source||"SEC")}
-
-       ${
-        w.filingDate
-         ?" · "+esc(w.filingDate)
-         :""
-       }
-
-      </div>
-
-     `
-    :`
-      <div class="gray">
-
-       ${
-        w.message||
-        "워런트 데이터 없음"
-       }
-
-      </div>
-     `
-  }
-
- </div>
-
-
- <!-- FLOW -->
-
- <div class="card">
-
-  <div class="title">
-   📦 매집 / 분산
-  </div>
-
-  <div class="bigScore">
-
-   ${n(a.buyScore,0)}
-
-  </div>
-
-  <div class="badge">
-
-   ${esc(
-    a.judgment||"중립"
-   )}
-
-  </div>
-
-  <div class="grid"
-       style="margin-top:12px">
-
-   ${box(
-    "매집 점수",
-    n(a.buyScore,0)
-   )}
-
-   ${box(
-    "매도 점수",
-    n(a.sellScore,0)
-   )}
-
-   ${box(
-    "VWAP",
-    money(f.vwap)
-   )}
-
-   ${box(
-    "매수 비율",
-    percent(f.buyRatio)
-   )}
-
-   ${box(
-    "OBV",
-    n(f.obv,0)
-   )}
-
-  </div>
-
-  ${
-   a.reasons?.length
-    ?a.reasons.map(x=>
-      `<div class="reason">
-       ${esc(x)}
-       </div>`
-     ).join("")
-    :""
-  }
-
- </div>
-
-
- <!-- SEC -->
-
- <div class="card">
-
-  <div class="title">
-   📑 SEC 공시
-  </div>
-
-  ${
-   fi.rows?.length
-    ?fi.rows.map(x=>`
-
-      <div class="news">
-
-       <a
-        href="${esc(x.url)}"
-        target="_blank"
-        rel="noopener noreferrer">
-
-        ${esc(x.form)}
-        ·
-        ${esc(x.filingDate)}
-
-       </a>
-
-       <div class="small">
-        ${esc(x.document||"")}
-       </div>
-
-      </div>
-
-     `).join("")
-    :`
-      <div class="gray">
-       SEC 공시 데이터 없음
-      </div>
-     `
-  }
-
- </div>
-
-
- <!-- NEWS -->
-
- <div class="card">
-
-  <div class="title">
-   📰 뉴스
-  </div>
-
-  ${
-   nw.rows?.length
-    ?nw.rows.map(x=>`
-
-      <div class="news">
-
-       <div>
-
-        <span class="badge">
-
-         ${
-          x.sourceType==="official"
-           ?"🏢 회사"
-           :"🏛️ SEC"
-         }
-
-        </span>
-
-        <span class="badge ${
-         x.sentiment==="호재"
-          ?"green"
-          :x.sentiment==="악재"
-           ?"red"
-           :"yellow"
-        }">
-
-         ${esc(
-          x.sentiment||"중립"
-         )}
-
-        </span>
-
-       </div>
-
-       <div style="margin-top:8px">
-
-        ${
-         x.url
-          ?`
-            <a
-             href="${esc(x.url)}"
-             target="_blank"
-             rel="noopener noreferrer">
-
-             ${esc(x.title)}
-
-            </a>
-           `
-          :esc(x.title)
-        }
-
-       </div>
-
-       <div class="small">
-
-        ${esc(x.source||"")}
-
-        ${
-         x.date
-          ?" · "+esc(x.date)
-          :""
-        }
-
-       </div>
-
-      </div>
-
-     `).join("")
-    :`
-      <div class="gray">
-       확인 가능한 공식 뉴스 없음
-      </div>
-     `
-  }
-
- </div>
-
-
- <!-- FINAL -->
-
- <div class="card">
-
-  <div class="title">
-   🐇 최종 결론
-  </div>
-
-  <div class="bigScore">
-   ${n(fin.score,0)}
-  </div>
-
-  <div class="badge">
-   ${esc(fin.grade||"중립")}
-  </div>
-
-  ${
-   fin.positives?.length
-    ?`
-      <div style="margin-top:12px">
-
-       <b class="green">
-        긍정 요인
-       </b>
-
-       ${
-        fin.positives.map(x=>
-         `<div class="reason">
-          🟢 ${esc(x)}
-          </div>`
-        ).join("")
-       }
-
-      </div>
-     `
-    :""
-  }
-
-  ${
-   fin.risks?.length
-    ?`
-      <div style="margin-top:12px">
-
-       <b class="red">
-        위험 요인
-       </b>
-
-       ${
-        fin.risks.map(x=>
-         `<div class="reason">
-          🔴 ${esc(x)}
-          </div>`
-        ).join("")
-       }
-
-      </div>
-     `
-    :""
-  }
-
- </div>
-
-
- <div class="footer">
-  RabbitStock Ultimate
- </div>
-
- `;
-
- drawChart();
-
+  renderFinal(
+    d
+  );
 }
 
+/* ======================
+   검증
+====================== */
 
-/* =========================
-   TAB
-========================= */
+function renderVerification(d){
 
-function tab(x){
+  const v =
+    d.verification || {};
 
- return`
- <button
-  class="${
-   RANGE===x?"active":""
-  }"
-  onclick="setRange('${x}')">
+  const fh =
+    d.finnhub || {};
 
-  ${x}
+  function show(
+    id,
+    x
+  ){
 
- </button>
- `;
-
-}
-
-
-function setRange(x){
-
- RANGE=x;
-
- if(DATA)render(DATA);
-
-}
-
-
-/* =========================
-   HISTORY
-========================= */
-
-function historyTable(rows){
-
- if(!rows.length)
-  return`
-   <div class="gray">
-    날짜별 데이터 없음
-   </div>
-  `;
-
- return`
-
- <table>
-
-  <thead>
-
-   <tr>
-
-    <th>날짜</th>
-    <th>시가</th>
-    <th>고가</th>
-    <th>저가</th>
-    <th>종가</th>
-    <th>거래량</th>
-
-   </tr>
-
-  </thead>
-
-  <tbody>
-
-   ${
-    [...rows].reverse()
-     .map(x=>`
-
-      <tr>
-
-       <td>
-        ${esc(x.date)}
-       </td>
-
-       <td>
-        ${money(x.open)}
-       </td>
-
-       <td>
-        ${money(x.high)}
-       </td>
-
-       <td>
-        ${money(x.low)}
-       </td>
-
-       <td>
-        ${money(x.close)}
-       </td>
-
-       <td>
-        ${n(x.volume,0)}
-       </td>
-
-      </tr>
-
-     `).join("")
-   }
-
-  </tbody>
-
- </table>
-
- `;
-
-}
-
-
-/* =========================
-   SHORT TABLE
-========================= */
-
-function shortTable(rows){
-
- if(!rows?.length)
-  return`
-   <div class="gray">
-    데이터 없음
-   </div>
-  `;
-
- return`
-
- <div class="tableWrap">
-
-  <table>
-
-   <thead>
-
-    <tr>
-     <th>날짜</th>
-     <th>전체</th>
-     <th>공매도</th>
-     <th>면제</th>
-    </tr>
-
-   </thead>
-
-   <tbody>
-
-    ${
-     rows.map(x=>`
-
-      <tr>
-
-       <td>
-        ${esc(
-         x.tradeReportDate||
-         x.settlementDate||
-         ""
-        )}
-       </td>
-
-       <td>
-        ${n(
-         x.totalParQuantity,
-         0
-        )}
-       </td>
-
-       <td>
-        ${n(
-         x.shortParQuantity,
-         0
-        )}
-       </td>
-
-       <td>
-        ${n(
-         x.shortExemptParQuantity,
-         0
-        )}
-       </td>
-
-      </tr>
-
-     `).join("")
+    if(!x){
+      setText(
+        id,
+        "데이터 없음"
+      );
+      return;
     }
 
-   </tbody>
+    if(
+      x.status ===
+      "데이터 없음"
+    ){
+      setText(
+        id,
+        "데이터 없음"
+      );
+      return;
+    }
 
-  </table>
+    const diff =
+      x.difference_percent;
 
- </div>
+    $(id).textContent =
+      `${x.status}` +
+      (
+        diff == null
+          ? ""
+          :
+          ` (${diff.toFixed(3)}%)`
+      );
 
- `;
+    $(id).className =
+      statusClass(
+        x.status
+      );
+  }
+
+  show(
+    "vPrice",
+    v.price
+  );
+
+  show(
+    "vPrev",
+    v.previous_close
+  );
+
+  show(
+    "vHigh",
+    v.high
+  );
+
+  show(
+    "vLow",
+    v.low
+  );
+
+  show(
+    "vChange",
+    v.change
+  );
+
+  if(
+    fh.ok
+  ){
+    $("fhStatus").textContent =
+      "🟢 Finnhub 검증 연결됨";
+    $("fhStatus").className =
+      "small good";
+  }else{
+    $("fhStatus").textContent =
+      "🟡 Finnhub 검증 데이터 없음 " +
+      "(주 데이터 분석은 계속 진행)";
+    $("fhStatus").className =
+      "small warn";
+  }
 
 }
 
+/* ======================
+   공매도
+====================== */
 
-/* =========================
-   CHART
-========================= */
+function renderShort(x){
 
-function drawChart(){
+  const box =
+    $("shortBox");
 
- const el=
- document.getElementById("chart");
+  const data =
+    x?.finra;
 
- if(!el||!DATA)return;
+  if(
+    !data ||
+    !data.available
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        FINRA 공매도 데이터 없음
+      </div>`;
+    return;
+  }
 
- let rows=[
-  ...(DATA.history||[])
- ];
+  const rows =
+    Array.isArray(data.data)
+      ? data.data
+      : [];
 
- if(RANGE==="1D")
-  rows=rows.slice(-1);
+  if(!rows.length){
+    box.innerHTML =
+      `<div class="empty">
+        조회된 공매도 데이터 없음
+      </div>`;
+    return;
+  }
 
- if(RANGE==="5D")
-  rows=rows.slice(-5);
+  box.innerHTML =
+    rows.slice(0,10)
+      .map(r => {
 
- if(RANGE==="1M")
-  rows=rows.slice(-22);
+        return `
+        <div class="row">
+          <span>
+            ${esc(
+              r.tradeReportDate ||
+              r.tradeDate ||
+              "-"
+            )}
+          </span>
 
- if(RANGE==="3M")
-  rows=rows.slice(-66);
+          <span>
+            공매도
+            ${number(
+              r.shortParQuantity
+            )}
+          </span>
+        </div>
+        `;
 
- const vals=
-  rows.map(x=>Number(x.close))
-   .filter(Number.isFinite);
+      })
+      .join("");
+}
 
- if(!vals.length){
+/* ======================
+   Reg SHO
+====================== */
 
-  el.innerHTML=
-   `<div class="loading">
-    차트 데이터 없음
-    </div>`;
+function renderRegSho(x){
 
-  return;
+  const box =
+    $("regshoBox");
 
- }
+  const data =
+    x?.finra?.data;
 
- const W=900;
- const H=270;
+  if(
+    !Array.isArray(data) ||
+    !data.length
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        Reg SHO 데이터 없음
+      </div>`;
+    return;
+  }
 
- const L=50;
- const R=12;
- const T=18;
- const B=35;
+  box.innerHTML =
+    data.slice(0,10)
+      .map(r => {
 
- const min=Math.min(...vals);
- const max=Math.max(...vals);
+        return `
+        <div class="row">
 
- const rg=max===min?1:max-min;
+          <span>
+            ${esc(
+              r.tradeReportDate ||
+              r.tradeDate ||
+              "-"
+            )}
+          </span>
 
- const pts=
-  vals.map((v,i)=>{
+          <span>
+            공매도
+            ${number(
+              r.shortParQuantity
+            )}
+            /
+            전체
+            ${number(
+              r.totalParQuantity
+            )}
+          </span>
 
-   const x=
-    L+
-    i/
-    Math.max(1,vals.length-1)*
-    (W-L-R);
+        </div>
+        `;
 
-   const y=
-    T+
-    (1-(v-min)/rg)*
-    (H-T-B);
+      })
+      .join("");
+}
 
-   return[x,y,v];
+/* ======================
+   Threshold
+====================== */
 
-  });
+function renderThreshold(x){
 
- let path="";
+  const box =
+    $("thresholdBox");
 
- pts.forEach((p,i)=>{
+  const data =
+    x?.finra?.data;
 
-  path+=
-   (i?"L ":"M ")+
-   p[0].toFixed(2)+" "+
-   p[1].toFixed(2)+" ";
+  if(
+    !Array.isArray(data) ||
+    !data.length
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        🟢 현재 조회 결과 없음
+        <br>
+        <span class="small">
+        단, API 데이터 미제공과
+        실제 미등재는 구분해야 합니다.
+        </span>
+      </div>`;
+    return;
+  }
 
- });
+  box.innerHTML =
+    data.slice(0,10)
+      .map(r => {
 
- let grid="";
+        return `
+        <div class="row">
+          <span>
+            ${esc(
+              r.tradeDate ||
+              "-"
+            )}
+          </span>
 
- for(let i=0;i<5;i++){
+          <span class="good">
+            Threshold
+          </span>
+        </div>
+        `;
 
-  const y=
-   T+i*(H-T-B)/4;
+      })
+      .join("");
+}
 
-  const v=
-   max-i*rg/4;
+/* ======================
+   희석
+====================== */
 
-  grid+=`
+function renderDilution(x){
 
-   <line
-    x1="${L}"
-    y1="${y}"
-    x2="${W-R}"
-    y2="${y}"
-    stroke="#20304a"/>
+  if(!x){
+    $("dilutionBox").innerHTML =
+      "데이터 없음";
+    return;
+  }
 
-   <text
-    x="4"
-    y="${y+4}"
-    fill="#7d8da7"
-    font-size="11">
+  $("dilutionBox").innerHTML = `
+    <div class="row">
+      <span>상태</span>
+      <span class="warn">
+        ${esc(
+          x.status ||
+          "데이터 없음"
+        )}
+      </span>
+    </div>
 
-    ${v.toFixed(2)}
+    <div class="small"
+         style="margin-top:10px">
+      ${esc(
+        x.note ||
+        ""
+      )}
+    </div>
+  `;
+}
 
-   </text>
+/* ======================
+   워런트
+====================== */
 
+function renderWarrants(x){
+
+  const box =
+    $("warrantBox");
+
+  if(
+    !x ||
+    !x.found ||
+    !Array.isArray(
+      x.filings
+    ) ||
+    !x.filings.length
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        SEC에서 확인 가능한
+        워런트 정보 없음
+      </div>`;
+    return;
+  }
+
+  let html = "";
+
+  for(
+    const f of x.filings
+  ){
+
+    html += `
+      <div class="filing">
+
+        <div>
+          <b>
+            ${esc(f.form)}
+          </b>
+          ·
+          ${esc(
+            f.filing_date
+          )}
+        </div>
+    `;
+
+    for(
+      const w of
+      (f.warrants || [])
+    ){
+
+      html += `
+        <div class="small"
+             style="margin-top:7px">
+
+          주식수:
+          ${
+            w.shares == null
+              ? "데이터 없음"
+              :
+                number(w.shares)
+          }
+
+          <br>
+
+          행사 가격:
+          ${
+            w.exercise_price == null
+              ? "데이터 없음"
+              :
+                money(
+                  w.exercise_price
+                )
+          }
+
+        </div>
+      `;
+
+    }
+
+    html += `
+        <div style="margin-top:7px">
+          <a href="${
+            esc(f.url)
+          }"
+             target="_blank">
+             SEC 원문
+          </a>
+        </div>
+
+      </div>
+    `;
+  }
+
+  html += `
+    <div class="small"
+         style="margin-top:10px">
+      ⚠️ ${esc(
+        x.warning || ""
+      )}
+    </div>
   `;
 
- }
-
- el.innerHTML=`
-
- <svg
-  viewBox="0 0 ${W} ${H}"
-  preserveAspectRatio="none">
-
-  ${grid}
-
-  <path
-   d="${path}"
-   fill="none"
-   stroke="#4d91ff"
-   stroke-width="3"
-   stroke-linecap="round"
-   stroke-linejoin="round"/>
-
-  ${
-   pts.length
-    ?`
-      <circle
-       cx="${pts[pts.length-1][0]}"
-       cy="${pts[pts.length-1][1]}"
-       r="5"
-       fill="#4d91ff"/>
-     `
-    :""
-  }
-
-  <text
-   x="${L}"
-   y="${H-9}"
-   fill="#71819c"
-   font-size="10">
-
-   ${esc(rows[0]?.date||"")}
-
-  </text>
-
-  <text
-   x="${W-R}"
-   y="${H-9}"
-   fill="#71819c"
-   font-size="10"
-   text-anchor="end">
-
-   ${esc(rows[rows.length-1]?.date||"")}
-
-  </text>
-
- </svg>
-
- `;
-
+  box.innerHTML =
+    html;
 }
 
+/* ======================
+   SEC
+====================== */
 
-/* =========================
-   ENTER
-========================= */
+function renderSEC(x){
 
-document
- .getElementById("symbol")
- .addEventListener(
-  "keydown",
-  e=>{
-   if(e.key==="Enter")
-    analyze();
+  const box =
+    $("secBox");
+
+  if(
+    !x ||
+    !Array.isArray(
+      x.filings
+    ) ||
+    !x.filings.length
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        SEC 공시 데이터 없음
+      </div>`;
+    return;
   }
- );
 
+  box.innerHTML =
+    x.filings
+      .slice(0,15)
+      .map(f => {
 
-analyze();
+        return `
+          <div class="filing">
+
+            <div>
+              <b>
+                ${esc(f.form)}
+              </b>
+              ·
+              ${esc(
+                f.filing_date ||
+                "-"
+              )}
+            </div>
+
+            <div class="small">
+              ${esc(
+                f.report_date ||
+                ""
+              )}
+            </div>
+
+            <div style="margin-top:6px">
+              <a href="${
+                esc(f.url)
+              }"
+                 target="_blank">
+                 SEC 문서 열기
+              </a>
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+/* ======================
+   뉴스
+====================== */
+
+function renderNews(x){
+
+  const box =
+    $("newsBox");
+
+  if(
+    !Array.isArray(x) ||
+    !x.length
+  ){
+    box.innerHTML =
+      `<div class="empty">
+        뉴스 데이터 없음
+      </div>`;
+    return;
+  }
+
+  box.innerHTML =
+    x.slice(0,10)
+      .map(item => {
+
+        const title =
+          item.title ||
+          item.headline ||
+          "뉴스";
+
+        const url =
+          item.url ||
+          item.link ||
+          "#";
+
+        return `
+          <div class="news">
+
+            <div>
+              ${
+                url !== "#"
+                  ?
+                  `<a href="${
+                    esc(url)
+                  }"
+                     target="_blank">
+                     ${esc(title)}
+                   </a>`
+                  :
+                  esc(title)
+              }
+            </div>
+
+            <div class="small"
+                 style="margin-top:5px">
+
+              ${
+                esc(
+                  item.datetime ||
+                  item.published_at ||
+                  item.source ||
+                  ""
+                )
+              }
+
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+/* ======================
+   차트
+====================== */
+
+function drawChart(values){
+
+  const canvas =
+    $("chart");
+
+  const ctx =
+    canvas.getContext(
+      "2d"
+    );
+
+  const w =
+    canvas.width;
+
+  const h =
+    canvas.height;
+
+  ctx.clearRect(
+    0,
+    0,
+    w,
+    h
+  );
+
+  const arr =
+    values
+      .filter(x =>
+        x &&
+        x.close != null
+      )
+      .slice(-90);
+
+  if(!arr.length){
+
+    ctx.fillStyle =
+      "#73819a";
+
+    ctx.font =
+      "14px sans-serif";
+
+    ctx.fillText(
+      "차트 데이터 없음",
+      20,
+      40
+    );
+
+    return;
+  }
+
+  const prices =
+    arr.map(
+      x => Number(x.close)
+    );
+
+  let min =
+    Math.min(...prices);
+
+  let max =
+    Math.max(...prices);
+
+  if(min === max){
+    min -= 1;
+    max += 1;
+  }
+
+  const left = 42;
+  const right = 12;
+  const top = 15;
+  const bottom = 30;
+
+  const pw =
+    w - left - right;
+
+  const ph =
+    h - top - bottom;
+
+  /* grid */
+
+  ctx.strokeStyle =
+    "#1d2b44";
+
+  ctx.lineWidth = 1;
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const y =
+      top +
+      ph *
+      i / 4;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      left,
+      y
+    );
+
+    ctx.lineTo(
+      w-right,
+      y
+    );
+
+    ctx.stroke();
+
+  }
+
+  /* price labels */
+
+  ctx.fillStyle =
+    "#71809a";
+
+  ctx.font =
+    "11px sans-serif";
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const value =
+      max -
+      (max-min) *
+      i/4;
+
+    const y =
+      top +
+      ph *
+      i/4;
+
+    ctx.fillText(
+      value.toFixed(2),
+      4,
+      y+4
+    );
+
+  }
+
+  /* line */
+
+  ctx.beginPath();
+
+  arr.forEach(
+    (item,i) => {
+
+      const price =
+        Number(item.close);
+
+      const x =
+        left +
+        pw *
+        (
+          i /
+          Math.max(
+            1,
+            arr.length-1
+          )
+        );
+
+      const y =
+        top +
+        ph *
+        (
+          (max-price) /
+          (max-min)
+        );
+
+      if(i===0)
+        ctx.moveTo(
+          x,y
+        );
+      else
+        ctx.lineTo(
+          x,y
+        );
+
+    }
+  );
+
+  ctx.strokeStyle =
+    "#38bdf8";
+
+  ctx.lineWidth = 2.5;
+
+  ctx.stroke();
+
+  /* last price */
+
+  const last =
+    prices.at(-1);
+
+  ctx.fillStyle =
+    "#eef3ff";
+
+  ctx.font =
+    "bold 12px sans-serif";
+
+  ctx.fillText(
+    "$" +
+    last.toFixed(2),
+    w-70,
+    18
+  );
+
+  $("chartInfo").textContent =
+    `최근 ${arr.length}개 일봉 · ` +
+    `최저 ${money(min)} · ` +
+    `최고 ${money(max)}`;
+}
+
+/* ======================
+   최종 결론
+====================== */
+
+function renderFinal(d){
+
+  const a =
+    d.analysis || {};
+
+  const box =
+    $("finalBox");
+
+  if(
+    !a.judgment
+  ){
+
+    box.textContent =
+      "데이터 부족";
+
+    box.className =
+      "judge neutral";
+
+    $("finalDetail").textContent =
+      "분석 가능한 데이터가 부족합니다.";
+
+    return;
+  }
+
+  box.textContent =
+    a.judgment;
+
+  box.className =
+    "judge " +
+    statusClass(
+      a.judgment
+    );
+
+  const parts = [];
+
+  if(
+    a.trend
+  ){
+    parts.push(
+      `추세: ${a.trend}`
+    );
+  }
+
+  if(
+    a.accumulation_score != null
+  ){
+    parts.push(
+      `매집 ${a.accumulation_score}/100`
+    );
+  }
+
+  if(
+    a.sell_score != null
+  ){
+    parts.push(
+      `매도 ${a.sell_score}/100`
+    );
+  }
+
+  if(
+    a.volume_ratio != null
+  ){
+    parts.push(
+      `거래량 ${a.volume_ratio.toFixed(2)}배`
+    );
+  }
+
+  $("finalDetail").textContent =
+    parts.join(" · ");
+}
+
+/* ======================
+   Enter
+====================== */
+
+$("symbol")
+  .addEventListener(
+    "keydown",
+    e => {
+      if(
+        e.key === "Enter"
+      ){
+        run();
+      }
+    }
+  );
+
+/* 처음 NIKI 자동 분석 */
+
+run();
 
 </script>
 
