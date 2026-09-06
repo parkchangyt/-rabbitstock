@@ -3,308 +3,2447 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>RabbitStock Ultimate</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#09101e;color:#eef3ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.app{max-width:900px;margin:auto;padding:16px}
-.header{padding:8px 2px 18px}
-.logo{font-size:24px;font-weight:900}
-.sub{color:#8492ad;font-size:12px;margin-top:4px}
-.search{display:flex;gap:8px;margin-bottom:14px}
-input{flex:1;min-width:0;background:#111b2d;border:1px solid #263650;border-radius:12px;padding:14px;color:#fff;font-size:16px;font-weight:700}
-button{border:0;border-radius:12px;padding:0 20px;background:#eef3ff;color:#09101e;font-weight:900}
-.hero,.card{background:#101a2b;border:1px solid #1d2b43;border-radius:18px;padding:18px;margin-bottom:12px}
-.heroTop{display:flex;justify-content:space-between;align-items:flex-start}
-.ticker{font-size:30px;font-weight:950}
-.name{font-size:13px;color:#8290a9;margin-top:3px}
-.price{font-size:32px;font-weight:950;text-align:right}
-.change{font-size:13px;text-align:right;margin-top:4px}
-.up{color:#36df91}.down{color:#ff637d}.neutral{color:#b8c2d6}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.metric{background:#0c1525;border-radius:14px;padding:13px}
-.label{font-size:11px;color:#7787a2}
-.value{font-size:18px;font-weight:850;margin-top:5px}
-.title{font-size:15px;font-weight:900;margin-bottom:12px}
-.judge{font-size:25px;font-weight:950;margin-bottom:12px}
-.scoreRow{display:flex;justify-content:space-between;font-size:12px;color:#91a0b8;margin:8px 0 5px}
-.bar{height:9px;background:#202c40;border-radius:99px;overflow:hidden}
-.fillA{height:100%;background:#36df91}
-.fillB{height:100%;background:#ff637d}
-.reason{font-size:13px;color:#bdc7d9;line-height:1.65;margin-top:12px}
-canvas{width:100%;height:280px;display:block}
-details{background:#101a2b;border:1px solid #1d2b43;border-radius:16px;margin-bottom:10px;overflow:hidden}
-summary{padding:17px;font-weight:900;cursor:pointer;list-style:none}
-summary::-webkit-details-marker{display:none}
-.content{padding:0 15px 15px}
-.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #1d2940;font-size:13px}
-.row:last-child{border-bottom:0}
-.k{color:#8290a9}
-.v{text-align:right;font-weight:750}
-.news{padding:12px 0;border-bottom:1px solid #1d2940}
-.news:last-child{border:0}
-.newsTitle{font-weight:800;font-size:13px;line-height:1.45}
-.newsMeta{font-size:11px;color:#75849d;margin-top:5px}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th,td{padding:8px 4px;border-bottom:1px solid #1c2940;text-align:right}
-th:first-child,td:first-child{text-align:left}
-.status{padding:20px;text-align:center;color:#7f8da7}
-.small{font-size:10px;color:#65738b}
-.error{color:#ff7188}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#09101e;
+  color:#eef3ff;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.app{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:14px;
+}
+
+.header{
+  padding:8px 2px 16px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+
+.subtitle{
+  margin-top:4px;
+  color:#77859f;
+  font-size:12px;
+}
+
+.search{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.search input{
+  min-width:0;
+  flex:1;
+  padding:14px;
+  border-radius:13px;
+  border:1px solid #263650;
+  background:#111b2d;
+  color:#fff;
+  outline:none;
+  font-size:16px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.search button{
+  border:0;
+  border-radius:13px;
+  padding:0 19px;
+  background:#eef3ff;
+  color:#09101e;
+  font-weight:900;
+  font-size:14px;
+}
+
+.card{
+  background:
+    linear-gradient(
+      145deg,
+      #101a2b,
+      #0c1423
+    );
+  border:1px solid #1d2b43;
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:11px;
+  box-shadow:0 8px 25px rgba(0,0,0,.16);
+}
+
+.hero{
+  padding:18px;
+}
+
+.heroTop{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.ticker{
+  font-size:30px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.name{
+  margin-top:3px;
+  color:#8290a9;
+  font-size:12px;
+}
+
+.price{
+  text-align:right;
+  font-size:31px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.change{
+  text-align:right;
+  margin-top:4px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.up{
+  color:#45e49a;
+}
+
+.down{
+  color:#ff687f;
+}
+
+.neutral{
+  color:#aeb9cc;
+}
+
+.sectionTitle{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:13px;
+}
+
+.label{
+  color:#7786a0;
+  font-size:11px;
+}
+
+.value{
+  margin-top:5px;
+  font-size:18px;
+  font-weight:850;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.metric{
+  background:#0c1525;
+  border:1px solid #1b2940;
+  border-radius:13px;
+  padding:12px;
+}
+
+.judgement{
+  margin:5px 0 14px;
+  font-size:27px;
+  font-weight:950;
+  letter-spacing:-.7px;
+}
+
+.scoreRow{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0 5px;
+  color:#8998b2;
+  font-size:12px;
+}
+
+.bar{
+  height:9px;
+  background:#202c40;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.fillBuy{
+  height:100%;
+  border-radius:99px;
+  background:
+    linear-gradient(
+      90deg,
+      #38d98d,
+      #9ce77b
+    );
+}
+
+.fillSell{
+  height:100%;
+  border-radius:99px;
+  background:
+    linear-gradient(
+      90deg,
+      #ffb067,
+      #ff617b
+    );
+}
+
+.reasons{
+  margin-top:13px;
+  color:#bdc7d9;
+  font-size:13px;
+  line-height:1.7;
+}
+
+canvas{
+  display:block;
+  width:100%;
+  height:270px;
+  border-radius:12px;
+  background:#09111f;
+}
+
+.chartInfo{
+  margin-top:8px;
+  color:#65748d;
+  font-size:10px;
+}
+
+details{
+  margin-bottom:10px;
+  background:#101a2b;
+  border:1px solid #1d2b43;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+summary{
+  padding:16px;
+  cursor:pointer;
+  list-style:none;
+  font-size:14px;
+  font-weight:900;
+}
+
+summary::-webkit-details-marker{
+  display:none;
+}
+
+.content{
+  padding:0 15px 15px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 0;
+  border-bottom:1px solid #1c2940;
+  font-size:12px;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.key{
+  color:#8290a9;
+}
+
+.val{
+  text-align:right;
+  font-weight:800;
+}
+
+.source{
+  margin-top:3px;
+  color:#596983;
+  font-size:9px;
+  font-weight:400;
+}
+
+.news{
+  padding:11px 0;
+  border-bottom:1px solid #1c2940;
+}
+
+.news:last-child{
+  border-bottom:0;
+}
+
+.newsTitle{
+  font-size:13px;
+  font-weight:800;
+  line-height:1.5;
+}
+
+.newsTitle a{
+  color:#edf3ff;
+  text-decoration:none;
+}
+
+.newsMeta{
+  margin-top:5px;
+  color:#71809a;
+  font-size:10px;
+}
+
+.tableWrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  min-width:620px;
+  border-collapse:collapse;
+  font-size:10px;
+}
+
+th,
+td{
+  padding:8px 5px;
+  border-bottom:1px solid #1b2940;
+  text-align:right;
+  white-space:nowrap;
+}
+
+th:first-child,
+td:first-child{
+  text-align:left;
+}
+
+th{
+  color:#71819b;
+  font-weight:700;
+}
+
+.status{
+  padding:30px 10px;
+  text-align:center;
+  color:#7f8da7;
+}
+
+.error{
+  color:#ff7085;
+}
+
+.note{
+  color:#73819a;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#172238;
+  color:#aebbd1;
+  font-size:10px;
+  font-weight:800;
+}
+
+@media(min-width:650px){
+
+  .grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+@media(max-width:400px){
+
+  .app{
+    padding:10px;
+  }
+
+  .price{
+    font-size:26px;
+  }
+
+  .ticker{
+    font-size:27px;
+  }
+
+  .search button{
+    padding:0 14px;
+  }
+
+}
 </style>
 </head>
 
+
 <body>
+
 <div class="app">
 
-<div class="header">
-  <div class="logo">🐇 RabbitStock Ultimate</div>
-  <div class="sub">다중 데이터 교차검증 주식 분석</div>
+  <div class="header">
+    <div class="logo">🐇 RabbitStock Ultimate</div>
+
+    <div class="subtitle">
+      주가 · 공매도 · 다크풀 · 희석 · 워런트 · SEC · 뉴스 종합분석
+    </div>
+  </div>
+
+
+  <div class="search">
+
+    <input
+      id="symbol"
+      value="BRNX"
+      maxlength="12"
+      autocomplete="off"
+      autocapitalize="characters"
+      placeholder="티커 입력"
+    >
+
+    <button onclick="analyze()">
+      분석
+    </button>
+
+  </div>
+
+
+  <div id="app">
+    <div class="status">
+      🐇 종목을 입력하고 분석하세요.
+    </div>
+  </div>
+
 </div>
 
-<div class="search">
-  <input id="symbol" value="BRNX" placeholder="티커 입력">
-  <button onclick="analyze()">분석</button>
-</div>
-
-<div id="app">
-  <div class="status">종목을 분석하는 중...</div>
-</div>
-
-</div>
 
 <script>
-const API="https://rabbitstock-final.keoss.workers.dev";
 
-const $=id=>document.getElementById(id);
+/* =========================================================
+   RabbitStock API
+========================================================= */
 
-function esc(v){
-  return String(v??"").replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
+const API =
+  "https://rabbitstock-final.keoss.workers.dev";
+
+
+/* =========================================================
+   기본 함수
+========================================================= */
+
+function $(id){
+  return document.getElementById(id);
 }
 
-function num(v,d=2){
-  if(v===null||v===undefined||v===""||!Number.isFinite(Number(v))) return "데이터 없음";
-  return Number(v).toLocaleString("en-US",{maximumFractionDigits:d});
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(/[&<>"']/g,function(m){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[m];
+
+    });
+
 }
 
-function pct(v){
-  if(v===null||v===undefined||v===""||!Number.isFinite(Number(v))) return "데이터 없음";
-  return num(v,2)+"%";
+
+function number(value,digits=2){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === "" ||
+    !Number.isFinite(Number(value))
+  ){
+
+    return "데이터 없음";
+
+  }
+
+  return Number(value).toLocaleString(
+    "en-US",
+    {
+      maximumFractionDigits:digits
+    }
+  );
+
 }
 
-function cls(v){
-  return Number(v)>0?"up":Number(v)<0?"down":"neutral";
+
+function percent(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === "" ||
+    !Number.isFinite(Number(value))
+  ){
+
+    return "데이터 없음";
+
+  }
+
+  return Number(value).toFixed(2)+"%";
+
 }
 
-function val(v){
-  return v===null||v===undefined||v===""?"데이터 없음":esc(v);
-}
 
 function get(obj,...keys){
-  for(const k of keys){
-    const v=obj?.[k];
-    if(v!==undefined&&v!==null&&v!=="") return v;
+
+  for(const key of keys){
+
+    if(
+      obj &&
+      obj[key] !== undefined &&
+      obj[key] !== null &&
+      obj[key] !== ""
+    ){
+
+      return obj[key];
+
+    }
+
   }
+
   return null;
+
 }
 
-async function getJSON(url){
-  const r=await fetch(url,{cache:"no-store"});
-  if(!r.ok) throw new Error("API "+r.status);
-  return await r.json();
-}
 
-function metric(label,value){
-  return `
-  <div class="metric">
-    <div class="label">${esc(label)}</div>
-    <div class="value">${val(value)}</div>
-  </div>`;
-}
+function display(value,digits=2){
 
-function row(k,v,source=""){
-  return `<div class="row">
-    <span class="k">${esc(k)}</span>
-    <span class="v">${val(v)}${source?`<div class="small">${esc(source)}</div>`:""}</span>
-  </div>`;
-}
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
 
-function newsItem(n){
-  const title=get(n,"headline","title","description")||"제목 없음";
-  const date=get(n,"datetime","date","published_at","publishedAt");
-  const source=get(n,"source","publisher")||"뉴스";
-  const url=get(n,"url","link");
-  return `<div class="news">
-    <div class="newsTitle">${url?`<a href="${esc(url)}" target="_blank" style="color:#eef3ff;text-decoration:none">${esc(title)}</a>`:esc(title)}</div>
-    <div class="newsMeta">${esc(date||"")} · ${esc(source)}</div>
-  </div>`;
-}
+    return "데이터 없음";
 
-function drawChart(history){
-  const c=document.getElementById("chart");
-  if(!c||!history?.length)return;
-
-  const dpr=devicePixelRatio||1;
-  const w=c.clientWidth;
-  const h=280;
-  c.width=w*dpr;c.height=h*dpr;
-  const x=c.getContext("2d");
-  x.scale(dpr,dpr);
-  x.clearRect(0,0,w,h);
-
-  const data=history.slice(-90).map(a=>({
-    date:get(a,"date","datetime"),
-    close:Number(get(a,"close","price"))
-  })).filter(a=>Number.isFinite(a.close));
-
-  if(!data.length)return;
-
-  const min=Math.min(...data.map(a=>a.close));
-  const max=Math.max(...data.map(a=>a.close));
-  const pad=(max-min||1)*.12;
-  const lo=min-pad,hi=max+pad;
-
-  const L=42,R=10,T=18,B=30;
-  const pw=w-L-R,ph=h-T-B;
-
-  x.strokeStyle="#24334c";
-  x.lineWidth=1;
-
-  for(let i=0;i<4;i++){
-    const yy=T+ph*i/3;
-    x.beginPath();x.moveTo(L,yy);x.lineTo(w-R,yy);x.stroke();
   }
 
-  x.strokeStyle="#63a7ff";
-  x.lineWidth=2;
-  x.beginPath();
+  if(
+    typeof value === "number"
+  ){
 
-  data.forEach((p,i)=>{
-    const px=L+pw*i/(data.length-1||1);
-    const py=T+(hi-p.close)/(hi-lo)*ph;
-    if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
-  });
-  x.stroke();
+    return number(value,digits);
 
-  x.fillStyle="#8b99b0";
-  x.font="10px sans-serif";
-  x.fillText(num(hi),4,T+4);
-  x.fillText(num(lo),4,T+ph);
-
-  const last=data[data.length-1];
-  x.fillText(last.date||"",Math.max(L,w-100),h-8);
-}
-
-function render(d){
-  const q=d.quote||d.data?.quote||{};
-  const h=d.history||d.data?.history||[];
-  const t=d.technical||d.data?.technical||{};
-  const flow=d.flow||d.data?.flow||{};
-  const short=d.short||d.data?.short||{};
-  const dark=d.darkpool||d.data?.darkpool||{};
-  const dilution=d.dilution||d.data?.dilution||{};
-  const warrant=d.warrant||d.data?.warrant||{};
-  const sec=d.sec||d.data?.sec||{};
-  const news=d.news||d.data?.news||[];
-
-  const symbol=get(q,"symbol")||get(d,"symbol")||$("symbol").value.toUpperCase();
-  const price=get(q,"close","price","current","last");
-  const change=get(q,"change","percent_change");
-  const name=get(q,"name","companyName")||"";
-  const exchange=get(q,"exchange")||"";
-
-  const accumulation=Number(get(flow,"accumulationScore","accumulation","buyScore"))||0;
-  const selling=Number(get(flow,"sellScore","sellingScore","sell"))||0;
-
-  let judgment=get(flow,"judgment","signal","conclusion");
-
-  if(!judgment){
-    if(accumulation>=75)judgment="🟢 강한 매집";
-    else if(accumulation>=60)judgment="🟢 매집";
-    else if(selling>=70)judgment="🔴 강한 매도";
-    else if(selling>=55)judgment="🟠 분산";
-    else judgment="🟡 중립";
   }
 
-  const reasons=get(d,"reasons")||get(flow,"reasons")||[];
+  return esc(value);
+
+}
+
+
+function changeClass(value){
+
+  const n=Number(value);
+
+  if(n>0)return "up";
+
+  if(n<0)return "down";
+
+  return "neutral";
+
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function api(path,symbol){
+
+  const url =
+    API +
+    path +
+    "?symbol=" +
+    encodeURIComponent(symbol);
+
+  const response =
+    await fetch(
+      url,
+      {
+        cache:"no-store"
+      }
+    );
+
+  if(!response.ok){
+
+    throw new Error(
+      "API 오류 "+response.status
+    );
+
+  }
+
+  return await response.json();
+
+}
+
+
+/* =========================================================
+   분석
+========================================================= */
+
+async function analyze(){
+
+  const symbol =
+    $("symbol")
+      .value
+      .trim()
+      .toUpperCase()
+      .replace(/[^A-Z0-9.\-]/g,"");
+
+  if(!symbol){
+
+    return;
+
+  }
+
+  $("symbol").value=symbol;
 
   $("app").innerHTML=`
 
-  <div class="hero">
-    <div class="heroTop">
-      <div>
-        <div class="ticker">${esc(symbol)}</div>
-        <div class="name">${esc(name)} ${exchange?`· ${esc(exchange)}`:""}</div>
-      </div>
-      <div>
-        <div class="price">$${val(num(price,4))}</div>
-        <div class="change ${cls(change)}">${change===null?"데이터 없음":(Number(change)>0?"+":"")+num(change,2)+"%"}</div>
+    <div class="card">
+      <div class="status">
+        🐇 ${esc(symbol)} 데이터 수집 중...
+        <br><br>
+        주가 · SEC · 뉴스 · 다크풀 데이터를 확인하고 있습니다.
       </div>
     </div>
 
-    <div class="grid" style="margin-top:15px">
-      ${metric("거래량",num(get(q,"volume","day_volume"),0))}
-      ${metric("52주 위치",pct(get(q,"52week_position","week52_position")))}
+  `;
+
+  try{
+
+    const data =
+      await api(
+        "/all",
+        symbol
+      );
+
+    render(data);
+
+  }catch(error){
+
+    $("app").innerHTML=`
+
+      <div class="card">
+
+        <div class="sectionTitle">
+          데이터 요청 실패
+        </div>
+
+        <div class="error">
+          ${esc(error.message)}
+        </div>
+
+        <div class="note" style="margin-top:10px">
+          Worker 주소와 API 키 설정을 확인하세요.
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   Metric
+========================================================= */
+
+function metric(title,value){
+
+  return `
+
+    <div class="metric">
+
+      <div class="label">
+        ${esc(title)}
+      </div>
+
+      <div class="value">
+        ${display(value)}
+      </div>
+
     </div>
-  </div>
 
-  <div class="card">
-    <div class="title">🎯 종합 판단</div>
-    <div class="judge">${esc(judgment)}</div>
+  `;
 
-    <div class="scoreRow"><span>매집 점수</span><b>${num(accumulation,0)}/100</b></div>
-    <div class="bar"><div class="fillA" style="width:${Math.max(0,Math.min(100,accumulation))}%"></div></div>
+}
 
-    <div class="scoreRow"><span>매도 점수</span><b>${num(selling,0)}/100</b></div>
-    <div class="bar"><div class="fillB" style="width:${Math.max(0,Math.min(100,selling))}%"></div></div>
 
-    <div class="reason">
-      ${Array.isArray(reasons)?reasons.map(x=>"• "+esc(x)).join("<br>"):
-        esc(reasons||"가격·거래량·다크풀·공매도·희석·기술지표를 종합하여 판단합니다.")}
+/* =========================================================
+   Row
+========================================================= */
+
+function row(key,value,source=""){
+
+  return `
+
+    <div class="row">
+
+      <div class="key">
+        ${esc(key)}
+      </div>
+
+      <div class="val">
+
+        ${display(value)}
+
+        ${
+          source
+          ?
+          `<div class="source">
+             ${esc(source)}
+           </div>`
+          :
+          ""
+        }
+
+      </div>
+
     </div>
-  </div>
 
-  <div class="card">
-    <div class="title">📈 주가 차트</div>
-    <canvas id="chart"></canvas>
-    <div class="small">최근 거래일 기준 · 실제 수집 데이터만 표시</div>
-  </div>
+  `;
 
-  <div class="card">
-    <div class="title">📊 핵심 지표</div>
-    <div class="grid">
-      ${metric("MA20 · 최근 20일 평균",num(get(t,"ma20","MA20")))}
-      ${metric("MA50 · 최근 50일 평균",num(get(t,"ma50","MA50")))}
-      ${metric("MA200 · 장기 평균",num(get(t,"ma200","MA200")))}
-      ${metric("RSI · 상승/하락 강도",num(get(t,"rsi","RSI")))}
-      ${metric("VWAP · 거래량 가중 평균",num(get(t,"vwap","VWAP")))}
-      ${metric("OBV · 거래량 흐름",num(get(t,"obv","OBV"),0))}
-      ${metric("거래량 / 20일 평균",pct(get(t,"volumeRatio","volume_ratio")))}
-      ${metric("추세",get(t,"trend","Trend"))}
+}
+
+
+/* =========================================================
+   뉴스
+========================================================= */
+
+function makeNews(news){
+
+  if(!Array.isArray(news) || !news.length){
+
+    return `
+      <div class="note">
+        뉴스 데이터 없음
+      </div>
+    `;
+
+  }
+
+  return news
+    .slice(0,30)
+    .map(function(item){
+
+      const title =
+        get(
+          item,
+          "headline",
+          "title",
+          "description"
+        ) || "제목 없음";
+
+      const date =
+        get(
+          item,
+          "datetime",
+          "date",
+          "published_at",
+          "publishedAt"
+        ) || "";
+
+      const source =
+        get(
+          item,
+          "source",
+          "publisher"
+        ) || "";
+
+      const url =
+        get(
+          item,
+          "url",
+          "link"
+        );
+
+      return `
+
+        <div class="news">
+
+          <div class="newsTitle">
+
+            ${
+              url
+              ?
+              `<a
+                 href="${esc(url)}"
+                 target="_blank"
+                 rel="noopener"
+               >
+                 ${esc(title)}
+               </a>`
+              :
+              esc(title)
+            }
+
+          </div>
+
+          <div class="newsMeta">
+
+            ${esc(date)}
+            ${source?" · "+esc(source):""}
+
+          </div>
+
+        </div>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+/* =========================================================
+   StockTitan
+========================================================= */
+
+function makeStockTitan(data){
+
+  const items =
+    data?.items ||
+    data?.news ||
+    [];
+
+  if(!Array.isArray(items)||!items.length){
+
+    return `
+      <div class="note">
+        StockTitan 뉴스 데이터 없음
+      </div>
+    `;
+
+  }
+
+  return items
+    .slice(0,30)
+    .map(function(item){
+
+      const title =
+        get(
+          item,
+          "title",
+          "headline"
+        ) || "제목 없음";
+
+      const url =
+        get(
+          item,
+          "url",
+          "link"
+        );
+
+      return `
+
+        <div class="news">
+
+          <div class="newsTitle">
+
+            ${
+              url
+              ?
+              `<a
+                 href="${esc(url)}"
+                 target="_blank"
+                 rel="noopener"
+               >
+                 ${esc(title)}
+               </a>`
+              :
+              esc(title)
+            }
+
+          </div>
+
+          <div class="newsMeta">
+            StockTitan
+          </div>
+
+        </div>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+/* =========================================================
+   SEC
+========================================================= */
+
+function makeSEC(sec){
+
+  const filings =
+    sec?.filings ||
+    [];
+
+  if(!filings.length){
+
+    return `
+      <div class="note">
+        SEC 공시 데이터 없음
+      </div>
+    `;
+
+  }
+
+  return filings
+    .slice(0,60)
+    .map(function(f){
+
+      return `
+
+        <div class="news">
+
+          <div class="newsTitle">
+
+            ${esc(f.form || "SEC")}
+
+            ·
+
+            ${esc(f.filed || "")}
+
+          </div>
+
+          <div class="newsMeta">
+
+            ${esc(
+              f.description ||
+              "SEC Filing"
+            )}
+
+          </div>
+
+        </div>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+/* =========================================================
+   다크풀
+========================================================= */
+
+function makeDarkPool(dark){
+
+  const d =
+    dark?.data ||
+    dark ||
+    {};
+
+  return `
+
+    ${row(
+      "다크풀 비율",
+      percent(
+        get(
+          d,
+          "darkPoolPercent",
+          "darkPoolPct",
+          "percentage",
+          "ratio"
+        )
+      ),
+      "DarkFina"
+    )}
+
+    ${row(
+      "거래량",
+      get(d,"volume"),
+      "DarkFina / FINRA ATS"
+    )}
+
+    ${row(
+      "거래금액",
+      get(
+        d,
+        "dollarVolume",
+        "value"
+      ),
+      "DarkFina"
+    )}
+
+    ${row(
+      "5일 평균",
+      percent(
+        get(
+          d,
+          "avg5",
+          "fiveDayAverage"
+        )
+      )
+    )}
+
+    ${row(
+      "22일 평균",
+      percent(
+        get(
+          d,
+          "avg22",
+          "twentyTwoDayAverage"
+        )
+      )
+    )}
+
+    ${row(
+      "66일 평균",
+      percent(
+        get(
+          d,
+          "avg66",
+          "sixtySixDayAverage"
+        )
+      )
+    )}
+
+    ${row(
+      "매수 비율",
+      percent(
+        get(
+          d,
+          "buyPercent",
+          "buyRatio"
+        )
+      )
+    )}
+
+    ${row(
+      "매도 비율",
+      percent(
+        get(
+          d,
+          "sellPercent",
+          "sellRatio"
+        )
+      )
+    )}
+
+    ${row(
+      "판정",
+      get(
+        d,
+        "judgment",
+        "signal"
+      )
+    )}
+
+    <div class="note">
+      DarkFina 표시값은 보조 지표입니다.
+      다크풀 비율만으로 기관 매집을 확정하지 않습니다.
     </div>
-  </div>
 
-  <details>
-    <summary>🌑 다크풀 · 매집 / 분산</summary>
-    <div class="content">
-      ${row("다크풀 비율",pct(get(dark,"darkPoolPercent","percentage","ratio")),"DarkFina / FINRA ATS")}
-      ${row("다크풀 거래량",num(get(dark,"volume"),0))}
-      ${row("다크풀 거래금액",get(dark,"value","dollarVolume"))}
-      ${row("5일 평균",pct(get(dark,"avg5","fiveDayAverage")))}
-      ${row("22일 평균",pct(get(dark,"avg22","twentyTwoDayAverage")))}
-      ${row("66일 평균",pct(get(dark,"avg66","sixtySixDayAverage")))}
-      ${row("매수 비율",pct(get(dark,"buyPercent","buyRatio")))}
-      ${row("매도 비율",pct(get(dark,"sellPercent","sellRatio")))}
-      ${row("판정",get(dark,"judgment","signal"))}
+  `;
+
+}
+
+
+/* =========================================================
+   주가 테이블
+========================================================= */
+
+function makePriceTable(history){
+
+  if(!Array.isArray(history)||!history.length){
+
+    return `
+      <div class="note">
+        주가 데이터 없음
+      </div>
+    `;
+
+  }
+
+  const data =
+    history
+      .slice(-20)
+      .reverse();
+
+  return `
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>날짜</th>
+            <th>시가</th>
+            <th>고가</th>
+            <th>저가</th>
+            <th>종가</th>
+            <th>거래량</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+            data
+              .map(function(x){
+
+                return `
+
+                  <tr>
+
+                    <td>
+                      ${esc(
+                        get(
+                          x,
+                          "date",
+                          "datetime"
+                        ) || ""
+                      )}
+                    </td>
+
+                    <td>
+                      ${number(
+                        get(x,"open")
+                      )}
+                    </td>
+
+                    <td>
+                      ${number(
+                        get(x,"high")
+                      )}
+                    </td>
+
+                    <td>
+                      ${number(
+                        get(x,"low")
+                      )}
+                    </td>
+
+                    <td>
+                      ${number(
+                        get(x,"close")
+                      )}
+                    </td>
+
+                    <td>
+                      ${number(
+                        get(x,"volume"),
+                        0
+                      )}
+                    </td>
+
+                  </tr>
+
+                `;
+
+              })
+              .join("")
+          }
+
+        </tbody>
+
+      </table>
+
     </div>
-  </details>
 
-  <details>
-    <summary>🔥 공매도 / Short Interest</summary>
-    <div class="content">
-      ${row("Short Interest",num(get(short,"shortInterest","sharesShort"),0),"FINRA")}
-      ${row("Short % Float",pct(get(short,"shortPercentFloat","shortPctFloat")),"FINRA")}
-      ${row("Days to Cover",num(get(short,"daysToCover")),"FINRA")}
-      ${row("전회
+  `;
+
+}
+
+
+/* =========================================================
+   차트
+========================================================= */
+
+function drawChart(history){
+
+  const canvas =
+    document.getElementById("chart");
+
+  if(
+    !canvas ||
+    !Array.isArray(history) ||
+    !history.length
+  ){
+
+    return;
+
+  }
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const width =
+    Math.max(
+      300,
+      rect.width
+    );
+
+  const height=270;
+
+  const dpr =
+    window.devicePixelRatio || 1;
+
+  canvas.width =
+    width*dpr;
+
+  canvas.height =
+    height*dpr;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  ctx.scale(dpr,dpr);
+
+  const data =
+    history
+      .slice(-90)
+      .map(function(x){
+
+        return {
+
+          date:
+            get(
+              x,
+              "date",
+              "datetime"
+            ),
+
+          close:
+            Number(
+              get(
+                x,
+                "close"
+              )
+            )
+
+        };
+
+      })
+      .filter(
+        x=>Number.isFinite(x.close)
+      );
+
+  if(!data.length)return;
+
+  const prices =
+    data.map(
+      x=>x.close
+    );
+
+  let min =
+    Math.min(...prices);
+
+  let max =
+    Math.max(...prices);
+
+  if(min===max){
+
+    min-=1;
+    max+=1;
+
+  }
+
+  const marginLeft=45;
+  const marginRight=12;
+  const marginTop=18;
+  const marginBottom=30;
+
+  const plotWidth =
+    width-marginLeft-marginRight;
+
+  const plotHeight =
+    height-marginTop-marginBottom;
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  /*
+    grid
+  */
+
+  ctx.strokeStyle="#24334b";
+  ctx.lineWidth=1;
+
+  for(let i=0;i<4;i++){
+
+    const y =
+      marginTop+
+      plotHeight*i/3;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      marginLeft,
+      y
+    );
+
+    ctx.lineTo(
+      width-marginRight,
+      y
+    );
+
+    ctx.stroke();
+
+  }
+
+  /*
+    price labels
+  */
+
+  ctx.fillStyle="#73829b";
+  ctx.font="10px sans-serif";
+
+  ctx.fillText(
+    number(max),
+    4,
+    marginTop+4
+  );
+
+  ctx.fillText(
+    number(min),
+    4,
+    marginTop+plotHeight
+  );
+
+  /*
+    line
+  */
+
+  ctx.strokeStyle="#63a8ff";
+  ctx.lineWidth=2;
+
+  ctx.beginPath();
+
+  data.forEach(
+    function(p,i){
+
+      const x =
+        marginLeft+
+        plotWidth*
+        i/
+        Math.max(
+          1,
+          data.length-1
+        );
+
+      const y =
+        marginTop+
+        (
+          (max-p.close)/
+          (max-min)
+        )*
+        plotHeight;
+
+      if(i===0){
+
+        ctx.moveTo(x,y);
+
+      }else{
+
+        ctx.lineTo(x,y);
+
+      }
+
+    }
+  );
+
+  ctx.stroke();
+
+  /*
+    latest point
+  */
+
+  const last=data[data.length-1];
+
+  const lx =
+    marginLeft+
+    plotWidth;
+
+  const ly =
+    marginTop+
+    (
+      (max-last.close)/
+      (max-min)
+    )*
+    plotHeight;
+
+  ctx.fillStyle="#eef3ff";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    lx,
+    ly,
+    3,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  /*
+    date
+  */
+
+  ctx.fillStyle="#73829b";
+
+  ctx.fillText(
+    String(last.date||""),
+    Math.max(
+      marginLeft,
+      width-105
+    ),
+    height-8
+  );
+
+}
+
+
+/* =========================================================
+   전체 렌더링
+========================================================= */
+
+function render(d){
+
+  const q =
+    d.quote ||
+    {};
+
+  const fh =
+    d.finnhubQuote ||
+    {};
+
+  const technical =
+    d.technical ||
+    {};
+
+  const flow =
+    d.flow ||
+    {};
+
+  const short =
+    d.short ||
+    {};
+
+  const darkpool =
+    d.darkpool ||
+    {};
+
+  const sec =
+    d.sec ||
+    {};
+
+  const dilution =
+    d.dilution ||
+    {};
+
+  const warrant =
+    d.warrant ||
+    {};
+
+  const history =
+    d.history ||
+    [];
+
+  const news =
+    d.news ||
+    [];
+
+  const stocktitan =
+    d.stocktitan ||
+    {};
+
+  const symbol =
+    get(
+      d,
+      "symbol"
+    ) ||
+    $("symbol").value;
+
+  const price =
+    get(
+      d,
+      "price"
+    );
+
+  const change =
+    get(
+      d,
+      "change"
+    );
+
+  const companyName =
+    get(
+      q,
+      "name"
+    ) ||
+    "";
+
+  const exchange =
+    get(
+      q,
+      "exchange"
+    ) ||
+    "";
+
+  const accumulation =
+    get(
+      flow,
+      "accumulationScore"
+    );
+
+  const sell =
+    get(
+      flow,
+      "sellScore"
+    );
+
+  const judgment =
+    get(
+      flow,
+      "judgment"
+    ) ||
+    "확인 불가";
+
+  let judgmentClass=
+    "neutral";
+
+  if(
+    String(judgment)
+      .includes("매집")
+  ){
+
+    judgmentClass="up";
+
+  }
+
+  if(
+    String(judgment)
+      .includes("분산") ||
+    String(judgment)
+      .includes("매도")
+  ){
+
+    judgmentClass="down";
+
+  }
+
+  if(
+    String(judgment)
+      ==="중립"
+  ){
+
+    judgmentClass="neutral";
+
+  }
+
+  const reasons =
+    flow.reasons ||
+    [];
+
+  const reasonsHTML =
+    Array.isArray(reasons) &&
+    reasons.length
+    ?
+    reasons
+      .map(
+        x=>`• ${esc(x)}`
+      )
+      .join("<br>")
+    :
+    "판단 근거 데이터 없음";
+
+
+  $("app").innerHTML=`
+
+    <!-- ================================================
+         HERO
+    ================================================= -->
+
+    <div class="card hero">
+
+      <div class="heroTop">
+
+        <div>
+
+          <div class="ticker">
+            ${esc(symbol)}
+          </div>
+
+          <div class="name">
+
+            ${esc(companyName)}
+
+            ${
+              exchange
+              ?
+              " · "+esc(exchange)
+              :
+              ""
+            }
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="price">
+
+            ${
+              price===null
+              ?
+              "데이터 없음"
+              :
+              "$"+number(price,4)
+            }
+
+          </div>
+
+          <div
+            class="change ${changeClass(change)}"
+          >
+
+            ${
+              change===null
+              ?
+              "데이터 없음"
+              :
+              (
+                Number(change)>0
+                ? "+"
+                : ""
+              )+
+              number(change,2)+
+              "%"
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="grid"
+        style="margin-top:15px"
+      >
+
+        ${metric(
+          "거래량",
+          get(
+            q,
+            "volume"
+          )
+        )}
+
+        ${metric(
+          "52주 고가",
+          get(
+            technical,
+            "high52",
+            "week52High"
+          )
+        )}
+
+        ${metric(
+          "52주 저가",
+          get(
+            technical,
+            "low52",
+            "week52Low"
+          )
+        )}
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================
+         FINAL JUDGEMENT
+    ================================================= -->
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        🎯 종합 판단
+      </div>
+
+      <div
+        class="judgement ${judgmentClass}"
+      >
+
+        ${esc(judgment)}
+
+      </div>
+
+
+      <div class="scoreRow">
+
+        <span>
+          매집 점수
+        </span>
+
+        <b>
+          ${
+            accumulation===null
+            ?
+            "데이터 없음"
+            :
+            number(
+              accumulation,
+              0
+            )+"/100"
+          }
+        </b>
+
+      </div>
+
+      <div class="bar">
+
+        <div
+          class="fillBuy"
+          style="
+            width:${
+              accumulation===null
+              ?
+              0
+              :
+              Math.max(
+                0,
+                Math.min(
+                  100,
+                  Number(accumulation)
+                )
+              )
+            }%
+          "
+        ></div>
+
+      </div>
+
+
+      <div class="scoreRow">
+
+        <span>
+          매도 점수
+        </span>
+
+        <b>
+          ${
+            sell===null
+            ?
+            "데이터 없음"
+            :
+            number(
+              sell,
+              0
+            )+"/100"
+          }
+        </b>
+
+      </div>
+
+      <div class="bar">
+
+        <div
+          class="fillSell"
+          style="
+            width:${
+              sell===null
+              ?
+              0
+              :
+              Math.max(
+                0,
+                Math.min(
+                  100,
+                  Number(sell)
+                )
+              )
+            }%
+          "
+        ></div>
+
+      </div>
+
+
+      <div class="reasons">
+
+        ${reasonsHTML}
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================
+         CHART
+    ================================================= -->
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        📈 주가 차트
+      </div>
+
+      <canvas id="chart"></canvas>
+
+      <div class="chartInfo">
+        최근 90거래일 · 실제 수집된 데이터만 표시
+      </div>
+
+    </div>
+
+
+    <!-- ================================================
+         TECHNICAL
+    ================================================= -->
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        📊 핵심 지표
+      </div>
+
+      <div class="grid">
+
+        ${metric(
+          "MA20 · 최근 20일 평균",
+          get(
+            technical,
+            "ma20"
+          )
+        )}
+
+        ${metric(
+          "MA50 · 최근 50일 평균",
+          get(
+            technical,
+            "ma50"
+          )
+        )}
+
+        ${metric(
+          "MA200 · 장기 평균",
+          get(
+            technical,
+            "ma200"
+          )
+        )}
+
+        ${metric(
+          "RSI · 상승/하락 강도",
+          get(
+            technical,
+            "rsi"
+          )
+        )}
+
+        ${metric(
+          "VWAP · 거래량 가중 평균",
+          get(
+            technical,
+            "vwap"
+          )
+        )}
+
+        ${metric(
+          "OBV · 거래량 흐름",
+          get(
+            technical,
+            "obv"
+          )
+        )}
+
+        ${metric(
+          "거래량 / 20일 평균",
+          technical.volumeRatio===null
+          ?
+          null
+          :
+          number(
+            technical.volumeRatio,
+            2
+          )+"배"
+        )}
+
+        ${metric(
+          "5일 모멘텀",
+          technical.momentum5===null
+          ?
+          null
+          :
+          percent(
+            technical.momentum5
+          )
+        )}
+
+        ${metric(
+          "20일 모멘텀",
+          technical.momentum20===null
+          ?
+          null
+          :
+          percent(
+            technical.momentum20
+          )
+        )}
+
+        ${metric(
+          "추세",
+          get(
+            technical,
+            "trend"
+          )
+        )}
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================
+         DARK POOL
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        🌑 다크풀 · 매집 / 분산
+      </summary>
+
+      <div class="content">
+
+        ${makeDarkPool(
+          darkpool
+        )}
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         SHORT
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        🔥 공매도 / Short Interest
+      </summary>
+
+      <div class="content">
+
+        ${row(
+          "Short Interest",
+          get(
+            short,
+            "shortInterest",
+            "sharesShort"
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "Short % Float",
+          percent(
+            get(
+              short,
+              "shortPercentFloat",
+              "shortPctFloat"
+            )
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "Days to Cover",
+          get(
+            short,
+            "daysToCover"
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "Daily Short Volume",
+          get(
+            short,
+            "dailyShortVolume"
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "Daily Short Volume %",
+          percent(
+            get(
+              short,
+              "dailyShortVolumePercent"
+            )
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "상태",
+          get(
+            short,
+            "status"
+          )
+        )}
+
+        <div class="note">
+
+          Short Interest와 Daily Short Sale Volume은
+          서로 다른 지표입니다.
+
+        </div>
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         REG SHO
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        📊 Reg SHO
+      </summary>
+
+      <div class="content">
+
+        ${row(
+          "Reg SHO",
+          get(
+            d,
+            "regSho",
+            "regSHO"
+          ),
+          "FINRA"
+        )}
+
+        ${row(
+          "Threshold",
+          get(
+            d,
+            "threshold"
+          ),
+          "FINRA"
+        )}
+
+        <div class="note">
+
+          데이터가 없는 경우 0으로 표시하지 않습니다.
+
+        </div>
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         DILUTION
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        💵 희석 / 실제 주식수
+      </summary>
+
+      <div class="content">
+
+        ${row(
+          "현재 실제 주식수",
+          get(
+            sec,
+            "shares"
+          ),
+          "SEC EDGAR"
+        )}
+
+        ${row(
+          "희석 관련 공시",
+          Array.isArray(
+            dilution.filings
+          )
+          ?
+          dilution.filings.length
+          :
+          (
+            Array.isArray(
+              sec.dilution
+            )
+            ?
+            sec.dilution.length
+            :
+            null
+          ),
+          "SEC EDGAR"
+        )}
+
+        ${
+          Array.isArray(sec.dilution)
+          ?
+          sec.dilution
+            .slice(0,15)
+            .map(
+              f=>`
+
+                <div class="news">
+
+                  <div class="newsTitle">
+                    ${esc(
+                      f.form||
+                      "SEC"
+                    )}
+                    ·
+                    ${esc(
+                      f.filed||
+                      ""
+                    )}
+                  </div>
+
+                  <div class="newsMeta">
+                    ${esc(
+                      f.description||
+                      "희석 관련 공시"
+                    )}
+                  </div>
+
+                </div>
+
+              `
+            )
+            .join("")
+          :
+          ""
+        }
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         WARRANT
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        🎫 워런트 / 전환
+      </summary>
+
+      <div class="content">
+
+        ${
+          Array.isArray(
+            sec.warrants
+          ) &&
+          sec.warrants.length
+          ?
+
+          sec.warrants
+            .slice(0,20)
+            .map(
+              f=>`
+
+                <div class="news">
+
+                  <div class="newsTitle">
+
+                    ${esc(
+                      f.form||
+                      "SEC"
+                    )}
+
+                    ·
+
+                    ${esc(
+                      f.filed||
+                      ""
+                    )}
+
+                  </div>
+
+                  <div class="newsMeta">
+
+                    ${esc(
+                      f.description||
+                      "워런트/전환 관련 공시"
+                    )}
+
+                  </div>
+
+                </div>
+
+              `
+            )
+            .join("")
+
+          :
+
+          `
+            <div class="note">
+              워런트 / 전환 관련 공시 없음
+            </div>
+          `
+
+        }
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         SEC
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        📑 SEC 공시 · 최근 60건
+      </summary>
+
+      <div class="content">
+
+        ${makeSEC(sec)}
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         NEWS
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        📰 뉴스 · Finnhub
+      </summary>
+
+      <div class="content">
+
+        ${makeNews(news)}
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         STOCKTITAN
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        📰 StockTitan 뉴스
+      </summary>
+
+      <div class="content">
+
+        ${makeStockTitan(
+          stocktitan
+        )}
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         PRICE HISTORY
+    ================================================= -->
+
+    <details>
+
+      <summary>
+        📅 최근 20거래일 주가
+      </summary>
+
+      <div class="content">
+
+        ${makePriceTable(
+          history
+        )}
+
+      </div>
+
+    </details>
+
+
+    <!-- ================================================
+         SOURCE
+    ================================================= -->
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        🔗 데이터 출처
+      </div>
+
+      <div class="grid">
+
+        <div class="metric">
+          <div class="label">
+            Twelve Data
+          </div>
+          <div class="value">
+            ${d.sources?.twelveData?"연결":"없음"}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="label">
+            Finnhub
+          </div>
+          <div class="value">
+            ${d.sources?.finnhub?"연결":"없음"}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="label">
+            SEC EDGAR
+          </div>
+          <div class="value">
+            ${d.sources?.sec?"연결":"없음"}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="label">
+            StockTitan
+          </div>
+          <div class="value">
+            ${d.sources?.stockTitan?"연결":"없음"}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="label">
+            DarkFina
+          </div>
+          <div class="value">
+            ${d.sources?.darkFina?"연결":"없음"}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="label">
+            FINRA
+          </div>
+          <div class="value">
+            확인 중
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  /*
+    차트
+  */
+
+  drawChart(history);
+
+}
+
+
+/* =========================================================
+   Enter 키
+========================================================= */
+
+$("symbol")
+  .addEventListener(
+    "keydown",
+    function(e){
+
+      if(e.key==="Enter"){
+
+        analyze();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   시작
+========================================================= */
+
+analyze();
+
+</script>
+
+</body>
+</html>
