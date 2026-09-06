@@ -2,107 +2,284 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RabbitStock AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#07101d">
+<title>RabbitStock AI Ultimate</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  background:#0b1020;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ margin:0;
+ background:#060c16;
+ color:#fff;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
+
 .wrap{
-  max-width:720px;
-  margin:auto;
-  padding:18px;
+ width:100%;
+ max-width:980px;
+ margin:auto;
+ padding:14px;
 }
-h1{
-  margin:5px 0 4px;
-  font-size:30px;
+
+.header{
+ padding:8px 3px 16px;
 }
-.sub{
-  color:#8f9bb3;
-  margin-bottom:20px;
+
+.logo{
+ font-size:30px;
+ font-weight:900;
 }
+
+.subtitle{
+ color:#7d8aa2;
+ font-size:12px;
+ margin-top:4px;
+}
+
 .card{
-  background:#151c30;
-  border:1px solid #27314d;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
+ background:#101927;
+ border:1px solid #223149;
+ border-radius:18px;
+ padding:16px;
+ margin-bottom:12px;
+ box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
-.row{
-  display:flex;
-  gap:10px;
+
+.search{
+ display:flex;
+ gap:8px;
 }
+
 input{
-  flex:1;
-  min-width:0;
-  background:#0b1020;
-  border:1px solid #34405e;
-  color:#fff;
-  border-radius:12px;
-  padding:14px;
-  font-size:17px;
-  text-transform:uppercase;
+ flex:1;
+ min-width:0;
+ height:50px;
+ border-radius:13px;
+ border:1px solid #354660;
+ background:#07101d;
+ color:#fff;
+ padding:0 14px;
+ font-size:18px;
+ font-weight:800;
+ outline:none;
+ text-transform:uppercase;
 }
+
 button{
-  border:0;
-  border-radius:12px;
-  padding:0 18px;
-  background:#4f7cff;
-  color:#fff;
-  font-size:16px;
-  font-weight:700;
+ height:50px;
+ border:0;
+ border-radius:13px;
+ background:#477cff;
+ color:#fff;
+ padding:0 21px;
+ font-size:16px;
+ font-weight:900;
 }
-.symbol{
-  font-size:15px;
-  color:#8f9bb3;
-  margin-bottom:5px;
+
+button:active{
+ transform:scale(.97);
 }
-.price{
-  font-size:42px;
-  font-weight:800;
-  margin:4px 0;
-}
-.change{
-  font-size:18px;
-  font-weight:700;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:18px;
-}
-.box{
-  background:#0f1527;
-  border-radius:12px;
-  padding:13px;
-}
-.label{
-  color:#8490aa;
-  font-size:12px;
-}
-.value{
-  font-size:17px;
-  font-weight:700;
-  margin-top:4px;
-}
+
 .status{
-  color:#8f9bb3;
-  font-size:13px;
-  margin-top:12px;
+ margin-top:10px;
+ font-size:12px;
+ color:#8190a8;
+ white-space:pre-wrap;
+ word-break:break-word;
 }
-.error{
-  color:#ff7070;
-  white-space:pre-wrap;
+
+.ok{color:#48df91}
+.err{color:#ff6e75}
+
+.symbol{
+ color:#8290a7;
+ font-size:13px;
 }
+
+.price{
+ font-size:48px;
+ font-weight:950;
+ letter-spacing:-2px;
+ margin-top:2px;
+}
+
+.change{
+ font-size:18px;
+ font-weight:900;
+ margin-top:2px;
+}
+
+.green{color:#45df91}
+.red{color:#ff7070}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:8px;
+ margin-top:16px;
+}
+
+.box{
+ background:#091320;
+ border-radius:12px;
+ padding:12px;
+ min-height:65px;
+}
+
+.label{
+ color:#718098;
+ font-size:10px;
+}
+
+.value{
+ font-size:16px;
+ font-weight:850;
+ margin-top:5px;
+ word-break:break-word;
+}
+
+.title{
+ font-size:18px;
+ font-weight:900;
+ margin-bottom:13px;
+}
+
+.big{
+ font-size:35px;
+ font-weight:950;
+}
+
+.badge{
+ display:inline-block;
+ padding:7px 11px;
+ border-radius:30px;
+ background:#19263a;
+ font-size:12px;
+ font-weight:900;
+ margin-top:5px;
+}
+
+.rows{
+ display:flex;
+ flex-direction:column;
+ gap:7px;
+}
+
+.row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ background:#091320;
+ border-radius:11px;
+ padding:11px 12px;
+}
+
+.row .left{
+ color:#8491a8;
+ font-size:12px;
+}
+
+.row .right{
+ font-size:13px;
+ font-weight:850;
+ text-align:right;
+}
+
+.scorebox{
+ display:grid;
+ grid-template-columns:110px 1fr;
+ gap:15px;
+ align-items:center;
+}
+
 .score{
-  font-size:30px;
-  font-weight:800;
+ font-size:42px;
+ font-weight:950;
+}
+
+.bar{
+ height:11px;
+ background:#202c3d;
+ border-radius:20px;
+ overflow:hidden;
+ margin:9px 0;
+}
+
+.barin{
+ height:100%;
+ width:0%;
+ background:#477cff;
+ transition:width .5s;
+}
+
+.meter{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+}
+
+.meterbox{
+ background:#091320;
+ padding:12px;
+ border-radius:12px;
+}
+
+.metername{
+ color:#718098;
+ font-size:10px;
+}
+
+.metervalue{
+ font-size:20px;
+ font-weight:900;
+ margin-top:4px;
+}
+
+.notice{
+ color:#718098;
+ font-size:11px;
+ line-height:1.5;
+ margin-top:10px;
+}
+
+.news{
+ border-bottom:1px solid #223047;
+ padding:11px 0;
+}
+
+.news:last-child{
+ border-bottom:0;
+}
+
+.newshead{
+ font-size:14px;
+ font-weight:800;
+ line-height:1.4;
+}
+
+.newsmeta{
+ color:#64738b;
+ font-size:10px;
+ margin-top:4px;
+}
+
+.footer{
+ text-align:center;
+ color:#4e5d73;
+ font-size:10px;
+ padding:8px;
+}
+
+@media(min-width:650px){
+ .grid{
+  grid-template-columns:repeat(4,1fr);
+ }
+ .meter{
+  grid-template-columns:repeat(4,1fr);
+ }
 }
 </style>
 </head>
@@ -111,235 +288,984 @@ button{
 
 <div class="wrap">
 
-  <h1>🐰 RabbitStock AI</h1>
-  <div class="sub">실시간 주가 자동분석</div>
+<div class="header">
+ <div class="logo">🐰 RabbitStock AI</div>
+ <div class="subtitle">
+ 미국주식 통합 분석 · 실시간 주가 · 모멘텀 · 수급 · 공매도 · 희석 · 뉴스
+ </div>
+</div>
 
-  <div class="card">
-    <div class="row">
-      <input id="symbol" value="BRNX" placeholder="티커 입력">
-      <button onclick="loadStock()">조회</button>
-    </div>
-    <div id="status" class="status">BRNX 데이터 불러오는 중...</div>
-  </div>
 
-  <div class="card">
+<!-- 검색 -->
+<div class="card">
 
-    <div class="symbol" id="stockSymbol">BRNX</div>
+ <div class="search">
+  <input id="symbol" value="BRNX" placeholder="티커">
+  <button id="search">조회</button>
+ </div>
 
-    <div class="price" id="price">-</div>
-
-    <div class="change" id="change">-</div>
-
-    <div class="grid">
-
-      <div class="box">
-        <div class="label">시가</div>
-        <div class="value" id="open">-</div>
-      </div>
-
-      <div class="box">
-        <div class="label">전일 종가</div>
-        <div class="value" id="previousClose">-</div>
-      </div>
-
-      <div class="box">
-        <div class="label">고가</div>
-        <div class="value" id="high">-</div>
-      </div>
-
-      <div class="box">
-        <div class="label">저가</div>
-        <div class="value" id="low">-</div>
-      </div>
-
-      <div class="box">
-        <div class="label">거래량</div>
-        <div class="value" id="volume">-</div>
-      </div>
-
-      <div class="box">
-        <div class="label">데이터 출처</div>
-        <div class="value" id="source">-</div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="label">RabbitStock 상승 신호</div>
-    <div class="score" id="score">분석 중...</div>
-    <div class="status" id="analysis">
-      주가 데이터를 기준으로 기본 신호를 계산합니다.
-    </div>
-  </div>
+ <div id="status" class="status">
+ 데이터 연결 준비 중...
+ </div>
 
 </div>
 
+
+<!-- 현재가 -->
+<div class="card">
+
+ <div class="symbol" id="viewSymbol">BRNX</div>
+
+ <div class="price" id="price">-</div>
+
+ <div class="change" id="change">-</div>
+
+ <div class="grid">
+
+  <div class="box">
+   <div class="label">시가</div>
+   <div class="value" id="open">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">전일 종가</div>
+   <div class="value" id="prev">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">고가</div>
+   <div class="value" id="high">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">저가</div>
+   <div class="value" id="low">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">거래량</div>
+   <div class="value" id="volume">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">데이터 출처</div>
+   <div class="value" id="source">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">일중 위치</div>
+   <div class="value" id="dayPosition">-</div>
+  </div>
+
+  <div class="box">
+   <div class="label">조회시간</div>
+   <div class="value" id="updated">-</div>
+  </div>
+
+ </div>
+</div>
+
+
+<!-- 종합 AI -->
+<div class="card">
+
+ <div class="title">🎯 RabbitStock 종합 점수</div>
+
+ <div class="scorebox">
+
+  <div>
+   <div class="score" id="score">-</div>
+   <div class="badge" id="signal">분석 대기</div>
+  </div>
+
+  <div>
+   <div class="bar">
+    <div class="barin" id="scorebar"></div>
+   </div>
+
+   <div class="status" id="summary">
+    데이터를 받으면 자동 분석합니다.
+   </div>
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- 핵심 지표 -->
+<div class="card">
+
+ <div class="title">📊 핵심 분석</div>
+
+ <div class="meter">
+
+  <div class="meterbox">
+   <div class="metername">가격 모멘텀</div>
+   <div class="metervalue" id="momentum">-</div>
+  </div>
+
+  <div class="meterbox">
+   <div class="metername">추세</div>
+   <div class="metervalue" id="trend">-</div>
+  </div>
+
+  <div class="meterbox">
+   <div class="metername">변동성</div>
+   <div class="metervalue" id="volatility">-</div>
+  </div>
+
+  <div class="meterbox">
+   <div class="metername">위험도</div>
+   <div class="metervalue" id="risk">-</div>
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- 수급 -->
+<div class="card">
+
+ <div class="title">💰 매수·매도 수급</div>
+
+ <div class="rows">
+
+  <div class="row">
+   <span class="left">현재 가격 방향</span>
+   <span class="right" id="flowDirection">-</span>
+  </div>
+
+  <div class="row">
+   <span class="left">거래량</span>
+   <span class="right" id="flowVolume">-</span>
+  </div>
+
+  <div class="row">
+   <span class="left">매수세 추정</span>
+   <span class="right" id="buy">실제 호가 데이터 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">매도세 추정</span>
+   <span class="right" id="sell">실제 호가 데이터 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">수급 판단</span>
+   <span class="right" id="flow">-</span>
+  </div>
+
+ </div>
+
+ <div class="notice">
+ 현재 API에는 실시간 호가/체결 방향 데이터가 없으므로
+ 매수·매도 수치를 임의로 만들지 않습니다.
+ </div>
+
+</div>
+
+
+<!-- 공매도 -->
+<div class="card">
+
+ <div class="title">🔻 공매도 / 숏스퀴즈</div>
+
+ <div class="rows">
+
+  <div class="row">
+   <span class="left">공매도 잔고</span>
+   <span class="right">데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">공매도 비율</span>
+   <span class="right">데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">대차 가능 수량</span>
+   <span class="right">데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">청산 압력</span>
+   <span class="right" id="shortPressure">판단 보류</span>
+  </div>
+
+  <div class="row">
+   <span class="left">숏스퀴즈 가능성</span>
+   <span class="right" id="squeeze">판단 보류</span>
+  </div>
+
+ </div>
+
+ <div class="notice">
+ 실제 공매도 데이터가 연결되지 않은 상태에서는
+ 숫자를 조작하지 않고 데이터 없음으로 표시합니다.
+ </div>
+
+</div>
+
+
+<!-- 희석 -->
+<div class="card">
+
+ <div class="title">🧬 희석 / 증자 / 워런트</div>
+
+ <div class="rows">
+
+  <div class="row">
+   <span class="left">신규 주식 발행</span>
+   <span class="right">SEC 데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">워런트</span>
+   <span class="right">SEC 데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">ATM</span>
+   <span class="right">SEC 데이터 연결 필요</span>
+  </div>
+
+  <div class="row">
+   <span class="left">희석 위험</span>
+   <span class="right" id="dilution">판단 보류</span>
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- 뉴스 -->
+<div class="card">
+
+ <div class="title">📰 뉴스</div>
+
+ <div id="news">
+
+  <div class="news">
+   <div class="newshead">뉴스 API 연결 대기</div>
+   <div class="newsmeta">
+    실제 뉴스 API가 연결되면 여기에 표시됩니다.
+   </div>
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- 최종 -->
+<div class="card">
+
+ <div class="title">🚦 최종 판단</div>
+
+ <div class="rows">
+
+  <div class="row">
+   <span class="left">상승 가능성</span>
+   <span class="right" id="upside">-</span>
+  </div>
+
+  <div class="row">
+   <span class="left">하락 위험</span>
+   <span class="right" id="downside">-</span>
+  </div>
+
+  <div class="row">
+   <span class="left">단기 판단</span>
+   <span class="right" id="shortTerm">-</span>
+  </div>
+
+  <div class="row">
+   <span class="left">종합 의견</span>
+   <span class="right" id="final">-</span>
+  </div>
+
+ </div>
+
+</div>
+
+
+<div class="footer">
+ RabbitStock AI · 실제 데이터 기반 분석
+</div>
+
+</div>
+
+
 <script>
 
+/* =========================================
+   RabbitStock Cloudflare API
+========================================= */
+
 const API =
-  "https://rabbitstock-final.keoss.workers.dev";
+"https://rabbitstock-final.keoss.workers.dev";
+
+
+const $ = id =>
+document.getElementById(id);
+
+
+/* =========================================
+   숫자
+========================================= */
+
+function num(v){
+
+ const x=Number(v);
+
+ return Number.isFinite(x) ? x : 0;
+
+}
+
+
+/* =========================================
+   가격
+========================================= */
 
 function money(v){
-  if(v === undefined || v === null || v === "" || isNaN(v))
-    return "-";
 
-  return "$" + Number(v).toFixed(4);
+ const x=num(v);
+
+ if(!x) return "-";
+
+ return "$"+x.toFixed(4);
+
 }
 
-function number(v){
-  if(v === undefined || v === null || v === "" || isNaN(v))
-    return "-";
 
-  return Number(v).toLocaleString();
+/* =========================================
+   숫자 포맷
+========================================= */
+
+function fmt(v){
+
+ const x=num(v);
+
+ if(!x) return "-";
+
+ return x.toLocaleString();
+
 }
 
-async function loadStock(){
 
-  const input =
-    document.getElementById("symbol");
+/* =========================================
+   퍼센트
+========================================= */
 
-  const symbol =
-    input.value.trim().toUpperCase();
+function percent(v){
 
-  if(!symbol){
-    alert("티커를 입력하세요.");
-    return;
-  }
+ const x=num(v);
 
-  document.getElementById("status").textContent =
-    symbol + " 데이터 조회 중...";
+ return (x>=0?"+":"")+x.toFixed(2)+"%";
 
-  document.getElementById("stockSymbol").textContent =
-    symbol;
+}
 
-  document.getElementById("price").textContent =
-    "조회중...";
+
+/* =========================================
+   초기화
+========================================= */
+
+function reset(){
+
+ $("price").textContent="-";
+ $("change").textContent="-";
+
+ $("open").textContent="-";
+ $("prev").textContent="-";
+ $("high").textContent="-";
+ $("low").textContent="-";
+ $("volume").textContent="-";
+ $("source").textContent="-";
+ $("dayPosition").textContent="-";
+ $("updated").textContent="-";
+
+ $("score").textContent="-";
+ $("signal").textContent="분석 대기";
+ $("scorebar").style.width="0%";
+ $("summary").textContent="분석 중...";
+
+ $("momentum").textContent="-";
+ $("trend").textContent="-";
+ $("volatility").textContent="-";
+ $("risk").textContent="-";
+
+ $("flowDirection").textContent="-";
+ $("flowVolume").textContent="-";
+ $("flow").textContent="-";
+
+ $("shortPressure").textContent="판단 보류";
+ $("squeeze").textContent="판단 보류";
+ $("dilution").textContent="판단 보류";
+
+ $("upside").textContent="-";
+ $("downside").textContent="-";
+ $("shortTerm").textContent="-";
+ $("final").textContent="-";
+
+}
+
+
+/* =========================================
+   조회
+========================================= */
+
+async function searchStock(){
+
+ const symbol=
+ $("symbol").value
+ .trim()
+ .toUpperCase();
+
+ if(!symbol){
+
+  alert("티커를 입력하세요.");
+
+  return;
+ }
+
+ $("symbol").value=symbol;
+ $("viewSymbol").textContent=symbol;
+
+ reset();
+
+ $("status").className="status";
+
+ $("status").textContent=
+ symbol+" 주가 데이터 연결 중...";
+
+
+ const url=
+ API+
+ "/quote?symbol="+
+ encodeURIComponent(symbol);
+
+
+ try{
+
+  const controller=
+  new AbortController();
+
+  const timer=
+  setTimeout(
+   ()=>controller.abort(),
+   12000
+  );
+
+
+  const res=
+  await fetch(
+   url,
+   {
+    method:"GET",
+    mode:"cors",
+    cache:"no-store",
+    signal:controller.signal
+   }
+  );
+
+
+  clearTimeout(timer);
+
+
+  const text=
+  await res.text();
+
+
+  let data;
 
   try{
 
-    const url =
-      API + "/quote?symbol=" +
-      encodeURIComponent(symbol);
+   data=JSON.parse(text);
 
-    const res =
-      await fetch(url, {
-        cache:"no-store"
-      });
+  }catch(e){
 
-    const data =
-      await res.json();
+   throw new Error(
+    "API 응답이 JSON 형식이 아닙니다.\n\n"+
+    text
+   );
 
-    console.log(data);
-
-    if(!data.ok){
-
-      document.getElementById("price").textContent =
-        "-";
-
-      document.getElementById("status").innerHTML =
-        '<span class="error">' +
-        (data.error || "데이터 조회 실패") +
-        "</span>";
-
-      return;
-    }
-
-    document.getElementById("price").textContent =
-      money(data.price);
-
-    const change =
-      Number(data.change || 0);
-
-    const percent =
-      Number(data.percentChange || 0);
-
-    document.getElementById("change").textContent =
-      (change >= 0 ? "▲ " : "▼ ") +
-      money(Math.abs(change)) +
-      " (" +
-      (percent >= 0 ? "+" : "") +
-      percent.toFixed(2) +
-      "%)";
-
-    document.getElementById("open").textContent =
-      money(data.open);
-
-    document.getElementById("previousClose").textContent =
-      money(data.previousClose);
-
-    document.getElementById("high").textContent =
-      money(data.high);
-
-    document.getElementById("low").textContent =
-      money(data.low);
-
-    document.getElementById("volume").textContent =
-      number(data.volume);
-
-    document.getElementById("source").textContent =
-      data.source || "-";
-
-    document.getElementById("status").textContent =
-      "● 데이터 연결 정상";
-
-    // 기본 상승 신호
-    let score = 50;
-
-    if(percent > 0) score += 20;
-    if(percent > 3) score += 10;
-    if(percent < 0) score -= 15;
-    if(percent < -3) score -= 10;
-
-    score =
-      Math.max(0, Math.min(100, score));
-
-    document.getElementById("score").textContent =
-      score + " / 100";
-
-    let text =
-      "중립";
-
-    if(score >= 70)
-      text = "🟢 상승 가능성 강함";
-
-    else if(score >= 55)
-      text = "🟡 상승 우위";
-
-    else if(score <= 30)
-      text = "🔴 하락 위험";
-
-    else if(score <= 45)
-      text = "🟠 하락 우위";
-
-    document.getElementById("analysis").textContent =
-      text;
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById("price").textContent =
-      "-";
-
-    document.getElementById("status").innerHTML =
-      '<span class="error">API 연결 실패\n' +
-      error.message +
-      "</span>";
   }
+
+
+  if(!res.ok){
+
+   throw new Error(
+    "HTTP "+res.status+
+    "\n"+
+    JSON.stringify(data,null,2)
+   );
+
+  }
+
+
+  if(!data.ok){
+
+   $("status").className="status err";
+
+   $("status").textContent=
+    "❌ 주가 데이터 오류\n\n"+
+    (data.error||"데이터 없음");
+
+   return;
+
+  }
+
+
+  const price=num(data.price);
+
+  if(price<=0){
+
+   $("status").className="status err";
+
+   $("status").textContent=
+    "❌ API 연결은 됐지만 현재 가격이 없습니다.\n\n"+
+    JSON.stringify(data,null,2);
+
+   return;
+
+  }
+
+
+  const change=num(data.change);
+
+  const dp=num(data.percentChange);
+
+  const previous=num(data.previousClose);
+
+  const high=num(data.high);
+
+  const low=num(data.low);
+
+  const open=num(data.open);
+
+  const volume=num(data.volume);
+
+
+  /* =====================================
+     기본 주가
+  ===================================== */
+
+  $("price").textContent=
+  money(price);
+
+
+  $("change").textContent=
+  (change>=0?"▲ ":"▼ ")+
+  money(Math.abs(change))+
+  " ("+
+  percent(dp)+
+  ")";
+
+
+  $("change").className=
+  "change "+
+  (change>=0?"green":"red");
+
+
+  $("open").textContent=
+  money(open);
+
+  $("prev").textContent=
+  money(previous);
+
+  $("high").textContent=
+  money(high);
+
+  $("low").textContent=
+  money(low);
+
+  $("volume").textContent=
+  fmt(volume);
+
+  $("source").textContent=
+  data.source||"-";
+
+
+  $("updated").textContent=
+  new Date().toLocaleTimeString("ko-KR");
+
+
+  /* =====================================
+     전일 대비
+  ===================================== */
+
+  if(previous>0){
+
+   $("dayPosition").textContent=
+   percent(
+    ((price-previous)/previous)*100
+   );
+
+  }
+
+
+  /* =====================================
+     장중 위치
+  ===================================== */
+
+  let rangePosition=50;
+
+  if(high>low){
+
+   rangePosition=
+   ((price-low)/(high-low))*100;
+
+   rangePosition=
+   Math.max(
+    0,
+    Math.min(
+     100,
+     rangePosition
+    )
+   );
+
+  }
+
+
+  /* =====================================
+     종합 점수
+  ===================================== */
+
+  let score=50;
+
+
+  /* 모멘텀 */
+
+  if(dp>0)
+   score+=15;
+
+  if(dp>=2)
+   score+=7;
+
+  if(dp>=5)
+   score+=8;
+
+  if(dp>=10)
+   score+=5;
+
+
+  if(dp<0)
+   score-=12;
+
+  if(dp<=-2)
+   score-=7;
+
+  if(dp<=-5)
+   score-=8;
+
+  if(dp<=-10)
+   score-=5;
+
+
+  /* 장중 위치 */
+
+  if(rangePosition>=75)
+   score+=8;
+
+  else if(rangePosition<=25)
+   score-=8;
+
+
+  /* 최종 제한 */
+
+  score=
+  Math.round(
+   Math.max(
+    0,
+    Math.min(
+     100,
+     score
+    )
+   )
+  );
+
+
+  $("score").textContent=
+  score+" / 100";
+
+
+  $("scorebar").style.width=
+  score+"%";
+
+
+  /* =====================================
+     신호
+  ===================================== */
+
+  let signal="";
+  let opinion="";
+
+  if(score>=85){
+
+   signal="🟢 매우 강한 상승";
+   opinion="강한 상승 모멘텀";
+
+  }
+  else if(score>=70){
+
+   signal="🟢 상승 우위";
+   opinion="상승 우위";
+
+  }
+  else if(score>=60){
+
+   signal="🟡 상승 가능";
+   opinion="상승 가능성 있음";
+
+  }
+  else if(score>=45){
+
+   signal="⚪ 중립";
+   opinion="방향성 확인 필요";
+
+  }
+  else if(score>=30){
+
+   signal="🟠 하락 우위";
+   opinion="하락 위험 주의";
+
+  }
+  else{
+
+   signal="🔴 강한 하락";
+   opinion="하락 위험 높음";
+
+  }
+
+
+  $("signal").textContent=
+  signal;
+
+
+  $("summary").textContent=
+  opinion+
+  "\n현재가 "+money(price)+
+  " · 등락 "+percent(dp);
+
+
+  /* =====================================
+     모멘텀
+  ===================================== */
+
+  if(dp>=5)
+   $("momentum").textContent="강함";
+
+  else if(dp>0)
+   $("momentum").textContent="상승";
+
+  else if(dp<=-5)
+   $("momentum").textContent="매우 약함";
+
+  else if(dp<0)
+   $("momentum").textContent="하락";
+
+  else
+   $("momentum").textContent="중립";
+
+
+  /* =====================================
+     추세
+  ===================================== */
+
+  if(rangePosition>=75)
+   $("trend").textContent="상단";
+
+  else if(rangePosition<=25)
+   $("trend").textContent="하단";
+
+  else
+   $("trend").textContent="중간";
+
+
+  /* =====================================
+     변동성
+  ===================================== */
+
+  if(price>0 && high>low){
+
+   const volatility=
+   ((high-low)/price)*100;
+
+   if(volatility>=10)
+    $("volatility").textContent="매우 높음";
+
+   else if(volatility>=5)
+    $("volatility").textContent="높음";
+
+   else
+    $("volatility").textContent="낮음";
+
+  }
+
+
+  /* =====================================
+     위험도
+  ===================================== */
+
+  if(score>=75)
+   $("risk").textContent="보통";
+
+  else if(score>=55)
+   $("risk").textContent="주의";
+
+  else
+   $("risk").textContent="높음";
+
+
+  /* =====================================
+     수급
+  ===================================== */
+
+  $("flowDirection").textContent=
+  dp>0
+  ?"상승"
+  :dp<0
+  ?"하락"
+  :"보합";
+
+
+  $("flowVolume").textContent=
+  volume>0
+  ?fmt(volume)
+  :"데이터 없음";
+
+
+  $("flow").textContent=
+  dp>=3
+  ?"매수 우위 가능성"
+  :dp<=-3
+  ?"매도 우위 가능성"
+  :"중립";
+
+
+  /* =====================================
+     공매도
+  ===================================== */
+
+  $("shortPressure").textContent=
+  "공매도 데이터 필요";
+
+  $("squeeze").textContent=
+  "판단 보류";
+
+
+  /* =====================================
+     희석
+  ===================================== */
+
+  $("dilution").textContent=
+  "SEC 데이터 필요";
+
+
+  /* =====================================
+     최종 판단
+  ===================================== */
+
+  $("upside").textContent=
+  score+"%";
+
+
+  $("downside").textContent=
+  (100-score)+"%";
+
+
+  $("shortTerm").textContent=
+  score>=70
+  ?"상승 우위"
+  :score>=55
+  ?"관찰"
+  :score>=45
+  ?"중립"
+  :"하락 주의";
+
+
+  $("final").textContent=
+  opinion;
+
+
+  /* =====================================
+     정상
+  ===================================== */
+
+  $("status").className=
+  "status ok";
+
+  $("status").textContent=
+  "● API 연결 정상\n"+
+  "티커: "+symbol+
+  "\n출처: "+(data.source||"-");
+
+
+ }
+ catch(err){
+
+  $("status").className=
+  "status err";
+
+
+  if(err.name==="AbortError"){
+
+   $("status").textContent=
+   "❌ API 응답 시간 초과\n\n"+
+   "12초 동안 응답이 없습니다.";
+
+  }else{
+
+   $("status").textContent=
+   "❌ API 연결 실패\n\n"+
+   err.message+
+   "\n\nAPI:\n"+
+   url;
+
+  }
+
+ }
+
 }
 
-document
-  .getElementById("symbol")
-  .addEventListener("keydown", function(e){
 
-    if(e.key === "Enter"){
-      loadStock();
-    }
+/* 엔터 */
 
-  });
+$("symbol").addEventListener(
+ "keydown",
+ function(e){
 
-loadStock();
+  if(e.key==="Enter")
+   searchStock();
+
+ }
+);
+
+
+/* 버튼 */
+
+$("search").addEventListener(
+ "click",
+ searchStock
+);
+
+
+/* 최초 실행 */
+
+window.addEventListener(
+ "load",
+ function(){
+
+  setTimeout(
+   searchStock,
+   500
+  );
+
+ }
+);
 
 </script>
 
