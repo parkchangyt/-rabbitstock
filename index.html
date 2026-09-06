@@ -3,1425 +3,708 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RabbitStock Ultimate</title>
-
+<title>RabbitStock Ultimate 7.2</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;
- background:#09101e;
- color:#eef3ff;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+  margin:0;
+  background:#09101e;
+  color:#eef3ff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-.wrap{max-width:820px;margin:auto;padding:14px}
 header{
- position:sticky;top:0;z-index:10;
- background:#09101eee;
- backdrop-filter:blur(10px);
- padding:6px 0 12px
+  padding:18px 15px;
+  background:#0d1729;
+  border-bottom:1px solid #263653;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-h1{margin:0 0 5px;font-size:27px}
-.sub{color:#8e9ab7;font-size:12px}
-.search{display:flex;gap:8px;margin-top:10px}
-.search input{
- flex:1;min-width:0;
- background:#111b30;color:#fff;
- border:1px solid #30405f;
- border-radius:12px;
- padding:13px;font-size:17px;
- text-transform:uppercase
+h1{margin:0;font-size:22px}
+.sub{color:#8ea2c4;font-size:12px;margin-top:5px}
+.wrap{padding:12px;max-width:900px;margin:auto}
+.row{display:flex;gap:8px}
+input,button{
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  font-size:15px;
 }
-.search button{
- border:0;border-radius:12px;
- padding:0 18px;
- background:#5c7cff;
- color:#fff;font-weight:800
+input{
+  flex:1;
+  background:#16233a;
+  color:white;
+  outline:none;
+  text-transform:uppercase;
 }
+button{
+  background:#2d7cff;
+  color:white;
+  font-weight:700;
+}
+button:active{opacity:.7}
 .card{
- background:#111a2d;
- border:1px solid #293653;
- border-radius:16px;
- padding:15px;
- margin:12px 0
+  background:#101b2d;
+  border:1px solid #243653;
+  border-radius:14px;
+  padding:14px;
+  margin-top:12px;
 }
-.title{font-size:17px;font-weight:850;margin-bottom:11px}
-.price{font-size:38px;font-weight:900}
-.up{color:#43dda0}
-.down{color:#ff637b}
-.muted{color:#8e9ab7}
-.err{color:#ff7489}
+.title{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:12px;
+}
 .grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
 }
 .box{
- background:#0c1527;
- border-radius:11px;
- padding:10px
+  background:#0b1526;
+  border-radius:10px;
+  padding:11px;
 }
-.lab{font-size:11px;color:#8995b1}
-.val{font-weight:750;margin-top:4px}
-.row{
- display:flex;
- justify-content:space-between;
- gap:10px;
- padding:9px 0;
- border-bottom:1px solid #26324b
+.label{
+  color:#8397b8;
+  font-size:11px;
 }
-.row:last-child{border:0}
-.badge{
- display:inline-block;
- border-radius:99px;
- padding:5px 9px;
- background:#27334f;
- font-size:12px;
- font-weight:800
+.value{
+  margin-top:5px;
+  font-size:18px;
+  font-weight:800;
 }
-.score{font-size:46px;font-weight:950}
+.good{color:#36d996}
+.bad{color:#ff6575}
+.warn{color:#ffc857}
+.blue{color:#5ea0ff}
+.muted{color:#91a2bd}
+.score{
+  font-size:42px;
+  font-weight:900;
+}
 .bar{
- height:9px;
- background:#293550;
- border-radius:99px;
- overflow:hidden
+  height:10px;
+  background:#26344d;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
 }
-.fill{
- height:100%;
- width:0;
- background:#6d89ff;
- transition:.4s
+.bar i{
+  display:block;
+  height:100%;
+  width:0;
+  background:#ff5b69;
 }
-canvas{
- width:100%;
- height:220px;
- background:#0c1527;
- border-radius:12px
+.warrant{
+  border:1px solid #283c5d;
+  background:#0b1526;
+  border-radius:11px;
+  padding:11px;
+  margin-top:8px;
+}
+.whead{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+.badge{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#263754;
+  color:#bcd0ef;
+  font-size:10px;
+  margin:3px 3px 0 0;
+}
+.badge.red{background:#542632;color:#ff9aa5}
+.badge.yellow{background:#54461f;color:#ffe18b}
+.badge.green{background:#174837;color:#76e7b2}
+pre{
+  white-space:pre-wrap;
+  word-break:break-word;
+  color:#9eb0cc;
+  font-size:11px;
 }
 .news{
- padding:10px 0;
- border-bottom:1px solid #26324b
+  padding:10px 0;
+  border-bottom:1px solid #243653;
 }
 .news a{
- color:#cbd6ff;
- text-decoration:none;
- font-weight:750
+  color:#dce8ff;
+  text-decoration:none;
+  font-weight:700;
 }
-.small{
- font-size:12px;
- color:#8e9ab7;
- line-height:1.55
+.small{font-size:11px;color:#7589a8}
+.status{
+  margin-top:10px;
+  font-size:12px;
+  color:#8ea2c4;
 }
+.hide{display:none}
 table{
- width:100%;
- border-collapse:collapse;
- font-size:12px
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
 }
-td,th{
- padding:8px 5px;
- border-bottom:1px solid #26324b;
- text-align:left;
- vertical-align:top
+th,td{
+  padding:8px 5px;
+  border-bottom:1px solid #263653;
+  text-align:left;
 }
-th{color:#8e9ab7}
-.loading{
- text-align:center;
- color:#aeb8d3;
- padding:12px;
- display:none
-}
-.warn{
- background:#241b0d;
- border:1px solid #5c4520;
- border-radius:10px;
- padding:10px;
- margin-top:10px
-}
-.good{
- background:#0d241c;
- border:1px solid #205a42;
- border-radius:10px;
- padding:10px;
- margin-top:10px
-}
-.danger{
- background:#2b1117;
- border:1px solid #71303c;
- border-radius:10px;
- padding:10px;
- margin-top:10px
-}
-.link{
- color:#82a8ff;
- text-decoration:none
-}
-@media(max-width:520px){
- .grid{grid-template-columns:1fr 1fr}
- .price{font-size:34px}
+th{color:#8196b8}
+@media(min-width:650px){
+ .grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
-
 <header>
-
-<h1>🐰 RabbitStock</h1>
-
-<div class="sub">
-주가 + 공매도 + SEC + 워런트 + 희석 + 뉴스 종합분석
-</div>
-
-<div class="search">
-<input id="symbol" value="BRNX" maxlength="12">
-<button id="go">조회</button>
-</div>
-
-<div id="loading" class="loading">
-자료를 빠르게 불러오는 중...
-</div>
-
+  <h1>🐰 RabbitStock Ultimate</h1>
+  <div class="sub">주가 · 공매도 · SEC · 워런트 · 희석 · 뉴스 자동분석 7.2</div>
 </header>
 
+<div class="wrap">
 
-<section class="card">
+  <div class="card">
+    <div class="row">
+      <input id="symbol" value="BRNX" placeholder="티커 입력">
+      <button onclick="run()">분석</button>
+    </div>
+    <div id="status" class="status">대기 중</div>
+  </div>
 
-<div class="title">💰 주가</div>
+  <div id="app">
 
-<div id="price" class="price muted">-</div>
+    <div class="card">
+      <div class="title">📈 주가</div>
+      <div class="grid">
+        <div class="box">
+          <div class="label">현재가</div>
+          <div id="price" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">등락률</div>
+          <div id="change" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">52주 최고</div>
+          <div id="high52" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">52주 최저</div>
+          <div id="low52" class="value">-</div>
+        </div>
+      </div>
+    </div>
 
-<div id="chg" class="muted">-</div>
+    <div class="card">
+      <div class="title">🎯 Rabbit 분석점수</div>
+      <div id="score" class="score">-</div>
+      <div id="grade" class="value">-</div>
+      <div class="bar"><i id="scorebar"></i></div>
+      <div id="reasons" class="status"></div>
+    </div>
 
-<div class="grid">
+    <div class="card">
+      <div class="title">📉 공매도</div>
+      <div class="grid">
+        <div class="box">
+          <div class="label">FINRA 공매도 비중</div>
+          <div id="shortRatio" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">NASDAQ Short Interest</div>
+          <div id="shortInterest" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">Days to Cover</div>
+          <div id="dtc" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">시장상태</div>
+          <div id="market" class="value">-</div>
+        </div>
+      </div>
+    </div>
 
-<div class="box">
-<div class="lab">시가</div>
-<div id="open" class="val">-</div>
+    <div class="card">
+      <div class="title">🧨 워런트 레이더</div>
+
+      <div class="grid">
+        <div class="box">
+          <div class="label">워런트 발견</div>
+          <div id="wCount" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">확인된 수량</div>
+          <div id="wQty" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">일반 워런트</div>
+          <div id="normalQty" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">Pre-funded</div>
+          <div id="preQty" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">최저 행사가</div>
+          <div id="strikeMin" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">최고 행사가</div>
+          <div id="strikeMax" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">Anti-Dilution</div>
+          <div id="anti" class="value">-</div>
+        </div>
+        <div class="box">
+          <div class="label">Full-Ratchet</div>
+          <div id="full" class="value">-</div>
+        </div>
+      </div>
+
+      <div class="box" style="margin-top:8px">
+        <div class="label">잠재 희석률</div>
+        <div id="dilution" class="value">계산 중...</div>
+      </div>
+
+      <div class="box" style="margin-top:8px">
+        <div class="label">워런트 위험도</div>
+        <div id="risk" class="score" style="font-size:30px">-</div>
+        <div id="riskLevel" class="value">-</div>
+      </div>
+
+      <div id="warrantList"></div>
+    </div>
+
+    <div class="card">
+      <div class="title">🏛 SEC 최근 공시</div>
+      <div id="secList" class="status">-</div>
+    </div>
+
+    <div class="card">
+      <div class="title">📰 최신 뉴스</div>
+      <div id="newsList">-</div>
+    </div>
+
+  </div>
 </div>
-
-<div class="box">
-<div class="lab">전일 종가</div>
-<div id="prev" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">고가</div>
-<div id="high" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">저가</div>
-<div id="low" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">거래량</div>
-<div id="volume" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">출처</div>
-<div id="source" class="val">-</div>
-</div>
-
-</div>
-</section>
-
-
-<section class="card">
-
-<div class="title">📈 가격 흐름</div>
-
-<canvas id="chart" width="760" height="220"></canvas>
-
-<div id="chartmsg" class="small">
-현재 연결된 데이터 기준
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">🐰 RABBIT SCORE</div>
-
-<div id="score" class="score">-</div>
-
-<span id="verdict" class="badge">
-분석 중
-</span>
-
-<div class="bar" style="margin-top:12px">
-<div id="fill" class="fill"></div>
-</div>
-
-<div id="scoretext"
-class="small"
-style="margin-top:9px">
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">📐 기술적 분석</div>
-
-<div class="grid">
-
-<div class="box">
-<div class="lab">당일 모멘텀</div>
-<div id="momentum" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">일중 위치</div>
-<div id="range" class="val">-</div>
-</div>
-
-<div class="box">
-<div class="lab">RSI</div>
-<div id="rsi" class="val">데이터 없음</div>
-</div>
-
-<div class="box">
-<div class="lab">MACD</div>
-<div id="macd" class="val">데이터 없음</div>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">🩳 공매도 / 숏스퀴즈</div>
-
-<div id="shortBox">
-
-<div class="row">
-<span>Short Interest</span>
-<b id="shortInterest">확인 중...</b>
-</div>
-
-<div class="row">
-<span>Short Interest 기준일</span>
-<b id="shortDate">-</b>
-</div>
-
-<div class="row">
-<span>Days To Cover</span>
-<b id="dtc">-</b>
-</div>
-
-<div class="row">
-<span>Daily Short Volume</span>
-<b id="shortVolume">-</b>
-</div>
-
-<div class="row">
-<span>공매 거래비중</span>
-<b id="shortRatio">-</b>
-</div>
-
-<div class="row">
-<span>숏스퀴즈 판단</span>
-<b id="squeeze">판단 보류</b>
-</div>
-
-</div>
-
-<div class="small">
-※ Short Interest와 FINRA Daily Short Volume은 서로 다른 데이터입니다.
-</div>
-
-</section>
-
-
-<!-- 핵심: 워런트 -->
-
-<section class="card">
-
-<div class="title">🧨 워런트 레이더</div>
-
-<div id="warrant">
-
-<div class="small">
-SEC 워런트 상세정보 확인 중...
-</div>
-
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">⚠️ 희석 / 증자</div>
-
-<div id="dilution">
-불러오는 중...
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">📄 SEC 최근 공시</div>
-
-<div id="company" class="small"></div>
-
-<div id="filings">
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">📰 뉴스</div>
-
-<div id="news">
-불러오는 중...
-</div>
-
-</section>
-
-
-<section class="card">
-
-<div class="title">🚨 최종 분석</div>
-
-<div id="analysis" class="small">
--
-</div>
-
-</section>
-
-</div>
-
 
 <script>
-
 const API =
-"https://rabbitstock-final.keoss.workers.dev";
-
+  "https://rabbitstock-final.keoss.workers.dev";
 
 const $ = id =>
-document.getElementById(id);
+  document.getElementById(id);
 
+function esc(v){
+  return String(v ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
 
-const fmt = (v,d=2) => {
+function money(v){
+  if(v === null || v === undefined || !Number.isFinite(Number(v)))
+    return "-";
 
- if(v==null || v==="" || !isFinite(Number(v)))
- return "데이터 없음";
+  return "$" + Number(v).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:4
+    }
+  );
+}
 
- return Number(v).toLocaleString("en-US",{
-  minimumFractionDigits:d,
-  maximumFractionDigits:d
- });
+function integer(v){
+  if(v === null || v === undefined || !Number.isFinite(Number(v)))
+    return "-";
 
-};
+  return Number(v).toLocaleString("en-US");
+}
 
+function pct(v){
+  if(v === null || v === undefined || !Number.isFinite(Number(v)))
+    return "-";
 
-const num = v => {
+  return Number(v).toFixed(2) + "%";
+}
 
- const n=Number(v);
-
- return Number.isFinite(n)?n:null;
-
-};
-
-
-const pct = v => {
-
- const n=num(v);
-
- if(n===null)
- return "데이터 없음";
-
- return (n>0?"+":"")+n.toFixed(2)+"%";
-
-};
-
-
-async function get(path,s,timeout=12000){
-
- const controller =
- new AbortController();
-
- const timer =
- setTimeout(()=>controller.abort(),timeout);
-
- try{
-
-  const r =
-  await fetch(
-   API+path+
-   "?symbol="+
-   encodeURIComponent(s),
-   {
-    cache:"no-store",
-    signal:controller.signal
-   }
+async function api(path){
+  const r = await fetch(
+    API + path,
+    {
+      cache:"no-store"
+    }
   );
 
-  if(!r.ok)
-  throw new Error("HTTP "+r.status);
+  const data = await r.json();
 
-  return await r.json();
+  if(!r.ok || data.ok === false)
+    throw new Error(
+      data.error || "API 오류"
+    );
 
- }finally{
-
-  clearTimeout(timer);
-
- }
-
+  return data;
 }
-
-
-function setText(id,v){
-
- const el=$(id);
-
- if(!el)return;
-
- el.textContent =
- v==null ? "데이터 없음" : v;
-
-}
-
-
-function drawChart(points){
-
- const c=$("chart");
-
- if(!c)return;
-
- const x=c.getContext("2d");
-
- x.clearRect(0,0,c.width,c.height);
-
- const a=
- points
- .map(Number)
- .filter(Number.isFinite);
-
- if(a.length<2){
-
-  $("chartmsg").textContent=
-  "차트용 데이터가 부족합니다.";
-
-  return;
-
- }
-
- const mn=Math.min(...a);
- const mx=Math.max(...a);
- const pad=(mx-mn)||1;
-
- x.beginPath();
-
- a.forEach((v,i)=>{
-
-  const px=
-  20+i*(c.width-40)/(a.length-1);
-
-  const py=
-  200-(v-mn)/pad*170;
-
-  if(i)
-   x.lineTo(px,py);
-  else
-   x.moveTo(px,py);
-
- });
-
- x.stroke();
-
- $("chartmsg").textContent=
- "최근 가격 데이터 "+a.length+"개";
-
-}
-
-
-/* =========================
-   워런트 계산
-========================= */
-
-function renderWarrant(sec,price,symbol){
-
- const box=$("warrant");
-
- /*
-  Worker가 앞으로 warrantDetails를 반환하면
-  자동으로 아래 로직이 사용된다.
- */
-
- const wd=
- sec &&
- sec.warrantDetails;
-
- /*
-  BRNX 현재 SEC F-3의 확인된 구조.
-  Worker가 세부값을 아직 반환하지 않는 경우에도
-  BRNX에 대해서는 SEC 원문 링크와 함께 표시.
- */
-
- if(
-  symbol==="BRNX" &&
-  (!wd || !wd.items)
- ){
-
-  const current=
-  num(price);
-
-  const newW=893769;
-  const oldW=624390;
-  const anti=895608;
-  const shares=1695027;
-  const strike=87.36;
-
-  const exerciseGap=
-  current!=null
-  ? ((strike/current)-1)*100
-  : null;
-
-  const totalPotential=
-  newW+oldW+anti;
-
-  const dilution=
-  shares>0
-  ? totalPotential/shares*100
-  : null;
-
-  box.innerHTML=`
-
-   <div class="good">
-
-    <div class="row">
-     <span>신규 워런트</span>
-     <b>${newW.toLocaleString()}주</b>
-    </div>
-
-    <div class="row">
-     <span>신규 행사가</span>
-     <b>$${strike.toFixed(2)}</b>
-    </div>
-
-    <div class="row">
-     <span>현재가</span>
-     <b>${current==null?"데이터 없음":"$"+current.toFixed(2)}</b>
-    </div>
-
-    <div class="row">
-     <span>기존 워런트</span>
-     <b>${oldW.toLocaleString()}주</b>
-    </div>
-
-    <div class="row">
-     <span>Anti-dilution 추가 가능</span>
-     <b>${anti.toLocaleString()}주</b>
-    </div>
-
-    <div class="row">
-     <span>현재 보통주</span>
-     <b>${shares.toLocaleString()}주</b>
-    </div>
-
-    <div class="row">
-     <span>Full-ratchet</span>
-     <b>있음 ⚠️</b>
-    </div>
-
-   </div>
-
-   ${
-    current!=null && current<strike
-    ?
-    `<div class="warn">
-      현재가는 신규 워런트 행사가보다
-      크게 낮습니다.<br><br>
-      <b>현재 가격 기준 즉시 행사 유인은 낮음</b><br>
-      다만 잠재 희석 물량 자체는 매우 큽니다.
-    </div>`
-    :
-    ""
-   }
-
-   <div class="row">
-    <span>잠재 물량 합계</span>
-    <b>${totalPotential.toLocaleString()}주</b>
-   </div>
-
-   <div class="row">
-    <span>현재 보통주 대비 잠재물량</span>
-    <b>${dilution.toFixed(1)}%</b>
-   </div>
-
-   <div class="small" style="margin-top:9px">
-    신규 워런트는 SEC F-3에 명시된
-    893,769주이며 행사가 $87.36입니다.
-    기존 워런트 624,390주와
-    anti-dilution 추가 가능 물량도 별도로 존재합니다.
-   </div>
-
-   <div style="margin-top:10px">
-    <a class="link"
-       href="https://www.sec.gov/Archives/edgar/data/1901215/000121390026095755/ea0303821-f3_brenx.htm"
-       target="_blank"
-       rel="noopener">
-       📄 SEC F-3 원문 열기
-    </a>
-   </div>
-  `;
-
-  return;
-
- }
-
-
- if(wd && Array.isArray(wd.items)){
-
-  if(!wd.items.length){
-
-   box.innerHTML=
-   `<div class="good">
-    확인된 워런트가 없습니다.
-   </div>`;
-
-   return;
-
-  }
-
-  let html="";
-
-  let total=0;
-
-  wd.items.forEach((w,i)=>{
-
-   const qty=num(w.quantity);
-   const strike=num(w.exercisePrice);
-   const expiry=w.expiration||"데이터 없음";
-
-   if(qty)total+=qty;
-
-   let status="확인 필요";
-
-   if(
-    price!=null &&
-    strike!=null
-   ){
-
-    status=
-    price>=strike
-    ? "현재가 ≥ 행사가"
-    : "현재가 < 행사가";
-
-   }
-
-   html+=`
-
-    <div class="box"
-         style="margin-bottom:8px">
-
-     <b>워런트 ${i+1}</b>
-
-     <div class="row">
-      <span>수량</span>
-      <b>${qty==null?"데이터 없음":qty.toLocaleString()+"주"}</b>
-     </div>
-
-     <div class="row">
-      <span>행사가</span>
-      <b>${strike==null?"데이터 없음":"$"+strike.toFixed(4)}</b>
-     </div>
-
-     <div class="row">
-      <span>만기</span>
-      <b>${expiry}</b>
-     </div>
-
-     <div class="row">
-      <span>현재가 비교</span>
-      <b>${status}</b>
-     </div>
-
-     ${
-      w.sourceUrl
-      ?
-      `<a class="link"
-          href="${w.sourceUrl}"
-          target="_blank"
-          rel="noopener">
-          SEC 원문
-       </a>`
-      :""
-     }
-
-    </div>
-
-   `;
-
-  });
-
-  html+=`
-
-   <div class="row">
-    <span>확인된 워런트 합계</span>
-    <b>${total.toLocaleString()}주</b>
-   </div>
-
-  `;
-
-  box.innerHTML=html;
-
-  return;
-
- }
-
-
- box.innerHTML=`
-
-  <div class="warn">
-
-   현재 Worker의 SEC 응답에는
-   워런트 세부 숫자가 포함되어 있지 않습니다.
-
-   <br><br>
-
-   SEC 공시 자체는 정상적으로 연결되어 있습니다.
-
-   <br><br>
-
-   <b>
-   워런트 숫자를 추측해서 표시하지 않습니다.
-   </b>
-
-  </div>
-
- `;
-
-}
-
-
-/* =========================
-   공매도
-========================= */
-
-function renderShort(S){
-
- if(!S || !S.ok){
-
-  $("shortInterest").textContent=
-  "데이터 없음";
-
-  $("shortRatio").textContent=
-  "데이터 없음";
-
-  $("squeeze").textContent=
-  "판단 보류";
-
-  return;
-
- }
-
- const si=
- S.shortInterest||{};
-
- const dv=
- S.dailyShortVolume||{};
-
-
- setText(
-  "shortInterest",
-  si.currentShort==null
-  ? "데이터 없음"
-  : Number(si.currentShort).toLocaleString()+"주"
- );
-
-
- setText(
-  "shortDate",
-  si.settlementDate||"데이터 없음"
- );
-
-
- setText(
-  "dtc",
-  si.daysToCover==null
-  ? "데이터 없음"
-  : Number(si.daysToCover).toFixed(2)
- );
-
-
- setText(
-  "shortVolume",
-  dv.shortVolume==null
-  ? "데이터 없음"
-  : Number(dv.shortVolume).toLocaleString()
- );
-
-
- setText(
-  "shortRatio",
-  dv.shortRatio==null
-  ? "데이터 없음"
-  : Number(dv.shortRatio).toFixed(2)+"%"
- );
-
-
- $("squeeze").textContent=
- S.squeeze||"판단 보류";
-
-}
-
-
-/* =========================
-   SEC
-========================= */
-
-function renderSec(S,s,price){
-
- if(!S || !S.ok){
-
-  $("dilution").textContent=
-  "SEC 데이터를 가져오지 못했습니다.";
-
-  return;
-
- }
-
- const an=
- S.analysis &&
- typeof S.analysis==="object"
- ? S.analysis
- : {};
-
-
- $("company").textContent=
- (S.companyName||s)+
- " · CIK "+
- (S.cik||"데이터 없음");
-
-
- $("dilution").innerHTML=`
-
-  <div class="row">
-   <span>증권 발행/등록</span>
-   <b>${an.offering||"데이터 없음"}</b>
-  </div>
-
-  <div class="row">
-   <span>희석 가능성</span>
-   <b>${an.dilution||"데이터 없음"}</b>
-  </div>
-
-  <div class="row">
-   <span>워런트</span>
-   <b>${an.warrant||"데이터 없음"}</b>
-  </div>
-
-  <div class="row">
-   <span>ATM</span>
-   <b>${an.atm||"데이터 없음"}</b>
-  </div>
-
-  <div class="row">
-   <span>전환증권</span>
-   <b>${an.convertible||"데이터 없음"}</b>
-  </div>
-
-  <div class="row">
-   <span>SEC 위험점수</span>
-   <b>${an.riskScore==null?"데이터 없음":an.riskScore+"/100"}</b>
-  </div>
-
-  <div class="row">
-   <span>위험등급</span>
-   <b>${an.riskLevel||"데이터 없음"}</b>
-  </div>
-
- `;
-
-
- renderWarrant(S,price,s);
-
-
- const fs=
- Array.isArray(S.filings)
- ? S.filings
- : [];
-
-
- $("filings").innerHTML=
- fs.length
- ?
- `<table>
-  <tr>
-   <th>일자</th>
-   <th>Form</th>
-   <th>문서</th>
-  </tr>
-
-  ${
-   fs.map(f=>`
-
-    <tr>
-
-     <td>${String(f.date||"-")}</td>
-
-     <td>${String(f.form||"-")}</td>
-
-     <td>
-      ${
-       f.url
-       ?
-       `<a class="link"
-           href="${f.url}"
-           target="_blank"
-           rel="noopener">
-           SEC
-        </a>`
-       :
-       "-"
-      }
-     </td>
-
-    </tr>
-
-   `).join("")
-  }
-
- </table>`
- :
- "공시 데이터 없음";
-
-}
-
-
-/* =========================
-   뉴스
-========================= */
-
-function renderNews(N){
-
- if(
-  N &&
-  N.ok &&
-  Array.isArray(N.news) &&
-  N.news.length
- ){
-
-  $("news").innerHTML=
-  N.news.map(n=>{
-
-   const title=
-   n.title||
-   n.headline||
-   "제목 없음";
-
-   const link=
-   n.link||
-   n.url||
-   "#";
-
-   const date=
-   n.publishedAt||
-   n.datetime||
-   "";
-
-   return `
-
-    <div class="news">
-
-     <a href="${link}"
-        target="_blank"
-        rel="noopener">
-        ${title}
-     </a>
-
-     <div class="small">
-      ${n.source||""} · ${date}
-     </div>
-
-     ${
-      n.summary
-      ?
-      `<div class="small">
-       ${n.summary}
-       </div>`
-      :""
-     }
-
-    </div>
-
-   `;
-
-  }).join("");
-
- }else{
-
-  $("news").textContent=
-  "현재 뉴스 데이터가 없습니다.";
-
- }
-
-}
-
-
-/* =========================
-   점수
-========================= */
-
-function renderScore(A,Q,S){
-
- let score=
- A && A.score!=null
- ? Number(A.score)
- : null;
-
-
- if(score==null && Q && Q.ok){
-
-  const p=
-  Number(
-   Q.changePercent!=null
-   ?Q.changePercent
-   :Q.percentChange
-  );
-
-  score=
-  p>=10?95:
-  p>=5?85:
-  p>=2?70:
-  p>0?60:
-  p<=-10?10:
-  p<=-5?20:
-  p<=-2?35:
-  p<0?45:
-  50;
-
- }
-
-
- if(
-  score==null
- ){
-
-  $("score").textContent="-";
-
-  return;
-
- }
-
-
- score=
- Math.round(
-  Math.max(
-   0,
-   Math.min(100,score)
-  )
- );
-
-
- $("score").textContent=
- score;
-
- $("fill").style.width=
- score+"%";
-
-
- const v=
- score>=75
- ?"강한 상승 우세":
- score>=60
- ?"상승 우세":
- score>=40
- ?"중립":
- score>=25
- ?"하락 주의":
- "하락 위험";
-
-
- $("verdict").textContent=v;
-
-
- $("scoretext").textContent=
- A && A.analysisText
- ? A.analysisText
- : "확인 가능한 데이터 기준 참고용 점수";
-
-
- $("analysis").innerHTML=
- A && A.analysisText
- ? A.analysisText.replace(/\n/g,"<br>")
- : "현재 확인 가능한 데이터를 기준으로 분석했습니다.";
-
-}
-
-
-/* =========================
-   전체 실행
-========================= */
 
 async function run(){
 
- const s=
- $("symbol")
- .value
- .trim()
- .toUpperCase();
+  const symbol =
+    $("symbol").value
+      .trim()
+      .toUpperCase();
 
- if(!s)return;
+  if(!symbol){
+    alert("티커를 입력하세요.");
+    return;
+  }
 
-
- $("loading").style.display=
- "block";
-
-
- setText("price","불러오는 중...");
- setText("chg","불러오는 중...");
- setText("source","연결 중...");
-
-
- try{
-
-  /*
-   핵심 속도 개선:
-   주가 먼저 받고 화면 표시
-  */
-
-  let Q=null;
+  $("status").textContent =
+    symbol + " 분석 중...";
 
   try{
 
-   Q=
-   await get("/quote",s,8000);
+    /*
+      핵심 데이터 4개를 동시에 요청
+    */
+    const [
+      quote,
+      short,
+      sec,
+      news,
+      analysis
+    ] = await Promise.all([
+      api("/quote?symbol="+encodeURIComponent(symbol)),
+      api("/short?symbol="+encodeURIComponent(symbol)),
+      api("/sec?symbol="+encodeURIComponent(symbol)),
+      api("/news?symbol="+encodeURIComponent(symbol)),
+      api("/analysis?symbol="+encodeURIComponent(symbol))
+    ]);
+
+    renderQuote(quote);
+    renderShort(short,quote);
+    renderAnalysis(analysis);
+    renderWarrants(sec.warrants || [],sec.warrantSummary || {});
+    renderSEC(sec.filings || []);
+    renderNews(news.news || []);
+
+    $("status").textContent =
+      "✅ " + symbol +
+      " 분석 완료 · SEC 워런트 자동검색 완료";
 
   }catch(e){
 
-   console.log("quote",e);
+    console.error(e);
+
+    $("status").textContent =
+      "❌ 오류: " +
+      (e.message || e);
 
   }
-
-
-  if(Q && Q.ok){
-
-   const change=
-   Q.changePercent!=null
-   ?Q.changePercent
-   :Q.percentChange;
-
-   $("price").textContent=
-   "$"+fmt(Q.price);
-
-   $("price").className="price";
-
-   $("chg").textContent=
-   fmt(Q.change)+
-   " ("+
-   pct(change)+
-   ")";
-
-   $("chg").className=
-   "change "+
-   (Number(Q.change)>=0
-    ?"up"
-    :"down");
-
-
-   setText(
-    "open",
-    Q.open==null
-    ?"데이터 없음"
-    :"$"+fmt(Q.open)
-   );
-
-
-   setText(
-    "prev",
-    Q.previousClose==null
-    ?"데이터 없음"
-    :"$"+fmt(Q.previousClose)
-   );
-
-
-   setText(
-    "high",
-    Q.high==null
-    ?"데이터 없음"
-    :"$"+fmt(Q.high)
-   );
-
-
-   setText(
-    "low",
-    Q.low==null
-    ?"데이터 없음"
-    :"$"+fmt(Q.low)
-   );
-
-
-   setText(
-    "volume",
-    Q.volume==null
-    ?"데이터 없음"
-    :Number(Q.volume).toLocaleString()
-   );
-
-
-   setText(
-    "source",
-    Q.source||"Yahoo Finance"
-   );
-
-
-   setText(
-    "momentum",
-    pct(change)
-   );
-
-
-   const hi=num(Q.high);
-   const lo=num(Q.low);
-   const pr=num(Q.price);
-
-   const range=
-   hi!=null && lo!=null
-   ?hi-lo
-   :null;
-
-   const pos=
-   range && pr!=null
-   ?(pr-lo)/range*100
-   :null;
-
-
-   setText(
-    "range",
-    pos==null
-    ?"데이터 없음"
-    :pos.toFixed(1)+"%"
-   );
-
-
-   drawChart([
-    Q.open,
-    Q.low,
-    Q.price,
-    Q.high,
-    Q.previousClose
-   ]);
-
-
-  }else{
-
-   setText(
-    "price",
-    "주가 데이터 없음"
-   );
-
-   setText(
-    "chg",
-    "주가 API 응답 실패"
-   );
-
-  }
-
-
-  /*
-   주가 표시 후 나머지는 동시에 요청
-  */
-
-  const results=
-  await Promise.allSettled([
-
-   get("/short",s,12000),
-
-   get("/sec",s,15000),
-
-   get("/news",s,12000),
-
-   get("/analysis",s,12000)
-
-  ]);
-
-
-  const S=
-  results[0].status==="fulfilled"
-  ?results[0].value
-  :null;
-
-
-  const SEC=
-  results[1].status==="fulfilled"
-  ?results[1].value
-  :null;
-
-
-  const N=
-  results[2].status==="fulfilled"
-  ?results[2].value
-  :null;
-
-
-  const A=
-  results[3].status==="fulfilled"
-  ?results[3].value
-  :null;
-
-
-  renderShort(S);
-
-  renderSec(
-   SEC,
-   s,
-   Q&&Q.ok
-   ?num(Q.price)
-   :null
-  );
-
-  renderNews(N);
-
-  renderScore(A,Q,S);
-
-
- }catch(e){
-
-  $("analysis").innerHTML=
-  `<span class="err">
-   오류: ${String(e)}
-  </span>`;
-
- }
-
-
- $("loading").style.display=
- "none";
-
 }
 
+function renderQuote(q){
 
-$("go")
-.addEventListener("click",run);
+  $("price").textContent =
+    money(q.price);
 
+  $("change").textContent =
+    q.changePct === null
+      ? "-"
+      : pct(q.changePct);
 
-$("symbol")
-.addEventListener(
- "keydown",
- e=>{
-  if(e.key==="Enter")
-  run();
- }
+  $("change").className =
+    "value " +
+    (
+      q.changePct > 0
+        ? "good"
+        : q.changePct < 0
+          ? "bad"
+          : ""
+    );
+
+  $("high52").textContent =
+    money(q.fiftyTwoWeekHigh);
+
+  $("low52").textContent =
+    money(q.fiftyTwoWeekLow);
+
+  $("market").textContent =
+    q.marketState || "-";
+}
+
+function renderShort(s,q){
+
+  $("shortRatio").textContent =
+    pct(s.shortRatio);
+
+  $("shortInterest").textContent =
+    integer(s.shortInterest);
+
+  $("dtc").textContent =
+    s.daysToCover === null
+      ? "-"
+      : Number(s.daysToCover).toFixed(2);
+
+  if(
+    s.shortRatio !== null &&
+    s.shortRatio >= 40
+  ){
+    $("shortRatio").className =
+      "value bad";
+  }else{
+    $("shortRatio").className =
+      "value";
+  }
+}
+
+function renderAnalysis(a){
+
+  $("score").textContent =
+    a.score ?? "-";
+
+  $("grade").textContent =
+    a.grade || "-";
+
+  $("scorebar").style.width =
+    Math.max(
+      0,
+      Math.min(
+        100,
+        Number(a.score || 0)
+      )
+    ) + "%";
+
+  $("reasons").innerHTML =
+    (a.reasons || [])
+      .map(x =>
+        "• " + esc(x)
+      )
+      .join("<br>") ||
+    "특이사항 없음";
+}
+
+function renderWarrants(list,s){
+
+  $("wCount").textContent =
+    s.count ?? list.length ?? 0;
+
+  $("wQty").textContent =
+    integer(s.totalQuantity);
+
+  $("normalQty").textContent =
+    integer(s.normalWarrantQuantity);
+
+  $("preQty").textContent =
+    integer(s.preFundedQuantity);
+
+  $("strikeMin").textContent =
+    money(s.exercisePriceMin);
+
+  $("strikeMax").textContent =
+    money(s.exercisePriceMax);
+
+  $("anti").textContent =
+    integer(s.antiDilutionCount);
+
+  $("full").textContent =
+    integer(s.fullRatchetCount);
+
+  $("dilution").textContent =
+    s.potentialDilutionPercent === null
+      ? "현재 주식수 확인 필요"
+      : pct(s.potentialDilutionPercent);
+
+  $("risk").textContent =
+    (s.riskScore ?? "-") + "/100";
+
+  $("riskLevel").textContent =
+    s.riskLevel || "-";
+
+  $("risk").className =
+    "score " +
+    (
+      Number(s.riskScore) >= 75
+        ? "bad"
+        : Number(s.riskScore) >= 50
+          ? "warn"
+          : "good"
+    );
+
+  if(!list.length){
+    $("warrantList").innerHTML =
+      '<div class="status">SEC에서 확인 가능한 워런트가 없습니다.</div>';
+    return;
+  }
+
+  $("warrantList").innerHTML =
+    list.slice(0,30).map((w,i)=>{
+
+      let badges = "";
+
+      if(w.preFunded)
+        badges +=
+          '<span class="badge yellow">PRE-FUNDED</span>';
+
+      if(w.antiDilution)
+        badges +=
+          '<span class="badge red">ANTI-DILUTION</span>';
+
+      if(w.fullRatchet)
+        badges +=
+          '<span class="badge red">FULL-RATCHET</span>';
+
+      if(w.cashlessExercise)
+        badges +=
+          '<span class="badge green">CASHLESS</span>';
+
+      return `
+        <div class="warrant">
+          <div class="whead">
+            <b>#${i+1} · ${esc(w.form || "")}</b>
+            <span class="small">${esc(w.date || "")}</span>
+          </div>
+
+          <div style="margin-top:7px">
+            ${badges}
+          </div>
+
+          <div class="grid" style="margin-top:8px">
+            <div class="box">
+              <div class="label">수량</div>
+              <div class="value">
+                ${integer(w.quantity)}
+              </div>
+            </div>
+
+            <div class="box">
+              <div class="label">행사가</div>
+              <div class="value">
+                ${money(w.exercisePrice)}
+              </div>
+            </div>
+          </div>
+
+          ${
+            w.expiration
+              ? `<div class="small" style="margin-top:8px">
+                   만기: ${esc(w.expiration)}
+                 </div>`
+              : ""
+          }
+
+          ${
+            w.evidence
+              ? `<details style="margin-top:8px">
+                   <summary class="small">
+                     SEC 근거 보기
+                   </summary>
+                   <pre>${esc(w.evidence)}</pre>
+                 </details>`
+              : ""
+          }
+
+          ${
+            w.filingUrl
+              ? `<div style="margin-top:7px">
+                   <a
+                     href="${esc(w.filingUrl)}"
+                     target="_blank"
+                     rel="noopener"
+                     class="small"
+                   >SEC 원문 열기 ↗</a>
+                 </div>`
+              : ""
+          }
+        </div>
+      `;
+    }).join("");
+}
+
+function renderSEC(list){
+
+  if(!list.length){
+    $("secList").textContent =
+      "SEC 공시 없음";
+    return;
+  }
+
+  $("secList").innerHTML =
+    `<table>
+      <thead>
+        <tr>
+          <th>형식</th>
+          <th>날짜</th>
+          <th>Accession</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${
+          list.slice(0,20).map(x=>`
+            <tr>
+              <td>${esc(x.form)}</td>
+              <td>${esc(x.date)}</td>
+              <td>${esc(x.accession)}</td>
+            </tr>
+          `).join("")
+        }
+      </tbody>
+    </table>`;
+}
+
+function renderNews(list){
+
+  if(!list.length){
+    $("newsList").textContent =
+      "뉴스 없음";
+    return;
+  }
+
+  $("newsList").innerHTML =
+    list.slice(0,20).map(n=>`
+
+      <div class="news">
+
+        <a
+          href="${esc(n.link)}"
+          target="_blank"
+          rel="noopener"
+        >
+          ${esc(n.title)}
+        </a>
+
+        <div class="small">
+          ${esc(n.publisher || "")}
+        </div>
+
+      </div>
+
+    `).join("");
+}
+
+/*
+  엔터키로 분석
+*/
+$("symbol").addEventListener(
+  "keydown",
+  e => {
+    if(e.key === "Enter")
+      run();
+  }
 );
 
-
+/*
+  처음 실행
+*/
 run();
-
 </script>
 
 </body>
