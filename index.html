@@ -274,8 +274,6 @@ input{
 ========================= */
 
 .chartbox{
-  position:relative;
-
   overflow:hidden;
 
   border-radius:16px;
@@ -288,81 +286,6 @@ input{
   height:340px;
 
   display:block;
-
-  touch-action:none;
-
-  cursor:crosshair;
-}
-
-/* =========================
-   선택 캔들 정보
-========================= */
-
-.chart-info{
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-
-  gap:6px;
-
-  margin-top:8px;
-}
-
-.chart-info-box{
-  min-width:0;
-
-  padding:9px 8px;
-
-  border:
-    1px solid #1b2735;
-
-  border-radius:11px;
-
-  background:#0b111a;
-}
-
-.chart-info-box span{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#718095;
-
-  font-size:9px;
-  font-weight:800;
-}
-
-.chart-info-box b{
-  display:block;
-
-  overflow:hidden;
-
-  color:#e8eef7;
-
-  font-size:11px;
-  font-weight:900;
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.chart-date{
-  grid-column:1/-1;
-
-  padding:8px 10px;
-
-  border-radius:10px;
-
-  background:#172434;
-
-  color:#ffc857;
-
-  font-size:12px;
-
-  font-weight:950;
-
-  text-align:center;
 }
 
 /* =========================
@@ -632,15 +555,6 @@ td:first-child{
   .card{
     border-radius:18px;
   }
-
-  .chart-info{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-
-  .chart-date{
-    grid-column:1/-1;
-  }
 }
 </style>
 </head>
@@ -793,53 +707,7 @@ td:first-child{
 
     </div>
 
-    <!-- 선택 캔들 정보 -->
-
-    <div
-      id="chartInfo"
-      class="chart-info"
-    >
-
-      <div class="chart-date">
-        캔들을 터치하면 날짜별 상세정보가 표시됩니다
-      </div>
-
-      <div class="chart-info-box">
-        <span>시가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>고가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>저가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>종가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>거래량</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>전일 대비</span>
-        <b>-</b>
-      </div>
-
-    </div>
-
     <div class="note">
-      캔들을 터치하면 해당 거래일의
-      시가·고가·저가·종가·거래량을 확인할 수 있습니다.
-      <br>
       초록 = 상승 캔들 · 빨강 = 하락 캔들
       · 노랑 = MA20 · 파랑 = MA50
     </div>
@@ -984,7 +852,7 @@ td:first-child{
 
   <!-- =========================
        SEC
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1006,7 +874,7 @@ td:first-child{
 
   <!-- =========================
        NEWS
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1028,7 +896,7 @@ td:first-child{
 
   <!-- =========================
        STOCKTITAN
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1050,7 +918,7 @@ td:first-child{
 
   <!-- =========================
        DARKFINA
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1072,7 +940,7 @@ td:first-child{
 
   <!-- =========================
        HISTORY
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1094,7 +962,7 @@ td:first-child{
 
   <!-- =========================
        SOURCE
-  ========================= -->
+  ========================== -->
 
   <details>
 
@@ -1124,15 +992,6 @@ td:first-child{
 
 const API =
   "https://rabbitstock-final.keoss.workers.dev";
-
-
-/* =========================================================
-   차트 상태
-========================================================= */
-
-let chartRows = [];
-
-let selectedCandle = -1;
 
 
 /* =========================================================
@@ -1293,304 +1152,6 @@ async function api(path) {
 
 
 /* =========================================================
-   차트용 데이터 정리
-========================================================= */
-
-function prepareChartRows(data){
-
-  const rows =
-    (
-      data.history &&
-      data.history.history
-    ) || [];
-
-  chartRows =
-    rows
-      .map(
-        row => ({
-
-          date:
-            row.datetime ||
-            row.date ||
-            "",
-
-          open:
-            number(row.open),
-
-          high:
-            number(row.high),
-
-          low:
-            number(row.low),
-
-          close:
-            number(row.close),
-
-          volume:
-            number(row.volume)
-
-        })
-      )
-      .filter(
-        row =>
-          row.date &&
-          row.open !== null &&
-          row.high !== null &&
-          row.low !== null &&
-          row.close !== null
-      )
-      .sort(
-        (a,b) =>
-          new Date(a.date) -
-          new Date(b.date)
-      )
-      .slice(-80);
-
-
-  if (
-    selectedCandle < 0 ||
-    selectedCandle >= chartRows.length
-  ){
-
-    selectedCandle =
-      chartRows.length - 1;
-
-  }
-
-}
-
-
-/* =========================================================
-   선택 캔들 정보
-========================================================= */
-
-function renderSelectedCandle(){
-
-  const box =
-    $("chartInfo");
-
-  if(!box){
-    return;
-  }
-
-  if(
-    !chartRows.length ||
-    selectedCandle < 0
-  ){
-
-    box.innerHTML = `
-
-      <div class="chart-date">
-        캔들을 터치하면 날짜별 상세정보가 표시됩니다
-      </div>
-
-      <div class="chart-info-box">
-        <span>시가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>고가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>저가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>종가</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>거래량</span>
-        <b>-</b>
-      </div>
-
-      <div class="chart-info-box">
-        <span>전일 대비</span>
-        <b>-</b>
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  const row =
-    chartRows[selectedCandle];
-
-
-  const previous =
-    chartRows[selectedCandle - 1];
-
-
-  let change = null;
-
-
-  if(
-    previous &&
-    previous.close !== null &&
-    previous.close !== 0
-  ){
-
-    change =
-      (
-        row.close /
-        previous.close -
-        1
-      ) * 100;
-
-  }
-
-
-  const changeClass =
-    change > 0
-      ? "up"
-      : change < 0
-        ? "down"
-        : "";
-
-
-  box.innerHTML = `
-
-    <div class="chart-date">
-      📅 ${esc(row.date)}
-      · ${selectedCandle + 1} / ${chartRows.length}
-    </div>
-
-    <div class="chart-info-box">
-      <span>시가</span>
-      <b>${fmt(row.open,4)}</b>
-    </div>
-
-    <div class="chart-info-box">
-      <span>고가</span>
-      <b>${fmt(row.high,4)}</b>
-    </div>
-
-    <div class="chart-info-box">
-      <span>저가</span>
-      <b>${fmt(row.low,4)}</b>
-    </div>
-
-    <div class="chart-info-box">
-      <span>종가</span>
-      <b>${fmt(row.close,4)}</b>
-    </div>
-
-    <div class="chart-info-box">
-      <span>거래량</span>
-      <b>${fmt(row.volume,0)}</b>
-    </div>
-
-    <div class="chart-info-box">
-      <span>전일 대비</span>
-      <b class="${changeClass}">
-        ${percent(change)}
-      </b>
-    </div>
-
-  `;
-}
-
-
-/* =========================================================
-   캔들 선택
-========================================================= */
-
-function selectCandle(event){
-
-  const canvas =
-    $("chart");
-
-  if(
-    !canvas ||
-    !chartRows.length
-  ){
-    return;
-  }
-
-
-  const rect =
-    canvas.getBoundingClientRect();
-
-
-  const clientX =
-    event.touches
-      ? event.touches[0].clientX
-      : event.clientX;
-
-
-  const x =
-    clientX -
-    rect.left;
-
-
-  const width =
-    rect.width;
-
-
-  const paddingLeft =
-    10;
-
-  const paddingRight =
-    10;
-
-
-  const chartWidth =
-    width -
-    paddingLeft -
-    paddingRight;
-
-
-  const candleWidth =
-    chartWidth /
-    chartRows.length;
-
-
-  let index =
-    Math.floor(
-      (
-        x -
-        paddingLeft
-      ) /
-      candleWidth
-    );
-
-
-  index =
-    Math.max(
-      0,
-      Math.min(
-        chartRows.length - 1,
-        index
-      )
-    );
-
-
-  selectedCandle =
-    index;
-
-
-  renderSelectedCandle();
-
-
-  if(window.rabbitData){
-
-    drawChart(
-      window.rabbitData
-    );
-
-  }
-
-}
-
-
-/* =========================================================
    캔들 차트
 ========================================================= */
 
@@ -1599,40 +1160,28 @@ function drawChart(data) {
   const canvas =
     $("chart");
 
-  if(!canvas){
-    return;
-  }
+  const rows =
+    (
+      data.history &&
+      data.history.history
+    ) || [];
 
-
-  prepareChartRows(
-    data
-  );
-
-
-  if (!chartRows.length) {
+  if (!rows.length) {
 
     const ctx =
       canvas.getContext("2d");
 
-    const ratio =
-      window.devicePixelRatio ||
-      1;
-
     canvas.width =
       canvas.clientWidth *
-      ratio;
+      devicePixelRatio;
 
     canvas.height =
       340 *
-      ratio;
+      devicePixelRatio;
 
-    ctx.setTransform(
-      ratio,
-      0,
-      0,
-      ratio,
-      0,
-      0
+    ctx.scale(
+      devicePixelRatio,
+      devicePixelRatio
     );
 
     ctx.fillStyle =
@@ -1647,8 +1196,6 @@ function drawChart(data) {
       30
     );
 
-    renderSelectedCandle();
-
     return;
   }
 
@@ -1657,14 +1204,11 @@ function drawChart(data) {
     canvas.clientWidth;
 
   const height =
-    window.innerWidth <= 620
-      ? 290
-      : 340;
+    340;
 
   const ratio =
     window.devicePixelRatio ||
     1;
-
 
   canvas.width =
     width * ratio;
@@ -1672,12 +1216,10 @@ function drawChart(data) {
   canvas.height =
     height * ratio;
 
-
   const ctx =
     canvas.getContext(
       "2d"
     );
-
 
   ctx.setTransform(
     ratio,
@@ -1688,7 +1230,6 @@ function drawChart(data) {
     0
   );
 
-
   ctx.clearRect(
     0,
     0,
@@ -1698,46 +1239,38 @@ function drawChart(data) {
 
 
   const candles =
-    chartRows;
+    rows.slice(-80);
 
 
   const values = [];
 
-
   candles.forEach(
     item => {
 
-      if(
-        item.high !== null
-      ){
-
+      if (
+        number(item.high) !== null
+      ) {
         values.push(
-          item.high
+          number(item.high)
         );
-
       }
 
-      if(
-        item.low !== null
-      ){
-
+      if (
+        number(item.low) !== null
+      ) {
         values.push(
-          item.low
+          number(item.low)
         );
-
       }
 
     }
   );
 
 
-  if(!values.length){
+  if (!values.length) {
 
     ctx.fillStyle =
       "#7f8c9e";
-
-    ctx.font =
-      "13px sans-serif";
 
     ctx.fillText(
       "차트 데이터 없음",
@@ -1750,27 +1283,14 @@ function drawChart(data) {
 
 
   let high =
-    Math.max(
-      ...values
-    );
+    Math.max(...values);
 
   let low =
-    Math.min(
-      ...values
-    );
+    Math.min(...values);
 
 
   const range =
-    high -
-    low ||
-    1;
-
-
-  high +=
-    range * .05;
-
-  low -=
-    range * .05;
+    high - low || 1;
 
 
   const paddingTop =
@@ -1791,30 +1311,26 @@ function drawChart(data) {
     paddingTop -
     paddingBottom;
 
-
   const chartWidth =
     width -
     paddingLeft -
     paddingRight;
 
 
-  function y(price){
+  function y(price) {
 
     return (
       paddingTop +
       (
         (high - price) /
-        (high - low)
+        range
       ) *
       chartHeight
     );
-
   }
 
 
-  /* =====================
-     GRID
-  ===================== */
+  /* 그리드 */
 
   ctx.lineWidth =
     1;
@@ -1822,18 +1338,18 @@ function drawChart(data) {
   ctx.strokeStyle =
     "#1b2735";
 
-
-  for(
-    let i=0;
-    i<5;
+  for (
+    let i = 0;
+    i < 5;
     i++
-  ){
+  ) {
 
     const yy =
       paddingTop +
-      chartHeight *
-      i / 4;
-
+      (
+        chartHeight / 4
+      ) *
+      i;
 
     ctx.beginPath();
 
@@ -1849,13 +1365,10 @@ function drawChart(data) {
     );
 
     ctx.stroke();
-
   }
 
 
-  /* =====================
-     PRICE SCALE
-  ===================== */
+  /* 가격 눈금 */
 
   ctx.fillStyle =
     "#65748a";
@@ -1863,28 +1376,27 @@ function drawChart(data) {
   ctx.font =
     "10px sans-serif";
 
-
-  for(
-    let i=0;
-    i<5;
+  for (
+    let i = 0;
+    i < 5;
     i++
-  ){
+  ) {
 
     const price =
       high -
       (
-        high -
-        low
+        range / 4
       ) *
-      i / 4;
+      i;
 
+    const yy =
+      y(price);
 
     ctx.fillText(
       fmt(price,3),
       10,
-      y(price) - 4
+      yy - 4
     );
-
   }
 
 
@@ -1893,32 +1405,29 @@ function drawChart(data) {
     candles.length;
 
 
-  /* =====================
-     CANDLES
-  ===================== */
+  /* 캔들 */
 
   candles.forEach(
     (item,index) => {
 
       const open =
-        item.open;
+        number(item.open);
 
       const close =
-        item.close;
+        number(item.close);
 
       const highPrice =
-        item.high;
+        number(item.high);
 
       const lowPrice =
-        item.low;
+        number(item.low);
 
-
-      if(
+      if (
         open === null ||
         close === null ||
         highPrice === null ||
         lowPrice === null
-      ){
+      ) {
         return;
       }
 
@@ -1934,20 +1443,18 @@ function drawChart(data) {
         close >= open;
 
 
-      const candleColor =
+      ctx.strokeStyle =
+        rising
+          ? "#31e981"
+          : "#ff5f70";
+
+      ctx.fillStyle =
         rising
           ? "#31e981"
           : "#ff5f70";
 
 
-      /* wick */
-
-      ctx.strokeStyle =
-        candleColor;
-
-      ctx.lineWidth =
-        1;
-
+      /* 꼬리 */
 
       ctx.beginPath();
 
@@ -1964,11 +1471,7 @@ function drawChart(data) {
       ctx.stroke();
 
 
-      /* body */
-
-      ctx.fillStyle =
-        candleColor;
-
+      /* 몸통 */
 
       const top =
         y(
@@ -1977,7 +1480,6 @@ function drawChart(data) {
             close
           )
         );
-
 
       const bottom =
         y(
@@ -2010,61 +1512,52 @@ function drawChart(data) {
   );
 
 
-  /* =====================
-     MA
-  ===================== */
+  /* MA */
 
   function movingAverage(
     index,
     period
-  ){
+  ) {
 
-    if(
+    if (
       index + 1 <
       period
-    ){
+    ) {
       return null;
     }
 
-
     let total = 0;
 
-
-    for(
+    for (
       let i =
         index + 1 - period;
-
       i <= index;
-
       i++
-    ){
+    ) {
 
       total +=
-        candles[i].close;
-
+        number(
+          candles[i].close
+        ) || 0;
     }
 
-
     return (
-      total /
-      period
+      total / period
     );
-
   }
 
 
   function drawMA(
     period,
     lineColor
-  ){
+  ) {
 
-    if(
+    if (
       candles.length <
       period
-    ){
+    ) {
       return;
     }
-
 
     ctx.strokeStyle =
       lineColor;
@@ -2074,16 +1567,14 @@ function drawChart(data) {
 
     ctx.beginPath();
 
-
     let started =
       false;
 
-
-    for(
-      let i=0;
-      i<candles.length;
+    for (
+      let i = 0;
+      i < candles.length;
       i++
-    ){
+    ) {
 
       const ma =
         movingAverage(
@@ -2091,13 +1582,9 @@ function drawChart(data) {
           period
         );
 
-
-      if(
-        ma === null
-      ){
+      if (ma === null) {
         continue;
       }
-
 
       const x =
         paddingLeft +
@@ -2105,12 +1592,10 @@ function drawChart(data) {
         i +
         candleWidth / 2;
 
-
       const yy =
         y(ma);
 
-
-      if(!started){
+      if (!started) {
 
         ctx.moveTo(
           x,
@@ -2120,7 +1605,7 @@ function drawChart(data) {
         started =
           true;
 
-      }else{
+      } else {
 
         ctx.lineTo(
           x,
@@ -2128,12 +1613,9 @@ function drawChart(data) {
         );
 
       }
-
     }
 
-
     ctx.stroke();
-
   }
 
 
@@ -2148,121 +1630,33 @@ function drawChart(data) {
   );
 
 
-  /* =====================
-     선택 캔들 표시
-  ===================== */
-
-  if(
-    selectedCandle >= 0 &&
-    selectedCandle <
-    candles.length
-  ){
-
-    const item =
-      candles[
-        selectedCandle
-      ];
-
-
-    const x =
-      paddingLeft +
-      candleWidth *
-      selectedCandle +
-      candleWidth / 2;
-
-
-    /* 세로 선택선 */
-
-    ctx.strokeStyle =
-      "#ffc857";
-
-    ctx.lineWidth =
-      1;
-
-    ctx.setLineDash([
-      4,
-      4
-    ]);
-
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      x,
-      paddingTop
-    );
-
-    ctx.lineTo(
-      x,
-      height -
-      paddingBottom
-    );
-
-    ctx.stroke();
-
-
-    ctx.setLineDash([]);
-
-
-    /* 선택점 */
-
-    if(
-      item.close !== null
-    ){
-
-      ctx.fillStyle =
-        "#ffc857";
-
-
-      ctx.beginPath();
-
-      ctx.arc(
-        x,
-        y(item.close),
-        3,
-        0,
-        Math.PI * 2
-      );
-
-      ctx.fill();
-
-    }
-
-  }
-
-
-  /* =====================
-     LAST PRICE
-  ===================== */
+  /* 마지막 가격 */
 
   const last =
     candles[
       candles.length - 1
     ];
 
-
-  if(
+  if (
     last &&
-    last.close !== null
-  ){
+    number(last.close) !== null
+  ) {
 
     const lastPrice =
-      last.close;
-
+      number(
+        last.close
+      );
 
     const yy =
       y(lastPrice);
 
-
     ctx.strokeStyle =
       "#59687b";
-
 
     ctx.setLineDash([
       4,
       4
     ]);
-
 
     ctx.beginPath();
 
@@ -2279,9 +1673,7 @@ function drawChart(data) {
 
     ctx.stroke();
 
-
     ctx.setLineDash([]);
-
 
     ctx.fillStyle =
       "#dbe3ed";
@@ -2289,90 +1681,12 @@ function drawChart(data) {
     ctx.font =
       "bold 10px sans-serif";
 
-
     ctx.fillText(
       fmt(lastPrice,3),
       width - 62,
       yy - 5
     );
-
   }
-
-
-  /* =====================
-     날짜 라벨
-  ===================== */
-
-  ctx.fillStyle =
-    "#65748a";
-
-  ctx.font =
-    "9px sans-serif";
-
-
-  const labelCount =
-    Math.min(
-      6,
-      candles.length
-    );
-
-
-  for(
-    let i=0;
-    i<labelCount;
-    i++
-  ){
-
-    const index =
-      Math.round(
-        i *
-        (
-          candles.length - 1
-        ) /
-        (
-          labelCount - 1 ||
-          1
-        )
-      );
-
-
-    const item =
-      candles[index];
-
-
-    const x =
-      paddingLeft +
-      candleWidth *
-      index +
-      candleWidth / 2;
-
-
-    const date =
-      String(
-        item.date
-      ).slice(
-        5,
-        10
-      );
-
-
-    ctx.fillText(
-      date,
-      Math.max(
-        paddingLeft,
-        Math.min(
-          width - 35,
-          x - 13
-        )
-      ),
-      height - 10
-    );
-
-  }
-
-
-  renderSelectedCandle();
-
 }
 
 
@@ -2385,7 +1699,6 @@ function renderShort(data) {
   const rows =
     data.finra
       ?.shortInterest || [];
-
 
   if (!rows.length) {
 
@@ -3571,8 +2884,6 @@ function renderAll(data) {
 
   /* 차트 */
 
-  selectedCandle = -1;
-
   drawChart(
     data
   );
@@ -3752,57 +3063,10 @@ $("symbol")
 
 
 /* =========================================================
-   차트 터치 / 클릭
-========================================================= */
-
-const chartCanvas =
-  $("chart");
-
-
-if(chartCanvas){
-
-  chartCanvas.addEventListener(
-    "pointerdown",
-    event => {
-
-      event.preventDefault();
-
-      selectCandle(
-        event
-      );
-
-    },
-    {
-      passive:false
-    }
-  );
-
-
-  chartCanvas.addEventListener(
-    "touchstart",
-    event => {
-
-      event.preventDefault();
-
-      selectCandle(
-        event
-      );
-
-    },
-    {
-      passive:false
-    }
-  );
-
-}
-
-
-/* =========================================================
-   화면 크기 변경
+   화면 크기 변경 시 차트 재렌더
 ========================================================= */
 
 let resizeTimer;
-
 
 window.addEventListener(
   "resize",
@@ -3812,14 +3076,13 @@ window.addEventListener(
       resizeTimer
     );
 
-
     resizeTimer =
       setTimeout(
         () => {
 
-          if(
+          if (
             window.rabbitData
-          ){
+          ) {
 
             drawChart(
               window.rabbitData
