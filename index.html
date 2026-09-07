@@ -2,1397 +2,3842 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b13">
+
 <title>RabbitStock Ultimate</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
 html,body{
- margin:0;
- padding:0;
- background:#09101e;
- color:#eef3ff;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
- Arial,sans-serif;
+  margin:0;
+  padding:0;
+  background:#070b13;
+  color:#f3f6fb;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Noto Sans KR",
+    sans-serif;
 }
-body{padding-bottom:40px}
-.wrap{
- width:min(1100px,100%);
- margin:auto;
- padding:14px;
+
+body{
+  min-height:100vh;
 }
-header{
- display:flex;
- gap:10px;
- align-items:center;
- justify-content:space-between;
- margin-bottom:14px;
-}
-.logo{
- font-size:23px;
- font-weight:900;
- letter-spacing:-1px;
-}
-.badge{
- padding:5px 9px;
- border-radius:999px;
- background:#14213a;
- color:#91a9d8;
- font-size:11px;
-}
-.search{
- display:flex;
- gap:8px;
- margin-bottom:14px;
-}
+
+button,
 input{
- flex:1;
- min-width:0;
- height:46px;
- border:1px solid #263657;
- background:#0d1729;
- color:#fff;
- border-radius:12px;
- padding:0 14px;
- font-size:17px;
- font-weight:700;
- outline:none;
- text-transform:uppercase;
+  font:inherit;
 }
-button{
- border:0;
- border-radius:12px;
- background:#2f7cff;
- color:#fff;
- padding:0 18px;
- font-size:15px;
- font-weight:800;
+
+.wrap{
+  width:100%;
+  max-width:920px;
+  margin:0 auto;
+  padding:
+    10px
+    12px
+    50px;
 }
-button:active{transform:scale(.98)}
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:12px;
+
+/* =========================
+   TOP
+========================= */
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  display:flex;
+  gap:8px;
+
+  padding:8px 0 10px;
+
+  background:rgba(7,11,19,.94);
+  backdrop-filter:blur(18px);
 }
-.card{
- background:#0d1729;
- border:1px solid #1d2a43;
- border-radius:16px;
- padding:15px;
- margin-bottom:12px;
- overflow:hidden;
+
+#symbol{
+  flex:1;
+  min-width:0;
+
+  height:48px;
+
+  border:1px solid #263448;
+  border-radius:14px;
+
+  background:#101824;
+  color:#fff;
+
+  padding:0 15px;
+
+  font-size:17px;
+  font-weight:900;
+
+  outline:none;
 }
-.full{grid-column:1/-1}
-.title{
- font-size:14px;
- font-weight:900;
- margin-bottom:12px;
- color:#b9c8e7;
- display:flex;
- align-items:center;
- justify-content:space-between;
+
+#symbol:focus{
+  border-color:#5c8fcf;
 }
+
+.top button{
+  width:82px;
+
+  border:0;
+  border-radius:14px;
+
+  background:#f3f6fb;
+  color:#07101b;
+
+  font-size:15px;
+  font-weight:950;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  margin-top:5px;
+
+  padding:20px;
+
+  border:1px solid #1d2938;
+  border-radius:23px;
+
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      #182a42 0,
+      #101722 42%,
+      #0c121b 100%
+    );
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.32);
+}
+
+.ticker{
+  color:#8d9aad;
+  font-size:13px;
+  font-weight:850;
+}
+
 .price{
- font-size:42px;
- line-height:1;
- font-weight:950;
- letter-spacing:-2px;
+  margin-top:3px;
+
+  font-size:42px;
+  line-height:1.08;
+
+  font-weight:950;
+  letter-spacing:-1.8px;
 }
-.sub{
- color:#8190ad;
- font-size:12px;
- margin-top:8px;
+
+.chg{
+  margin-top:7px;
+
+  font-size:16px;
+  font-weight:900;
 }
-.judge{
- margin-top:13px;
- border-radius:12px;
- padding:12px;
- background:#111e34;
+
+.up{
+  color:#31e981;
 }
-.judge strong{
- display:block;
- font-size:20px;
- margin-bottom:5px;
+
+.down{
+  color:#ff5f70;
 }
-.up{color:#44dc91}
-.down{color:#ff687c}
-.neutral{color:#ffc75d}
-.kpi{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:8px;
+
+.grid{
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:8px;
+
+  margin-top:17px;
 }
-.kpiBox{
- background:#111e34;
- border-radius:11px;
- padding:11px;
- min-width:0;
+
+.mini{
+  min-width:0;
+
+  padding:11px;
+
+  border:
+    1px solid #1c2735;
+
+  border-radius:14px;
+
+  background:#0b111a;
 }
-.kpiBox span{
- display:block;
- color:#71819f;
- font-size:10px;
- margin-bottom:5px;
+
+.mini span{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#78879a;
+
+  font-size:10px;
+  font-weight:800;
 }
-.kpiBox b{
- font-size:15px;
- word-break:break-word;
+
+.mini b{
+  display:block;
+
+  overflow:hidden;
+
+  font-size:14px;
+  font-weight:900;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
-table{
- width:100%;
- border-collapse:collapse;
- font-size:12px;
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  margin-top:12px;
+
+  padding:15px;
+
+  border:
+    1px solid #1d2938;
+
+  border-radius:20px;
+
+  background:#101722;
 }
-th,td{
- padding:9px 6px;
- border-bottom:1px solid #1c2940;
- text-align:left;
- white-space:nowrap;
+
+.title{
+  margin-bottom:11px;
+
+  font-size:16px;
+  font-weight:950;
 }
-th{color:#71819f;font-weight:700}
-td{color:#dce5f7}
-.scroll{overflow-x:auto}
-.status{
- font-size:11px;
- padding:4px 7px;
- border-radius:7px;
- background:#17243a;
- color:#92a4c6;
+
+/* =========================
+   JUDGMENT
+========================= */
+
+.judgment{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
 }
-.ok{color:#4ee59a}
-.err{color:#ff687c}
-.empty{color:#ffc75d}
-.news{
- border-bottom:1px solid #1c2940;
- padding:12px 0;
+
+.score{
+  font-size:45px;
+  line-height:1;
+
+  font-weight:950;
+  letter-spacing:-2px;
 }
-.news:last-child{border-bottom:0}
-.newsTitle{
- color:#edf3ff;
- font-weight:800;
- line-height:1.4;
+
+.badge{
+  padding:9px 13px;
+
+  border-radius:999px;
+
+  background:#172434;
+
+  font-size:13px;
+  font-weight:950;
 }
-.newsMeta{
- color:#7383a0;
- font-size:10px;
- margin:5px 0;
+
+.reasons{
+  margin:
+    13px 0
+    0;
+
+  padding-left:20px;
+
+  color:#c8d2df;
+
+  font-size:13px;
+  line-height:1.7;
 }
-.newsSummary{
- color:#aab7cf;
- font-size:12px;
- line-height:1.55;
+
+/* =========================
+   CHART
+========================= */
+
+.chartbox{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:16px;
+
+  background:#090f17;
 }
-a{
- color:#70a7ff;
- text-decoration:none;
+
+#chart{
+  width:100%;
+  height:340px;
+
+  display:block;
+
+  touch-action:none;
+
+  cursor:crosshair;
 }
+
+/* =========================
+   선택 캔들 정보
+========================= */
+
+.chart-info{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:6px;
+
+  margin-top:8px;
+}
+
+.chart-info-box{
+  min-width:0;
+
+  padding:9px 8px;
+
+  border:
+    1px solid #1b2735;
+
+  border-radius:11px;
+
+  background:#0b111a;
+}
+
+.chart-info-box span{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#718095;
+
+  font-size:9px;
+  font-weight:800;
+}
+
+.chart-info-box b{
+  display:block;
+
+  overflow:hidden;
+
+  color:#e8eef7;
+
+  font-size:11px;
+  font-weight:900;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.chart-date{
+  grid-column:1/-1;
+
+  padding:8px 10px;
+
+  border-radius:10px;
+
+  background:#172434;
+
+  color:#ffc857;
+
+  font-size:12px;
+
+  font-weight:950;
+
+  text-align:center;
+}
+
+/* =========================
+   TECHNICAL
+========================= */
+
 .note{
- color:#71819f;
- font-size:11px;
- line-height:1.5;
+  margin:10px 0 0;
+
+  color:#7f8c9e;
+
+  font-size:11px;
+  line-height:1.55;
 }
+
+/* =========================
+   DETAILS
+========================= */
+
+details{
+  margin-top:10px;
+
+  overflow:hidden;
+
+  border:
+    1px solid #1d2938;
+
+  border-radius:17px;
+
+  background:#0d141e;
+}
+
+summary{
+  cursor:pointer;
+
+  padding:15px;
+
+  list-style:none;
+
+  font-size:14px;
+  font-weight:950;
+}
+
+summary::-webkit-details-marker{
+  display:none;
+}
+
+summary:after{
+  content:"＋";
+
+  float:right;
+
+  color:#708096;
+}
+
+details[open] summary:after{
+  content:"−";
+}
+
+.body{
+  padding:
+    0
+    15px
+    15px;
+}
+
+/* =========================
+   ROW
+========================= */
+
+.row{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  padding:10px 0;
+
+  border-bottom:
+    1px solid #1a2531;
+
+  font-size:13px;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.label{
+  color:#8b98aa;
+}
+
+.val{
+  text-align:right;
+
+  font-weight:850;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:5px 9px;
+
+  border-radius:999px;
+
+  font-size:10px;
+  font-weight:950;
+
+  white-space:nowrap;
+}
+
+.status.ok{
+  color:#48ee9a;
+  background:#0b3525;
+}
+
+.status.empty{
+  color:#ffd36a;
+  background:#382d12;
+}
+
+.status.error{
+  color:#ff7886;
+  background:#39151b;
+}
+
+/* =========================
+   NEWS / SEC
+========================= */
+
+.news{
+  padding:13px 0;
+
+  border-bottom:
+    1px solid #1a2531;
+}
+
+.news:last-child{
+  border-bottom:0;
+}
+
+.news h3{
+  margin:
+    4px
+    0
+    6px;
+
+  font-size:14px;
+  line-height:1.45;
+}
+
+.news p{
+  margin:5px 0;
+
+  color:#aab5c4;
+
+  font-size:12px;
+  line-height:1.6;
+}
+
+.meta{
+  color:#718095;
+
+  font-size:10px;
+  line-height:1.5;
+}
+
+.link{
+  display:inline-block;
+
+  margin-top:7px;
+
+  color:#77b5ff;
+
+  text-decoration:none;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-scroll{
+  overflow-x:auto;
+
+  -webkit-overflow-scrolling:touch;
+}
+
+table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  font-size:10px;
+}
+
+th,
+td{
+  padding:8px 5px;
+
+  border-bottom:
+    1px solid #1b2632;
+
+  text-align:right;
+
+  white-space:nowrap;
+}
+
+th{
+  color:#78879a;
+  font-weight:850;
+}
+
+th:first-child,
+td:first-child{
+  text-align:left;
+}
+
+/* =========================
+   LOADING
+========================= */
+
 .loading{
- padding:30px;
- text-align:center;
- color:#8291ae;
-}
-.errorBox{
- background:#321621;
- color:#ff9aaa;
- border:1px solid #633044;
- border-radius:12px;
- padding:12px;
- font-size:13px;
- line-height:1.5;
+  padding:30px 10px;
+
+  color:#8d9aad;
+
+  text-align:center;
+
+  font-size:13px;
 }
 
-.chartWrap{
- position:relative;
- width:100%;
- height:340px;
- background:#091321;
- border-radius:12px;
- overflow:hidden;
- border:1px solid #18263e;
-}
-canvas{
- display:block;
- width:100%;
- height:100%;
- touch-action:none;
-}
-.chartInfo{
- margin-top:8px;
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:6px;
-}
-.chartInfo div{
- background:#111e34;
- border-radius:8px;
- padding:7px;
-}
-.chartInfo span{
- display:block;
- color:#687997;
- font-size:9px;
-}
-.chartInfo b{
- font-size:11px;
-}
+/* =========================
+   MOBILE
+========================= */
 
-@media(max-width:700px){
- .grid{grid-template-columns:1fr}
- .full{grid-column:auto}
- .price{font-size:38px}
- .chartWrap{height:290px}
- .kpi{grid-template-columns:repeat(2,1fr)}
- .chartInfo{
-  grid-template-columns:repeat(2,1fr);
- }
+@media(max-width:620px){
+
+  .wrap{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .price{
+    font-size:37px;
+  }
+
+  #chart{
+    height:290px;
+  }
+
+  .card{
+    border-radius:18px;
+  }
+
+  .chart-info{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .chart-date{
+    grid-column:1/-1;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="wrap">
 
-<header>
- <div class="logo">🐇 RabbitStock Ultimate</div>
- <div class="badge" id="apiStatus">API 연결 확인중</div>
-</header>
+  <!-- =========================
+       검색
+  ========================== -->
 
-<div class="search">
- <input id="symbol" value="BRNX" placeholder="티커 입력">
- <button onclick="loadStock()">분석</button>
+  <div class="top">
+
+    <input
+      id="symbol"
+      value="BRNX"
+      autocomplete="off"
+      autocapitalize="characters"
+      spellcheck="false"
+      placeholder="티커 입력"
+    >
+
+    <button
+      onclick="loadStock()"
+    >
+      분석
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       현재 주가
+  ========================== -->
+
+  <section class="hero">
+
+    <div
+      class="ticker"
+      id="companyName"
+    >
+      BRNX
+    </div>
+
+    <div
+      class="price"
+      id="price"
+    >
+      불러오는 중…
+    </div>
+
+    <div
+      class="chg"
+      id="change"
+    >
+      -
+    </div>
+
+    <div class="grid">
+
+      <div class="mini">
+        <span>거래량</span>
+        <b id="volume">-</b>
+      </div>
+
+      <div class="mini">
+        <span>고가</span>
+        <b id="high">-</b>
+      </div>
+
+      <div class="mini">
+        <span>저가</span>
+        <b id="low">-</b>
+      </div>
+
+      <div class="mini">
+        <span>전일종가</span>
+        <b id="previous">-</b>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       종합 판단
+  ========================== -->
+
+  <section class="card">
+
+    <div class="title">
+      🎯 종합 판단
+    </div>
+
+    <div class="judgment">
+
+      <div>
+
+        <div
+          class="score"
+          id="score"
+        >
+          -
+        </div>
+
+        <div class="note">
+          0~100 종합점수
+        </div>
+
+      </div>
+
+      <div
+        class="badge"
+        id="verdict"
+      >
+        분석 대기
+      </div>
+
+    </div>
+
+    <ul
+      class="reasons"
+      id="reasons"
+    >
+      <li>
+        데이터를 불러오는 중입니다.
+      </li>
+    </ul>
+
+  </section>
+
+
+  <!-- =========================
+       캔들
+  ========================== -->
+
+  <section class="card">
+
+    <div class="title">
+      📈 캔들차트 · MA20 / MA50
+    </div>
+
+    <div class="chartbox">
+
+      <canvas
+        id="chart"
+      ></canvas>
+
+    </div>
+
+    <!-- 선택 캔들 정보 -->
+
+    <div
+      id="chartInfo"
+      class="chart-info"
+    >
+
+      <div class="chart-date">
+        캔들을 터치하면 날짜별 상세정보가 표시됩니다
+      </div>
+
+      <div class="chart-info-box">
+        <span>시가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>고가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>저가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>종가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>거래량</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>전일 대비</span>
+        <b>-</b>
+      </div>
+
+    </div>
+
+    <div class="note">
+      캔들을 터치하면 해당 거래일의
+      시가·고가·저가·종가·거래량을 확인할 수 있습니다.
+      <br>
+      초록 = 상승 캔들 · 빨강 = 하락 캔들
+      · 노랑 = MA20 · 파랑 = MA50
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       기술지표
+  ========================== -->
+
+  <section class="card">
+
+    <div class="title">
+      📊 핵심 지표
+    </div>
+
+    <div class="grid">
+
+      <div class="mini">
+        <span>MA20</span>
+        <b id="ma20">-</b>
+      </div>
+
+      <div class="mini">
+        <span>MA50</span>
+        <b id="ma50">-</b>
+      </div>
+
+      <div class="mini">
+        <span>RSI14</span>
+        <b id="rsi">-</b>
+      </div>
+
+      <div class="mini">
+        <span>VWAP20</span>
+        <b id="vwap">-</b>
+      </div>
+
+    </div>
+
+    <p class="note">
+      MA20 = 최근 20거래일 평균가격.
+      단기 추세 확인용.<br>
+      MA50 = 최근 50거래일 평균가격.
+      중기 추세 확인용.<br>
+      RSI = 최근 상승·하락 강도.
+      70 이상은 과열, 30 이하는 과매도 참고.<br>
+      VWAP = 거래량을 반영한 평균가격.
+    </p>
+
+  </section>
+
+
+  <!-- =========================
+       SHORT
+  ========================== -->
+
+  <details>
+
+    <summary>
+      🔥 공매도 / Short Interest
+    </summary>
+
+    <div
+      class="body"
+      id="shortInterest"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       REG SHO
+  ========================== -->
+
+  <details>
+
+    <summary>
+      🚨 Threshold / Reg SHO
+    </summary>
+
+    <div
+      class="body"
+      id="threshold"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       DILUTION
+  ========================== -->
+
+  <details>
+
+    <summary>
+      💵 희석 / 실제 주식수
+    </summary>
+
+    <div
+      class="body"
+      id="dilution"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       WARRANT
+  ========================== -->
+
+  <details>
+
+    <summary>
+      🎫 워런트 / 전환
+    </summary>
+
+    <div
+      class="body"
+      id="warrant"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       SEC
+  ========================= -->
+
+  <details>
+
+    <summary>
+      📑 SEC 공시 · 최근 60건
+    </summary>
+
+    <div
+      class="body"
+      id="sec"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       NEWS
+  ========================= -->
+
+  <details>
+
+    <summary>
+      📰 뉴스 · 최근 30일
+    </summary>
+
+    <div
+      class="body"
+      id="news"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       STOCKTITAN
+  ========================= -->
+
+  <details>
+
+    <summary>
+      🛰 StockTitan 보조자료
+    </summary>
+
+    <div
+      class="body"
+      id="stockTitan"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       DARKFINA
+  ========================= -->
+
+  <details>
+
+    <summary>
+      🌑 DarkFina 보조자료
+    </summary>
+
+    <div
+      class="body"
+      id="darkFina"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       HISTORY
+  ========================= -->
+
+  <details>
+
+    <summary>
+      📅 최근 20거래일
+    </summary>
+
+    <div
+      class="body"
+      id="history"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       SOURCE
+  ========================= -->
+
+  <details>
+
+    <summary>
+      🔌 데이터 상태
+    </summary>
+
+    <div
+      class="body"
+      id="sources"
+    >
+      <div class="loading">
+        데이터 없음
+      </div>
+    </div>
+
+  </details>
+
 </div>
 
-<div id="app">
- <div class="loading">데이터를 불러오는 중...</div>
-</div>
-
-</div>
 
 <script>
 
-const API="https://rabbitstock-final.keoss.workers.dev";
+/* =========================================================
+   설정
+========================================================= */
 
-let CURRENT=null;
-let chartState={
- rows:[],
- selected:0
-};
+const API =
+  "https://rabbitstock-final.keoss.workers.dev";
 
-function $(id){
- return document.getElementById(id);
-}
 
-function esc(v){
- return String(v ?? "")
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;");
-}
+/* =========================================================
+   차트 상태
+========================================================= */
 
-function money(v){
- if(v===null || v===undefined || v==="") return "-";
- const n=Number(v);
- if(!Number.isFinite(n)) return esc(v);
- return "$"+n.toLocaleString("en-US",{
-  minimumFractionDigits:n<10?2:2,
-  maximumFractionDigits:4
- });
-}
+let chartRows = [];
 
-function num(v){
- if(v===null || v===undefined || v==="") return null;
- const n=Number(String(v).replace(/,/g,""));
- return Number.isFinite(n)?n:null;
-}
+let selectedCandle = -1;
 
-function fmt(v,d=2){
- const n=num(v);
- return n===null?"-":n.toLocaleString("en-US",{
-  minimumFractionDigits:d,
-  maximumFractionDigits:d
- });
-}
 
-function pct(v){
- const n=num(v);
- return n===null?"-":(n>0?"+":"")+n.toFixed(2)+"%";
-}
+/* =========================================================
+   공통
+========================================================= */
 
-function dateText(v){
- if(!v) return "-";
- try{
-  return new Date(v).toLocaleDateString("ko-KR");
- }catch(e){
-  return String(v).slice(0,10);
- }
-}
+const $ = id =>
+  document.getElementById(id);
 
-async function api(path){
- const r=await fetch(API+path,{
-  method:"GET",
-  cache:"no-store"
- });
 
- if(!r.ok){
-  throw new Error("HTTP "+r.status);
- }
+function number(value) {
 
- return await r.json();
-}
-
-async function loadStock(){
-
- const symbol=$("symbol").value.trim().toUpperCase();
-
- if(!symbol){
-  alert("티커를 입력하세요.");
-  return;
- }
-
- $("symbol").value=symbol;
-
- $("app").innerHTML=
- `<div class="loading">🐇 ${esc(symbol)} 분석중...<br><br>가격 / 차트 / 공매도 / SEC / 뉴스 데이터를 가져오는 중입니다.</div>`;
-
- try{
-
-  const data=await api("/all?symbol="+encodeURIComponent(symbol));
-
-  CURRENT=data;
-
-  $("apiStatus").textContent="API ONLINE";
-  $("apiStatus").className="badge ok";
-
-  renderAll(data);
-
- }catch(e){
-
-  $("apiStatus").textContent="API ERROR";
-  $("apiStatus").className="badge err";
-
-  $("app").innerHTML=
-  `<div class="errorBox">
-   데이터 연결 실패<br><br>
-   ${esc(e.message)}
-   <br><br>
-   Worker 주소를 확인하세요.
-  </div>`;
-
- }
-}
-
-function renderAll(data){
-
- const q=data.quote || {};
- const tech=data.technicals || data.technicalData || {};
- const price=num(q.close ?? q.price ?? q.current);
- const change=num(q.percent_change ?? q.change_percent ?? q.changePct);
-
- let cls="neutral";
- let judgment="관망";
-
- if(change>2) {
-  cls="up";
-  judgment="상승 우세";
- }
- else if(change<-2){
-  cls="down";
-  judgment="하락 주의";
- }
-
- const score=
-   num(data.score?.score) ??
-   num(data.analysis?.score) ??
-   0;
-
- $("app").innerHTML=`
-
- <div class="grid">
-
-  <section class="card full">
-   <div class="title">
-    <span>${esc(data.symbol || $("symbol").value)}</span>
-    <span class="status ok">LIVE DATA</span>
-   </div>
-
-   <div class="price ${cls}">
-    ${money(price)}
-   </div>
-
-   <div class="sub">
-    변동 ${pct(change)}
-    · ${dateText(q.datetime || q.timestamp || new Date())}
-   </div>
-
-   <div class="judge">
-    <strong class="${cls}">${judgment}</strong>
-    <span class="note">
-     종합점수 ${fmt(score,0)} / 100
-     · 가격/기술/공매/희석/뉴스 데이터를 종합
-    </span>
-   </div>
-  </section>
-
-  <section class="card full">
-   <div class="title">📈 캔들 차트 <span class="status">터치하면 날짜 조회</span></div>
-
-   <div class="chartWrap">
-    <canvas id="chart"></canvas>
-   </div>
-
-   <div class="chartInfo" id="chartInfo"></div>
-  </section>
-
-  <section class="card">
-   <div class="title">📊 기술적 분석</div>
-   ${renderTechnicals(tech)}
-  </section>
-
-  <section class="card">
-   <div class="title">🎯 종합 판단</div>
-   ${renderScore(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">🩳 FINRA 공매도</div>
-   ${renderShort(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">🚨 Reg SHO / Threshold</div>
-   ${renderThreshold(data)}
-  </section>
-
-  <section class="card">
-   <div class="title">💧 희석 / Dilution</div>
-   ${renderDilution(data)}
-  </section>
-
-  <section class="card">
-   <div class="title">🎫 Warrant</div>
-   ${renderWarrant(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">🏛 SEC 최근 공시</div>
-   ${renderSEC(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">📰 Finnhub 뉴스</div>
-   ${renderFinnhub(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">📰 StockTitan 뉴스</div>
-   ${renderStockTitan(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">🌑 DarkFina / Dark Pool</div>
-   ${renderDarkFina(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">📅 최근 가격 기록</div>
-   ${renderHistory(data)}
-  </section>
-
-  <section class="card full">
-   <div class="title">🔗 데이터 출처</div>
-   ${renderSources(data)}
-  </section>
-
- </div>
- `;
-
- prepareChart(data);
-}
-
-function renderTechnicals(t){
-
- if(!t) return `<div class="note">기술 데이터 없음</div>`;
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>MA20</span>
-   <b>${money(t.ma20)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>MA50</span>
-   <b>${money(t.ma50)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>RSI</span>
-   <b>${fmt(t.rsi,2)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>MACD</span>
-   <b>${fmt(t.macd,4)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>Signal</span>
-   <b>${fmt(t.signal,4)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>Trend</span>
-   <b>${esc(t.trend || "-")}</b>
-  </div>
-
- </div>
- `;
-}
-
-function renderScore(data){
-
- const s=data.score || data.analysis || {};
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>종합점수</span>
-   <b>${fmt(s.score,0)}/100</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>기술</span>
-   <b>${fmt(s.technical,0)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>공매</span>
-   <b>${fmt(s.short,0)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>뉴스</span>
-   <b>${fmt(s.news,0)}</b>
-  </div>
-
- </div>
-
- <div class="judge">
-  <strong>${esc(s.judgment || s.verdict || "데이터 분석중")}</strong>
-  <div class="note">${esc(s.reason || s.comment || "")}</div>
- </div>
- `;
-}
-
-function renderShort(data){
-
- const s=data.finra || data.short || {};
-
- if(s.status==="error"){
-  return `<div class="errorBox">${esc(s.message || "FINRA 데이터 오류")}</div>`;
- }
-
- const rows=[
-  ["Short Interest",s.shortInterest ?? s.short_interest],
-  ["Settlement Date",s.settlementDate ?? s.settlement_date],
-  ["Short % Float",s.shortPercentFloat ?? s.short_percent_float],
-  ["Days To Cover",s.daysToCover ?? s.days_to_cover],
-  ["Avg Daily Volume",s.avgDailyVolume ?? s.avg_daily_volume]
- ];
-
- return `
- <div class="scroll">
- <table>
- <thead><tr><th>항목</th><th>값</th></tr></thead>
- <tbody>
- ${rows.map(x=>`
-  <tr>
-   <td>${esc(x[0])}</td>
-   <td>${x[0].includes("%")?pct(x[1]):fmt(x[1],2)}</td>
-  </tr>
- `).join("")}
- </tbody>
- </table>
- </div>
- `;
-}
-
-function renderThreshold(data){
-
- const t=data.threshold || data.regSho || {};
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>상태</span>
-   <b>${esc(t.status || "-")}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>등재 여부</span>
-   <b>${esc(t.threshold || t.isThreshold || "-")}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>연속일</span>
-   <b>${fmt(t.days ?? t.consecutiveDays,0)}</b>
-  </div>
-
- </div>
-
- <div class="note" style="margin-top:10px">
- ${esc(t.message || t.reason || "")}
- </div>
- `;
-}
-
-function renderDilution(data){
-
- const d=data.dilution || {};
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>상태</span>
-   <b>${esc(d.status || "-")}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>발행주식</span>
-   <b>${fmt(d.sharesOutstanding,0)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>잠재 희석</span>
-   <b>${fmt(d.potentialDilution,0)}</b>
-  </div>
-
- </div>
-
- <div class="note" style="margin-top:10px">
- ${esc(d.summary || d.message || "SEC 공시 기반 분석")}
- </div>
- `;
-}
-
-function renderWarrant(data){
-
- const w=data.warrant || {};
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>Warrant</span>
-   <b>${esc(w.status || "-")}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>수량</span>
-   <b>${fmt(w.quantity,0)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>행사가</span>
-   <b>${money(w.exercisePrice)}</b>
-  </div>
-
- </div>
-
- <div class="note" style="margin-top:10px">
- ${esc(w.summary || w.message || "")}
- </div>
- `;
-}
-
-function renderSEC(data){
-
- const sec=data.sec || {};
- const filings=sec.filings || sec.recent || [];
-
- if(!Array.isArray(filings) || !filings.length){
-  return `<div class="note">최근 SEC 공시 데이터가 없습니다.</div>`;
- }
-
- return `
- <div class="scroll">
- <table>
- <thead>
-  <tr>
-   <th>날짜</th>
-   <th>Form</th>
-   <th>내용</th>
-  </tr>
- </thead>
- <tbody>
- ${filings.slice(0,20).map(f=>`
-  <tr>
-   <td>${esc(f.date || f.filingDate || "")}</td>
-   <td>${esc(f.form || "")}</td>
-   <td>
-    ${f.url
-      ? `<a href="${esc(f.url)}" target="_blank">${esc(f.description || f.primaryDocument || "-")}</a>`
-      : esc(f.description || f.primaryDocument || "-")}
-   </td>
-  </tr>
- `).join("")}
- </tbody>
- </table>
- </div>
- `;
-}
-
-function renderFinnhub(data){
-
- const news=data.news || data.finnhubNews || [];
-
- if(!Array.isArray(news) || !news.length){
-  return `<div class="note">Finnhub 뉴스가 없습니다.</div>`;
- }
-
- return news.slice(0,15).map(n=>`
-
- <div class="news">
-
-  <div class="newsTitle">
-   ${n.url
-    ? `<a href="${esc(n.url)}" target="_blank">${esc(n.headline || n.title || "-")}</a>`
-    : esc(n.headline || n.title || "-")}
-  </div>
-
-  <div class="newsMeta">
-   ${esc(n.source || "Finnhub")}
-   · ${dateText(n.datetime || n.date)}
-  </div>
-
-  <div class="newsSummary">
-   ${esc(n.summary || "")}
-  </div>
-
- </div>
-
- `).join("");
-}
-
-function renderStockTitan(data){
-
- const st=data.stockTitan || {};
- const overview=st.overview || {};
- const news=st.news || [];
-
- let html="";
-
- if(st.status==="error"){
-  html+=`
-  <div class="errorBox">
-   StockTitan 자동 데이터 연결 실패<br><br>
-   ${esc(st.message || "")}
-  </div>`;
- }
-
- if(Object.keys(overview).length){
-
-  html+=`
-  <div class="kpi">
-
-   <div class="kpiBox">
-    <span>Impact</span>
-    <b>${esc(overview.impact || "-")}</b>
-   </div>
-
-   <div class="kpiBox">
-    <span>Sentiment</span>
-    <b>${esc(overview.sentiment || "-")}</b>
-   </div>
-
-   <div class="kpiBox">
-    <span>End Of Day</span>
-    <b>${esc(overview.endOfDay || "-")}</b>
-   </div>
-
-  </div>
-  `;
- }
-
- if(Array.isArray(news) && news.length){
-
-  html+=news.slice(0,15).map(n=>`
-
-   <div class="news">
-
-    <div class="newsTitle">
-     ${n.url
-      ? `<a href="${esc(n.url)}" target="_blank">${esc(n.title || "-")}</a>`
-      : esc(n.title || "-")}
-    </div>
-
-    <div class="newsMeta">
-     ${esc(n.date || "")}
-     ${n.impact ? " · Impact "+esc(n.impact):""}
-     ${n.sentiment ? " · "+esc(n.sentiment):""}
-     ${n.endOfDay ? " · EOD "+esc(n.endOfDay):""}
-    </div>
-
-    <div class="newsSummary">
-     ${esc(n.summary || "")}
-    </div>
-
-   </div>
-
-  `).join("");
-
- }else{
-
-  html+=`
-   <div class="note">
-    StockTitan 뉴스 자동수집 결과가 없습니다.
-   </div>
-  `;
- }
-
- const symbol=data.symbol || $("symbol").value.toUpperCase();
-
- html+=`
- <div style="margin-top:12px">
-  <a href="https://www.stocktitan.net/news/${encodeURIComponent(symbol)}/"
-     target="_blank">
-   ▶ StockTitan ${esc(symbol)} 공식 뉴스 페이지 열기
-  </a>
- </div>
- `;
-
- return html;
-}
-
-function renderDarkFina(data){
-
- const d=data.darkFina || data.darkpool || {};
-
- return `
- <div class="kpi">
-
-  <div class="kpiBox">
-   <span>상태</span>
-   <b>${esc(d.status || "-")}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>Dark Pool</span>
-   <b>${fmt(d.darkPoolVolume ?? d.volume,0)}</b>
-  </div>
-
-  <div class="kpiBox">
-   <span>비중</span>
-   <b>${pct(d.darkPoolPercent ?? d.percent)}</b>
-  </div>
-
- </div>
-
- <div class="note" style="margin-top:10px">
- ${esc(d.message || d.summary || "")}
- </div>
- `;
-}
-
-function renderHistory(data){
-
- const tech=data.technicals || data.technicalData || {};
- const rows=Array.isArray(tech.recent)
-  ? tech.recent
-  : Array.isArray(data.history?.history)
-   ? data.history.history
-   : [];
-
- if(!rows.length){
-  return `<div class="note">가격 기록이 없습니다.</div>`;
- }
-
- return `
- <div class="scroll">
- <table>
- <thead>
-  <tr>
-   <th>날짜</th>
-   <th>시가</th>
-   <th>고가</th>
-   <th>저가</th>
-   <th>종가</th>
-   <th>거래량</th>
-  </tr>
- </thead>
-
- <tbody>
-
- ${rows.slice(-30).reverse().map(r=>`
-  <tr>
-   <td>${esc(r.datetime || r.date || "")}</td>
-   <td>${money(r.open)}</td>
-   <td>${money(r.high)}</td>
-   <td>${money(r.low)}</td>
-   <td>${money(r.close)}</td>
-   <td>${fmt(r.volume,0)}</td>
-  </tr>
- `).join("")}
-
- </tbody>
- </table>
- </div>
- `;
-}
-
-function renderSources(data){
-
- const list=[
-  ["Twelve Data",data.quote || data.history],
-  ["Finnhub",data.news],
-  ["SEC EDGAR",data.sec],
-  ["FINRA",data.finra],
-  ["StockTitan",data.stockTitan],
-  ["DarkFina",data.darkFina]
- ];
-
- return `
- <div class="kpi">
-
- ${list.map(x=>{
-
-  let cls="empty";
-  let text="EMPTY";
-
-  if(x[1]?.status==="error"){
-   cls="err";
-   text="ERROR";
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return null;
   }
-  else if(x[1]){
-   cls="ok";
-   text="OK";
+
+  const n =
+    Number(
+      String(value)
+        .replace(/,/g,"")
+    );
+
+  return Number.isFinite(n)
+    ? n
+    : null;
+}
+
+
+function fmt(
+  value,
+  digits = 2
+) {
+
+  const n =
+    number(value);
+
+  if (n === null) {
+    return "데이터 없음";
+  }
+
+  return n.toLocaleString(
+    "en-US",
+    {
+      maximumFractionDigits:
+        digits
+    }
+  );
+}
+
+
+function percent(value) {
+
+  const n =
+    number(value);
+
+  if (n === null) {
+    return "데이터 없음";
+  }
+
+  return (
+    n >= 0 ? "+" : ""
+  ) +
+  fmt(n,2) +
+  "%";
+}
+
+
+function esc(value) {
+
+  return String(
+    value ?? ""
+  ).replace(
+    /[&<>"']/g,
+    char => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[char])
+  );
+}
+
+
+/* =========================================================
+   상태
+========================================================= */
+
+function sourceBadge(source) {
+
+  if (!source) {
+
+    return `
+      <span class="status error">
+        🔴 연결 실패
+      </span>
+    `;
+  }
+
+  const state =
+    source.state;
+
+  if (state === "ok") {
+
+    return `
+      <span class="status ok">
+        🟢 정상 ·
+        ${source.count || 0}건
+      </span>
+    `;
+  }
+
+  if (state === "empty") {
+
+    return `
+      <span class="status empty">
+        🟡 데이터 없음
+      </span>
+    `;
   }
 
   return `
-   <div class="kpiBox">
-    <span>${esc(x[0])}</span>
-    <b class="${cls}">${text}</b>
-   </div>
+    <span class="status error">
+      🔴 연결 실패
+    </span>
   `;
-
- }).join("")}
-
- </div>
- `;
 }
 
 
-/* =========================
-   INTERACTIVE CANDLE CHART
-========================= */
-
-function prepareChart(data){
-
- let rows=
-  (data.history && data.history.history) ||
-  data.history ||
-  [];
-
- if(!Array.isArray(rows)) rows=[];
-
- rows=rows
-  .map(r=>({
-   date:r.datetime || r.date || r.time || "",
-   open:num(r.open),
-   high:num(r.high),
-   low:num(r.low),
-   close:num(r.close),
-   volume:num(r.volume)
-  }))
-  .filter(r=>
-   r.date &&
-   r.open!==null &&
-   r.high!==null &&
-   r.low!==null &&
-   r.close!==null
-  )
-  .sort((a,b)=>
-   new Date(a.date)-new Date(b.date)
-  );
-
- chartState.rows=rows.slice(-100);
-
- if(chartState.selected>=chartState.rows.length){
-  chartState.selected=chartState.rows.length-1;
- }
-
- drawChart();
-
- window.addEventListener("resize",drawChart);
-
- const canvas=$("chart");
-
- if(canvas){
-
-  canvas.addEventListener("pointerdown",e=>{
-   selectCandle(e);
-  });
-
-  canvas.addEventListener("pointermove",e=>{
-   if(e.buttons) selectCandle(e);
-  });
-
- }
-
- updateChartInfo();
-}
-
-function selectCandle(e){
-
- const canvas=$("chart");
-
- if(!canvas || !chartState.rows.length)return;
-
- const rect=canvas.getBoundingClientRect();
-
- const x=e.clientX-rect.left;
-
- const dpr=window.devicePixelRatio||1;
-
- const width=canvas.width/dpr;
-
- const padL=42;
- const padR=12;
-
- const usable=width-padL-padR;
-
- const n=chartState.rows.length;
-
- const step=usable/n;
-
- let idx=Math.floor((x-padL)/step);
-
- idx=Math.max(0,Math.min(n-1,idx));
-
- chartState.selected=idx;
-
- updateChartInfo();
- drawChart();
-}
-
-function updateChartInfo(){
-
- const box=$("chartInfo");
-
- if(!box)return;
-
- const r=chartState.rows[chartState.selected];
-
- if(!r){
-
-  box.innerHTML=`
-   <div><span>날짜</span><b>-</b></div>
-   <div><span>OHLC</span><b>-</b></div>
-   <div><span>거래량</span><b>-</b></div>
-   <div><span>변동</span><b>-</b></div>
-  `;
-
-  return;
- }
-
- const previous=
-  chartState.rows[chartState.selected-1];
-
- let change=null;
-
- if(previous && previous.close){
-  change=(r.close/previous.close-1)*100;
- }
-
- box.innerHTML=`
-
- <div>
-  <span>날짜</span>
-  <b>${esc(r.date)}</b>
- </div>
-
- <div>
-  <span>시/고/저/종</span>
-  <b>
-   ${fmt(r.open,3)}
-   /
-   ${fmt(r.high,3)}
-   /
-   ${fmt(r.low,3)}
-   /
-   ${fmt(r.close,3)}
-  </b>
- </div>
-
- <div>
-  <span>거래량</span>
-  <b>${fmt(r.volume,0)}</b>
- </div>
-
- <div>
-  <span>변동</span>
-  <b class="${change>0?"up":change<0?"down":"neutral"}">
-   ${pct(change)}
-  </b>
- </div>
-
- `;
-}
-
-function drawChart(){
-
- const canvas=$("chart");
-
- if(!canvas)return;
-
- const rows=chartState.rows;
-
- const rect=canvas.getBoundingClientRect();
-
- const dpr=window.devicePixelRatio||1;
-
- const W=Math.max(300,rect.width);
-
- const H=Math.max(250,rect.height);
-
- canvas.width=W*dpr;
- canvas.height=H*dpr;
-
- const ctx=canvas.getContext("2d");
-
- ctx.setTransform(dpr,0,0,dpr,0,0);
-
- ctx.clearRect(0,0,W,H);
-
- ctx.fillStyle="#091321";
- ctx.fillRect(0,0,W,H);
-
- if(!rows.length){
-
-  ctx.fillStyle="#71819f";
-  ctx.font="13px sans-serif";
-  ctx.fillText("캔들 데이터 없음",20,30);
-
-  return;
- }
-
- const padL=42;
- const padR=12;
- const padT=18;
- const padB=30;
-
- const chartW=W-padL-padR;
- const chartH=H-padT-padB;
-
- let min=Infinity;
- let max=-Infinity;
-
- rows.forEach(r=>{
-  min=Math.min(min,r.low);
-  max=Math.max(max,r.high);
- });
-
- const range=max-min || 1;
-
- min-=range*.05;
- max+=range*.05;
-
- function y(v){
-  return padT+
-   (max-v)/(max-min)*chartH;
- }
-
- function x(i){
-  return padL+
-   (i+.5)/rows.length*chartW;
- }
-
- /* grid */
-
- ctx.strokeStyle="#17243a";
- ctx.lineWidth=1;
-
- for(let i=0;i<5;i++){
-
-  const yy=padT+i*chartH/4;
-
-  ctx.beginPath();
-  ctx.moveTo(padL,yy);
-  ctx.lineTo(W-padR,yy);
-  ctx.stroke();
-
-  const val=max-(max-min)*i/4;
-
-  ctx.fillStyle="#60708d";
-  ctx.font="9px sans-serif";
-  ctx.fillText(
-   val.toFixed(2),
-   3,
-   yy+3
-  );
- }
-
- const step=chartW/rows.length;
-
- /* candles */
-
- rows.forEach((r,i)=>{
-
-  const xx=x(i);
-
-  const openY=y(r.open);
-  const closeY=y(r.close);
-  const highY=y(r.high);
-  const lowY=y(r.low);
-
-  const up=r.close>=r.open;
-
-  /* wick */
-
-  ctx.strokeStyle=up?"#48dd98":"#ff657b";
-  ctx.lineWidth=1;
-
-  ctx.beginPath();
-  ctx.moveTo(xx,highY);
-  ctx.lineTo(xx,lowY);
-  ctx.stroke();
-
-  /* body */
-
-  const bw=Math.max(2,step*.55);
-
-  ctx.fillStyle=up?"#48dd98":"#ff657b";
-
-  const top=Math.min(openY,closeY);
-
-  const bh=Math.max(
-   1,
-   Math.abs(closeY-openY)
-  );
-
-  ctx.fillRect(
-   xx-bw/2,
-   top,
-   bw,
-   bh
-  );
-
- });
-
- /* selected candle */
-
- const s=rows[chartState.selected];
-
- if(s){
-
-  const xx=x(chartState.selected);
-
-  ctx.strokeStyle="#ffc75d";
-  ctx.lineWidth=1;
-
-  ctx.beginPath();
-  ctx.moveTo(xx,padT);
-  ctx.lineTo(xx,H-padB);
-  ctx.stroke();
-
-  ctx.fillStyle="#ffc75d";
-  ctx.beginPath();
-  ctx.arc(xx,y(s.close),3,0,Math.PI*2);
-  ctx.fill();
- }
-
- /* MA20 */
-
- drawMA(ctx,rows,20,"#63a4ff",x,y);
-
- /* date labels */
-
- ctx.fillStyle="#60708d";
- ctx.font="9px sans-serif";
-
- const labelCount=Math.min(6,rows.length);
-
- for(let i=0;i<labelCount;i++){
-
-  const idx=Math.floor(
-   i*(rows.length-1)/(labelCount-1 || 1)
-  );
-
-  const xx=x(idx);
-
-  const d=String(rows[idx].date).slice(5,10);
-
-  ctx.fillText(
-   d,
-   Math.max(
-    padL,
-    Math.min(W-32,xx-14)
-   ),
-   H-10
-  );
- }
-
- /* last price */
-
- const last=rows[rows.length-1];
-
- ctx.fillStyle="#dbe6fa";
- ctx.font="bold 10px sans-serif";
-
- ctx.fillText(
-  last.close.toFixed(3),
-  W-padR-40,
-  y(last.close)-4
- );
-}
-
-function drawMA(ctx,rows,period,color,x,y){
-
- if(rows.length<period)return;
-
- ctx.strokeStyle=color;
- ctx.lineWidth=1.3;
-
- ctx.beginPath();
-
- for(let i=period-1;i<rows.length;i++){
-
-  let sum=0;
-
-  for(let j=i-period+1;j<=i;j++){
-   sum+=rows[j].close;
+/* =========================================================
+   API
+========================================================= */
+
+async function api(path) {
+
+  const response =
+    await fetch(
+      API + path,
+      {
+        cache:"no-store"
+      }
+    );
+
+  if (!response.ok) {
+
+    throw new Error(
+      "HTTP " +
+      response.status
+    );
   }
 
-  const ma=sum/period;
-
-  const xx=x(i);
-  const yy=y(ma);
-
-  if(i===period-1)ctx.moveTo(xx,yy);
-  else ctx.lineTo(xx,yy);
- }
-
- ctx.stroke();
+  return await response.json();
 }
 
 
-/* =========================
-   START
-========================= */
+/* =========================================================
+   차트용 데이터 정리
+========================================================= */
 
-$("symbol").addEventListener("keydown",e=>{
- if(e.key==="Enter")loadStock();
-});
+function prepareChartRows(data){
+
+  const rows =
+    (
+      data.history &&
+      data.history.history
+    ) || [];
+
+  chartRows =
+    rows
+      .map(
+        row => ({
+
+          date:
+            row.datetime ||
+            row.date ||
+            "",
+
+          open:
+            number(row.open),
+
+          high:
+            number(row.high),
+
+          low:
+            number(row.low),
+
+          close:
+            number(row.close),
+
+          volume:
+            number(row.volume)
+
+        })
+      )
+      .filter(
+        row =>
+          row.date &&
+          row.open !== null &&
+          row.high !== null &&
+          row.low !== null &&
+          row.close !== null
+      )
+      .sort(
+        (a,b) =>
+          new Date(a.date) -
+          new Date(b.date)
+      )
+      .slice(-80);
+
+
+  if (
+    selectedCandle < 0 ||
+    selectedCandle >= chartRows.length
+  ){
+
+    selectedCandle =
+      chartRows.length - 1;
+
+  }
+
+}
+
+
+/* =========================================================
+   선택 캔들 정보
+========================================================= */
+
+function renderSelectedCandle(){
+
+  const box =
+    $("chartInfo");
+
+  if(!box){
+    return;
+  }
+
+  if(
+    !chartRows.length ||
+    selectedCandle < 0
+  ){
+
+    box.innerHTML = `
+
+      <div class="chart-date">
+        캔들을 터치하면 날짜별 상세정보가 표시됩니다
+      </div>
+
+      <div class="chart-info-box">
+        <span>시가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>고가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>저가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>종가</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>거래량</span>
+        <b>-</b>
+      </div>
+
+      <div class="chart-info-box">
+        <span>전일 대비</span>
+        <b>-</b>
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  const row =
+    chartRows[selectedCandle];
+
+
+  const previous =
+    chartRows[selectedCandle - 1];
+
+
+  let change = null;
+
+
+  if(
+    previous &&
+    previous.close !== null &&
+    previous.close !== 0
+  ){
+
+    change =
+      (
+        row.close /
+        previous.close -
+        1
+      ) * 100;
+
+  }
+
+
+  const changeClass =
+    change > 0
+      ? "up"
+      : change < 0
+        ? "down"
+        : "";
+
+
+  box.innerHTML = `
+
+    <div class="chart-date">
+      📅 ${esc(row.date)}
+      · ${selectedCandle + 1} / ${chartRows.length}
+    </div>
+
+    <div class="chart-info-box">
+      <span>시가</span>
+      <b>${fmt(row.open,4)}</b>
+    </div>
+
+    <div class="chart-info-box">
+      <span>고가</span>
+      <b>${fmt(row.high,4)}</b>
+    </div>
+
+    <div class="chart-info-box">
+      <span>저가</span>
+      <b>${fmt(row.low,4)}</b>
+    </div>
+
+    <div class="chart-info-box">
+      <span>종가</span>
+      <b>${fmt(row.close,4)}</b>
+    </div>
+
+    <div class="chart-info-box">
+      <span>거래량</span>
+      <b>${fmt(row.volume,0)}</b>
+    </div>
+
+    <div class="chart-info-box">
+      <span>전일 대비</span>
+      <b class="${changeClass}">
+        ${percent(change)}
+      </b>
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   캔들 선택
+========================================================= */
+
+function selectCandle(event){
+
+  const canvas =
+    $("chart");
+
+  if(
+    !canvas ||
+    !chartRows.length
+  ){
+    return;
+  }
+
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  const clientX =
+    event.touches
+      ? event.touches[0].clientX
+      : event.clientX;
+
+
+  const x =
+    clientX -
+    rect.left;
+
+
+  const width =
+    rect.width;
+
+
+  const paddingLeft =
+    10;
+
+  const paddingRight =
+    10;
+
+
+  const chartWidth =
+    width -
+    paddingLeft -
+    paddingRight;
+
+
+  const candleWidth =
+    chartWidth /
+    chartRows.length;
+
+
+  let index =
+    Math.floor(
+      (
+        x -
+        paddingLeft
+      ) /
+      candleWidth
+    );
+
+
+  index =
+    Math.max(
+      0,
+      Math.min(
+        chartRows.length - 1,
+        index
+      )
+    );
+
+
+  selectedCandle =
+    index;
+
+
+  renderSelectedCandle();
+
+
+  if(window.rabbitData){
+
+    drawChart(
+      window.rabbitData
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   캔들 차트
+========================================================= */
+
+function drawChart(data) {
+
+  const canvas =
+    $("chart");
+
+  if(!canvas){
+    return;
+  }
+
+
+  prepareChartRows(
+    data
+  );
+
+
+  if (!chartRows.length) {
+
+    const ctx =
+      canvas.getContext("2d");
+
+    const ratio =
+      window.devicePixelRatio ||
+      1;
+
+    canvas.width =
+      canvas.clientWidth *
+      ratio;
+
+    canvas.height =
+      340 *
+      ratio;
+
+    ctx.setTransform(
+      ratio,
+      0,
+      0,
+      ratio,
+      0,
+      0
+    );
+
+    ctx.fillStyle =
+      "#7f8c9e";
+
+    ctx.font =
+      "13px sans-serif";
+
+    ctx.fillText(
+      "차트 데이터 없음",
+      20,
+      30
+    );
+
+    renderSelectedCandle();
+
+    return;
+  }
+
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    window.innerWidth <= 620
+      ? 290
+      : 340;
+
+  const ratio =
+    window.devicePixelRatio ||
+    1;
+
+
+  canvas.width =
+    width * ratio;
+
+  canvas.height =
+    height * ratio;
+
+
+  const ctx =
+    canvas.getContext(
+      "2d"
+    );
+
+
+  ctx.setTransform(
+    ratio,
+    0,
+    0,
+    ratio,
+    0,
+    0
+  );
+
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  const candles =
+    chartRows;
+
+
+  const values = [];
+
+
+  candles.forEach(
+    item => {
+
+      if(
+        item.high !== null
+      ){
+
+        values.push(
+          item.high
+        );
+
+      }
+
+      if(
+        item.low !== null
+      ){
+
+        values.push(
+          item.low
+        );
+
+      }
+
+    }
+  );
+
+
+  if(!values.length){
+
+    ctx.fillStyle =
+      "#7f8c9e";
+
+    ctx.font =
+      "13px sans-serif";
+
+    ctx.fillText(
+      "차트 데이터 없음",
+      20,
+      30
+    );
+
+    return;
+  }
+
+
+  let high =
+    Math.max(
+      ...values
+    );
+
+  let low =
+    Math.min(
+      ...values
+    );
+
+
+  const range =
+    high -
+    low ||
+    1;
+
+
+  high +=
+    range * .05;
+
+  low -=
+    range * .05;
+
+
+  const paddingTop =
+    22;
+
+  const paddingBottom =
+    28;
+
+  const paddingLeft =
+    10;
+
+  const paddingRight =
+    10;
+
+
+  const chartHeight =
+    height -
+    paddingTop -
+    paddingBottom;
+
+
+  const chartWidth =
+    width -
+    paddingLeft -
+    paddingRight;
+
+
+  function y(price){
+
+    return (
+      paddingTop +
+      (
+        (high - price) /
+        (high - low)
+      ) *
+      chartHeight
+    );
+
+  }
+
+
+  /* =====================
+     GRID
+  ===================== */
+
+  ctx.lineWidth =
+    1;
+
+  ctx.strokeStyle =
+    "#1b2735";
+
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const yy =
+      paddingTop +
+      chartHeight *
+      i / 4;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      paddingLeft,
+      yy
+    );
+
+    ctx.lineTo(
+      width -
+      paddingRight,
+      yy
+    );
+
+    ctx.stroke();
+
+  }
+
+
+  /* =====================
+     PRICE SCALE
+  ===================== */
+
+  ctx.fillStyle =
+    "#65748a";
+
+  ctx.font =
+    "10px sans-serif";
+
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const price =
+      high -
+      (
+        high -
+        low
+      ) *
+      i / 4;
+
+
+    ctx.fillText(
+      fmt(price,3),
+      10,
+      y(price) - 4
+    );
+
+  }
+
+
+  const candleWidth =
+    chartWidth /
+    candles.length;
+
+
+  /* =====================
+     CANDLES
+  ===================== */
+
+  candles.forEach(
+    (item,index) => {
+
+      const open =
+        item.open;
+
+      const close =
+        item.close;
+
+      const highPrice =
+        item.high;
+
+      const lowPrice =
+        item.low;
+
+
+      if(
+        open === null ||
+        close === null ||
+        highPrice === null ||
+        lowPrice === null
+      ){
+        return;
+      }
+
+
+      const x =
+        paddingLeft +
+        candleWidth *
+        index +
+        candleWidth / 2;
+
+
+      const rising =
+        close >= open;
+
+
+      const candleColor =
+        rising
+          ? "#31e981"
+          : "#ff5f70";
+
+
+      /* wick */
+
+      ctx.strokeStyle =
+        candleColor;
+
+      ctx.lineWidth =
+        1;
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        x,
+        y(highPrice)
+      );
+
+      ctx.lineTo(
+        x,
+        y(lowPrice)
+      );
+
+      ctx.stroke();
+
+
+      /* body */
+
+      ctx.fillStyle =
+        candleColor;
+
+
+      const top =
+        y(
+          Math.max(
+            open,
+            close
+          )
+        );
+
+
+      const bottom =
+        y(
+          Math.min(
+            open,
+            close
+          )
+        );
+
+
+      const bodyWidth =
+        Math.max(
+          2,
+          candleWidth * .55
+        );
+
+
+      ctx.fillRect(
+        x -
+        bodyWidth / 2,
+        top,
+        bodyWidth,
+        Math.max(
+          1,
+          bottom - top
+        )
+      );
+
+    }
+  );
+
+
+  /* =====================
+     MA
+  ===================== */
+
+  function movingAverage(
+    index,
+    period
+  ){
+
+    if(
+      index + 1 <
+      period
+    ){
+      return null;
+    }
+
+
+    let total = 0;
+
+
+    for(
+      let i =
+        index + 1 - period;
+
+      i <= index;
+
+      i++
+    ){
+
+      total +=
+        candles[i].close;
+
+    }
+
+
+    return (
+      total /
+      period
+    );
+
+  }
+
+
+  function drawMA(
+    period,
+    lineColor
+  ){
+
+    if(
+      candles.length <
+      period
+    ){
+      return;
+    }
+
+
+    ctx.strokeStyle =
+      lineColor;
+
+    ctx.lineWidth =
+      1.5;
+
+    ctx.beginPath();
+
+
+    let started =
+      false;
+
+
+    for(
+      let i=0;
+      i<candles.length;
+      i++
+    ){
+
+      const ma =
+        movingAverage(
+          i,
+          period
+        );
+
+
+      if(
+        ma === null
+      ){
+        continue;
+      }
+
+
+      const x =
+        paddingLeft +
+        candleWidth *
+        i +
+        candleWidth / 2;
+
+
+      const yy =
+        y(ma);
+
+
+      if(!started){
+
+        ctx.moveTo(
+          x,
+          yy
+        );
+
+        started =
+          true;
+
+      }else{
+
+        ctx.lineTo(
+          x,
+          yy
+        );
+
+      }
+
+    }
+
+
+    ctx.stroke();
+
+  }
+
+
+  drawMA(
+    20,
+    "#ffc857"
+  );
+
+  drawMA(
+    50,
+    "#61a7ff"
+  );
+
+
+  /* =====================
+     선택 캔들 표시
+  ===================== */
+
+  if(
+    selectedCandle >= 0 &&
+    selectedCandle <
+    candles.length
+  ){
+
+    const item =
+      candles[
+        selectedCandle
+      ];
+
+
+    const x =
+      paddingLeft +
+      candleWidth *
+      selectedCandle +
+      candleWidth / 2;
+
+
+    /* 세로 선택선 */
+
+    ctx.strokeStyle =
+      "#ffc857";
+
+    ctx.lineWidth =
+      1;
+
+    ctx.setLineDash([
+      4,
+      4
+    ]);
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      x,
+      paddingTop
+    );
+
+    ctx.lineTo(
+      x,
+      height -
+      paddingBottom
+    );
+
+    ctx.stroke();
+
+
+    ctx.setLineDash([]);
+
+
+    /* 선택점 */
+
+    if(
+      item.close !== null
+    ){
+
+      ctx.fillStyle =
+        "#ffc857";
+
+
+      ctx.beginPath();
+
+      ctx.arc(
+        x,
+        y(item.close),
+        3,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+
+    }
+
+  }
+
+
+  /* =====================
+     LAST PRICE
+  ===================== */
+
+  const last =
+    candles[
+      candles.length - 1
+    ];
+
+
+  if(
+    last &&
+    last.close !== null
+  ){
+
+    const lastPrice =
+      last.close;
+
+
+    const yy =
+      y(lastPrice);
+
+
+    ctx.strokeStyle =
+      "#59687b";
+
+
+    ctx.setLineDash([
+      4,
+      4
+    ]);
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      paddingLeft,
+      yy
+    );
+
+    ctx.lineTo(
+      width -
+      paddingRight,
+      yy
+    );
+
+    ctx.stroke();
+
+
+    ctx.setLineDash([]);
+
+
+    ctx.fillStyle =
+      "#dbe3ed";
+
+    ctx.font =
+      "bold 10px sans-serif";
+
+
+    ctx.fillText(
+      fmt(lastPrice,3),
+      width - 62,
+      yy - 5
+    );
+
+  }
+
+
+  /* =====================
+     날짜 라벨
+  ===================== */
+
+  ctx.fillStyle =
+    "#65748a";
+
+  ctx.font =
+    "9px sans-serif";
+
+
+  const labelCount =
+    Math.min(
+      6,
+      candles.length
+    );
+
+
+  for(
+    let i=0;
+    i<labelCount;
+    i++
+  ){
+
+    const index =
+      Math.round(
+        i *
+        (
+          candles.length - 1
+        ) /
+        (
+          labelCount - 1 ||
+          1
+        )
+      );
+
+
+    const item =
+      candles[index];
+
+
+    const x =
+      paddingLeft +
+      candleWidth *
+      index +
+      candleWidth / 2;
+
+
+    const date =
+      String(
+        item.date
+      ).slice(
+        5,
+        10
+      );
+
+
+    ctx.fillText(
+      date,
+      Math.max(
+        paddingLeft,
+        Math.min(
+          width - 35,
+          x - 13
+        )
+      ),
+      height - 10
+    );
+
+  }
+
+
+  renderSelectedCandle();
+
+}
+
+
+/* =========================================================
+   SHORT
+========================================================= */
+
+function renderShort(data) {
+
+  const rows =
+    data.finra
+      ?.shortInterest || [];
+
+
+  if (!rows.length) {
+
+    $("shortInterest").innerHTML =
+      `<div class="loading">
+        FINRA Short Interest 데이터 없음
+      </div>`;
+
+    return;
+  }
+
+
+  $("shortInterest").innerHTML =
+    rows
+      .slice(0,10)
+      .map(
+        row => `
+
+        <div class="row">
+
+          <span class="label">
+            ${esc(
+              row.settlementDate ||
+              ""
+            )}
+          </span>
+
+          <span class="val">
+
+            Short
+            ${fmt(
+              row.currentShortPositionQuantity,
+              0
+            )}
+            주
+
+            · DTC
+            ${fmt(
+              row.daysToCoverQuantity,
+              2
+            )}
+            일
+
+          </span>
+
+        </div>
+
+      `
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   THRESHOLD
+========================================================= */
+
+function renderThreshold(data) {
+
+  const regSho =
+    data.finra
+      ?.regSho || [];
+
+  const threshold =
+    data.finra
+      ?.threshold || [];
+
+
+  let html = `
+
+    <div class="row">
+
+      <span class="label">
+        Reg SHO 데이터
+      </span>
+
+      <span class="val">
+        ${regSho.length}건
+      </span>
+
+    </div>
+
+    <div class="row">
+
+      <span class="label">
+        Threshold 데이터
+      </span>
+
+      <span class="val">
+        ${threshold.length}건
+      </span>
+
+    </div>
+
+  `;
+
+
+  if (threshold.length) {
+
+    html +=
+      threshold
+        .slice(-10)
+        .reverse()
+        .map(
+          row => `
+
+          <div class="row">
+
+            <span class="label">
+              ${esc(
+                row.tradeDate || ""
+              )}
+            </span>
+
+            <span class="val">
+
+              ${esc(
+                row.thresholdListFlag ||
+                row.regShoThresholdFlag ||
+                "등록"
+              )}
+
+            </span>
+
+          </div>
+
+        `
+        )
+        .join("");
+  }
+
+
+  if (
+    !regSho.length &&
+    !threshold.length
+  ) {
+
+    html += `
+      <p class="note">
+        현재 Worker에서 확인된
+        FINRA Reg SHO / Threshold 데이터가 없습니다.
+      </p>
+    `;
+  }
+
+
+  $("threshold").innerHTML =
+    html;
+}
+
+
+/* =========================================================
+   DILUTION
+========================================================= */
+
+function renderDilution(data) {
+
+  const d =
+    data.sec?.dilution ||
+    {};
+
+
+  $("dilution").innerHTML = `
+
+    <div class="row">
+
+      <span class="label">
+        최대 등록/재판매
+      </span>
+
+      <span class="val">
+        ${
+          d.sharesOffered !== null &&
+          d.sharesOffered !== undefined
+            ? fmt(
+                d.sharesOffered,
+                0
+              ) + "주"
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">
+        워런트 대상
+      </span>
+
+      <span class="val">
+        ${
+          d.warrantShares !== null &&
+          d.warrantShares !== undefined
+            ? fmt(
+                d.warrantShares,
+                0
+              ) + "주"
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">
+        행사가
+      </span>
+
+      <span class="val">
+        ${
+          d.warrantExercisePrice !== null &&
+          d.warrantExercisePrice !== undefined
+            ? "$" +
+              fmt(
+                d.warrantExercisePrice,
+                2
+              )
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">
+        SEC 확인 유통주식수
+      </span>
+
+      <span class="val">
+        ${
+          d.outstandingShares !== null &&
+          d.outstandingShares !== undefined
+            ? fmt(
+                d.outstandingShares,
+                0
+              ) + "주"
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   WARRANT
+========================================================= */
+
+function renderWarrant(data) {
+
+  const d =
+    data.sec?.dilution ||
+    {};
+
+
+  let html = `
+
+    <div class="row">
+
+      <span class="label">
+        워런트 주식
+      </span>
+
+      <span class="val">
+        ${
+          d.warrantShares !== null &&
+          d.warrantShares !== undefined
+            ? fmt(
+                d.warrantShares,
+                0
+              ) + "주"
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">
+        워런트 행사가
+      </span>
+
+      <span class="val">
+        ${
+          d.warrantExercisePrice !== null &&
+          d.warrantExercisePrice !== undefined
+            ? "$" +
+              fmt(
+                d.warrantExercisePrice,
+                2
+              )
+            : "데이터 없음"
+        }
+      </span>
+
+    </div>
+
+  `;
+
+
+  if (
+    d.rawSignals &&
+    d.rawSignals.length
+  ) {
+
+    html += `
+
+      <p class="note">
+        SEC 문서에서 확인된 키워드:
+        ${esc(
+          d.rawSignals.join(", ")
+        )}
+      </p>
+
+    `;
+  }
+
+
+  $("warrant").innerHTML =
+    html;
+}
+
+
+/* =========================================================
+   SEC
+========================================================= */
+
+function renderSEC(data) {
+
+  const filings =
+    data.sec?.filings ||
+    [];
+
+
+  if (!filings.length) {
+
+    $("sec").innerHTML =
+      `<div class="loading">
+        SEC 공시 데이터 없음
+      </div>`;
+
+    return;
+  }
+
+
+  $("sec").innerHTML =
+    filings
+      .map(
+        filing => `
+
+        <div class="news">
+
+          <div class="meta">
+
+            ${esc(
+              filing.date || ""
+            )}
+
+            ·
+
+            ${esc(
+              filing.form || ""
+            )}
+
+          </div>
+
+
+          <h3>
+            ${esc(
+              filing.description ||
+              "SEC 제출 문서"
+            )}
+          </h3>
+
+
+          <div class="meta">
+
+            ${
+              filing.accessionNumber
+                ? esc(
+                    filing.accessionNumber
+                  )
+                : ""
+            }
+
+          </div>
+
+
+          <a
+            class="link"
+            target="_blank"
+            rel="noopener"
+            href="${esc(
+              filing.url
+            )}"
+          >
+            원문 읽기 →
+          </a>
+
+        </div>
+
+      `
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   FINNHUB NEWS
+========================================================= */
+
+function renderNews(data) {
+
+  const news =
+    data.finnhub?.news ||
+    [];
+
+
+  if (!news.length) {
+
+    $("news").innerHTML =
+      `<div class="loading">
+        Finnhub 뉴스 데이터 없음
+      </div>`;
+
+    return;
+  }
+
+
+  $("news").innerHTML =
+    news
+      .map(
+        item => `
+
+        <div class="news">
+
+          <div class="meta">
+
+            ${esc(
+              item.date || ""
+            )}
+
+            ·
+
+            ${esc(
+              item.source || ""
+            )}
+
+          </div>
+
+
+          <h3>
+            ${esc(
+              item.title
+            )}
+          </h3>
+
+
+          <p>
+            ${esc(
+              item.summary
+            )}
+          </p>
+
+
+          ${
+            item.url
+              ? `
+                <a
+                  class="link"
+                  target="_blank"
+                  rel="noopener"
+                  href="${esc(
+                    item.url
+                  )}"
+                >
+                  원문 읽기 →
+                </a>
+              `
+              : ""
+          }
+
+        </div>
+
+      `
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   STOCKTITAN
+========================================================= */
+
+function renderStockTitan(data) {
+
+  const st =
+    data.stockTitan ||
+    {};
+
+  const overview =
+    st.overview ||
+    {};
+
+  const news =
+    st.news ||
+    [];
+
+
+  let html = `
+
+    <div class="row">
+
+      <span class="label">
+        StockTitan 상태
+      </span>
+
+      <span>
+        ${sourceBadge(
+          st.status
+        )}
+      </span>
+
+    </div>
+
+  `;
+
+
+  const labels = {
+
+    marketCap:
+      "Market Cap",
+
+    float:
+      "Float",
+
+    sharesOutstanding:
+      "Shares Outstanding",
+
+    revenue:
+      "Revenue",
+
+    netIncome:
+      "Net Income",
+
+    eps:
+      "EPS",
+
+    operatingCashFlow:
+      "Operating Cash Flow",
+
+    currentRatio:
+      "Current Ratio"
+
+  };
+
+
+  for (
+    const [
+      key,
+      value
+    ] of Object.entries(
+      overview
+    )
+  ) {
+
+    if (
+      value === null ||
+      value === undefined ||
+      value === ""
+    ) {
+      continue;
+    }
+
+
+    html += `
+
+      <div class="row">
+
+        <span class="label">
+          ${esc(
+            labels[key] ||
+            key
+          )}
+        </span>
+
+        <span class="val">
+          ${esc(value)}
+        </span>
+
+      </div>
+
+    `;
+  }
+
+
+  if (news.length) {
+
+    html +=
+      news
+        .map(
+          item => `
+
+          <div class="news">
+
+            <div class="meta">
+
+              ${esc(
+                item.date || ""
+              )}
+
+              ${
+                item.impact
+                  ? " · Impact " +
+                    esc(
+                      item.impact
+                    )
+                  : ""
+              }
+
+              ${
+                item.sentiment
+                  ? " · Sentiment " +
+                    esc(
+                      item.sentiment
+                    )
+                  : ""
+              }
+
+              ${
+                item.endOfDay
+                  ? " · EOD " +
+                    esc(
+                      item.endOfDay
+                    )
+                  : ""
+              }
+
+            </div>
+
+
+            <h3>
+              ${esc(
+                item.title
+              )}
+            </h3>
+
+
+            <p>
+              ${esc(
+                item.summary
+              )}
+            </p>
+
+
+            ${
+              item.url
+                ? `
+                  <a
+                    class="link"
+                    target="_blank"
+                    rel="noopener"
+                    href="${esc(
+                      item.url
+                    )}"
+                  >
+                    StockTitan 원문 →
+                  </a>
+                `
+                : ""
+            }
+
+          </div>
+
+        `
+        )
+        .join("");
+
+  } else {
+
+    html += `
+
+      <p class="note">
+        StockTitan 뉴스 데이터가
+        현재 반환되지 않았습니다.
+      </p>
+
+    `;
+  }
+
+
+  html += `
+
+    <a
+      class="link"
+      target="_blank"
+      rel="noopener"
+      href="${esc(
+        st.url ||
+        "https://www.stocktitan.net/news/" +
+        data.symbol +
+        "/"
+      )}"
+    >
+      StockTitan 전체 보기 →
+    </a>
+
+  `;
+
+
+  $("stockTitan").innerHTML =
+    html;
+}
+
+
+/* =========================================================
+   DARKFINA
+========================================================= */
+
+function renderDarkFina(data) {
+
+  const d =
+    data.darkfina ||
+    {};
+
+
+  $("darkFina").innerHTML = `
+
+    <div class="row">
+
+      <span class="label">
+        상태
+      </span>
+
+      <span>
+        ${sourceBadge(
+          d.status
+        )}
+      </span>
+
+    </div>
+
+
+    <p class="note">
+
+      ${
+        d.summary
+          ? esc(
+              d.summary
+            )
+          : "DarkFina 데이터 없음"
+      }
+
+    </p>
+
+
+    ${
+      d.url
+        ? `
+          <a
+            class="link"
+            target="_blank"
+            rel="noopener"
+            href="${esc(
+              d.url
+            )}"
+          >
+            DarkFina 원문 →
+          </a>
+        `
+        : ""
+    }
+
+  `;
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory(data) {
+
+  const technical =
+    data.technicals ||
+    data.technicalData ||
+    {};
+
+  const rows =
+    technical.recent ||
+    [];
+
+
+  if (!rows.length) {
+
+    $("history").innerHTML =
+      `<div class="loading">
+        최근 거래일 데이터 없음
+      </div>`;
+
+    return;
+  }
+
+
+  let html = `
+
+    <div class="table-scroll">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>날짜</th>
+            <th>시가</th>
+            <th>고가</th>
+            <th>저가</th>
+            <th>종가</th>
+            <th>거래량</th>
+            <th>등락</th>
+            <th>거래대금*</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+  `;
+
+
+  rows
+    .slice()
+    .reverse()
+    .forEach(
+      row => {
+
+        html += `
+
+          <tr>
+
+            <td>
+              ${esc(
+                row.date
+              )}
+            </td>
+
+            <td>
+              ${fmt(
+                row.open,
+                3
+              )}
+            </td>
+
+            <td>
+              ${fmt(
+                row.high,
+                3
+              )}
+            </td>
+
+            <td>
+              ${fmt(
+                row.low,
+                3
+              )}
+            </td>
+
+            <td>
+              ${fmt(
+                row.close,
+                3
+              )}
+            </td>
+
+            <td>
+              ${fmt(
+                row.volume,
+                0
+              )}
+            </td>
+
+            <td>
+              ${percent(
+                row.changePct
+              )}
+            </td>
+
+            <td>
+              ${
+                row.transactionValue !==
+                null &&
+                row.transactionValue !==
+                undefined
+                  ? "$" +
+                    fmt(
+                      row.transactionValue,
+                      0
+                    )
+                  : "데이터 없음"
+              }
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    );
+
+
+  html += `
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <p class="note">
+      * 거래대금은 종가 × 거래량으로 계산한 참고값입니다.
+    </p>
+
+  `;
+
+
+  $("history").innerHTML =
+    html;
+}
+
+
+/* =========================================================
+   SOURCE STATUS
+========================================================= */
+
+function renderSources(data) {
+
+  const sources = [
+
+    [
+      "Twelve Data",
+      data.quote?.status
+    ],
+
+    [
+      "Twelve Data History",
+      data.history?.status
+    ],
+
+    [
+      "Finnhub 검증",
+      data.finnhub?.status
+    ],
+
+    [
+      "FINRA",
+      data.finra?.status
+    ],
+
+    [
+      "SEC EDGAR",
+      data.sec?.status
+    ],
+
+    [
+      "StockTitan",
+      data.stockTitan?.status
+    ],
+
+    [
+      "DarkFina",
+      data.darkfina?.status
+    ]
+
+  ];
+
+
+  $("sources").innerHTML =
+    sources
+      .map(
+        source => `
+
+        <div class="row">
+
+          <span class="label">
+            ${esc(
+              source[0]
+            )}
+          </span>
+
+          <span>
+            ${sourceBadge(
+              source[1]
+            )}
+          </span>
+
+        </div>
+
+      `
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderAll(data) {
+
+  window.rabbitData =
+    data;
+
+
+  const quote =
+    data.quote?.quote ||
+    null;
+
+
+  /* 현재가 */
+
+  $("companyName")
+    .textContent =
+      data.symbol +
+      (
+        quote?.name
+          ? " · " +
+            quote.name
+          : ""
+      );
+
+
+  $("price")
+    .textContent =
+      quote?.price !== null &&
+      quote?.price !== undefined
+        ? "$" +
+          fmt(
+            quote.price,
+            4
+          )
+        : "데이터 없음";
+
+
+  $("change")
+    .textContent =
+      quote?.percentChange !==
+        null &&
+      quote?.percentChange !==
+        undefined
+        ? percent(
+            quote.percentChange
+          )
+        : "변동 데이터 없음";
+
+
+  $("change").className =
+    "chg " +
+    (
+      number(
+        quote?.percentChange
+      ) >= 0
+        ? "up"
+        : "down"
+    );
+
+
+  $("volume")
+    .textContent =
+      fmt(
+        quote?.volume,
+        0
+      );
+
+
+  $("high")
+    .textContent =
+      fmt(
+        quote?.high,
+        4
+      );
+
+
+  $("low")
+    .textContent =
+      fmt(
+        quote?.low,
+        4
+      );
+
+
+  $("previous")
+    .textContent =
+      fmt(
+        quote?.previousClose,
+        4
+      );
+
+
+  /* 점수 */
+
+  $("score")
+    .textContent =
+      data.score?.score ??
+      "-";
+
+
+  $("verdict")
+    .textContent =
+      data.score?.verdict ||
+      "분석 대기";
+
+
+  const reasons =
+    data.score?.reasons ||
+    [];
+
+
+  $("reasons").innerHTML =
+    reasons.length
+      ? reasons
+          .map(
+            reason =>
+              `<li>${esc(
+                reason
+              )}</li>`
+          )
+          .join("")
+      : "<li>분석 근거 데이터 없음</li>";
+
+
+  /* 기술지표 */
+
+  const t =
+    data.technicals ||
+    data.technicalData ||
+    {};
+
+
+  $("ma20")
+    .textContent =
+      fmt(
+        t.ma20,
+        4
+      );
+
+
+  $("ma50")
+    .textContent =
+      fmt(
+        t.ma50,
+        4
+      );
+
+
+  $("rsi")
+    .textContent =
+      fmt(
+        t.rsi14,
+        2
+      );
+
+
+  $("vwap")
+    .textContent =
+      fmt(
+        t.vwap20,
+        4
+      );
+
+
+  /* 차트 */
+
+  selectedCandle = -1;
+
+  drawChart(
+    data
+  );
+
+
+  /* 상세 */
+
+  renderShort(
+    data
+  );
+
+  renderThreshold(
+    data
+  );
+
+  renderDilution(
+    data
+  );
+
+  renderWarrant(
+    data
+  );
+
+  renderSEC(
+    data
+  );
+
+  renderNews(
+    data
+  );
+
+  renderStockTitan(
+    data
+  );
+
+  renderDarkFina(
+    data
+  );
+
+  renderHistory(
+    data
+  );
+
+  renderSources(
+    data
+  );
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+async function loadStock() {
+
+  const input =
+    $("symbol");
+
+  const symbol =
+    input.value
+      .trim()
+      .toUpperCase();
+
+
+  if (!symbol) {
+    return;
+  }
+
+
+  $("companyName")
+    .textContent =
+      symbol +
+      " · 분석 중…";
+
+
+  $("price")
+    .textContent =
+      "불러오는 중…";
+
+
+  $("change")
+    .textContent =
+      "데이터 수집 중";
+
+
+  $("score")
+    .textContent =
+      "-";
+
+
+  try {
+
+    const data =
+      await api(
+        "/all?symbol=" +
+        encodeURIComponent(
+          symbol
+        )
+      );
+
+
+    renderAll(
+      data
+    );
+
+
+  } catch(error) {
+
+    console.error(
+      error
+    );
+
+
+    $("companyName")
+      .textContent =
+        symbol +
+        " · 연결 실패";
+
+
+    $("price")
+      .textContent =
+        "연결 실패";
+
+
+    $("change")
+      .textContent =
+        error.message ||
+        "API 연결 실패";
+
+
+    $("score")
+      .textContent =
+        "-";
+
+
+    $("verdict")
+      .textContent =
+        "데이터 확인 필요";
+
+
+    $("reasons").innerHTML =
+      `
+        <li>
+          Worker API 연결에 실패했습니다.
+        </li>
+
+        <li>
+          Cloudflare Worker 주소와
+          API 키 설정을 확인하세요.
+        </li>
+      `;
+
+  }
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+$("symbol")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        loadStock();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   차트 터치 / 클릭
+========================================================= */
+
+const chartCanvas =
+  $("chart");
+
+
+if(chartCanvas){
+
+  chartCanvas.addEventListener(
+    "pointerdown",
+    event => {
+
+      event.preventDefault();
+
+      selectCandle(
+        event
+      );
+
+    },
+    {
+      passive:false
+    }
+  );
+
+
+  chartCanvas.addEventListener(
+    "touchstart",
+    event => {
+
+      event.preventDefault();
+
+      selectCandle(
+        event
+      );
+
+    },
+    {
+      passive:false
+    }
+  );
+
+}
+
+
+/* =========================================================
+   화면 크기 변경
+========================================================= */
+
+let resizeTimer;
+
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    clearTimeout(
+      resizeTimer
+    );
+
+
+    resizeTimer =
+      setTimeout(
+        () => {
+
+          if(
+            window.rabbitData
+          ){
+
+            drawChart(
+              window.rabbitData
+            );
+
+          }
+
+        },
+        200
+      );
+
+  }
+);
+
+
+/* =========================================================
+   시작
+========================================================= */
 
 loadStock();
 
